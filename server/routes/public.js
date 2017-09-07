@@ -1,26 +1,28 @@
-'use strict';
 var crypto = require("crypto");
+var User = require("../modules/user");
+var jwt = require("jsonwebtoken");
+var conf = require("../modules/config")
 
-module.exports = function (basicRouter) {
-    basicRouter.get('/', function (req, res) {
+module.exports = (function () {
+    'use strict';
+    var publicRouter = require("express").Router();
+    var parser = require("body-parser");
+    publicRouter.use(parser.urlencoded({ "extended": true }));
+    publicRouter.use(parser.json());
+    publicRouter.get('/', function (req, res) {
         res.send('Hello World!');
     });
 
-    basicRouter.get('/signup', function (req, res) {
+    publicRouter.get('/signup', function (req, res) {
         //TODO: get actual data
         var user = new User(
             {
                 "name": 'Vladyslav',
                 "lastName": 'Sulimovskyy',
                 "email": 'sulimovskyy.vladyslav@gmail.com',
-                "hash": 'shit',
+                "hash": crypto.createHash("sha256").update("shit").digest("hex"),
                 "admin": true
             });
-        //Saved in the users collection.
-        if (user.hash) {
-            //TODO: get salt.
-            user.hash = crypto.createHash("sha256").update("passwordInserita").digest("hex");
-        };
         user.save(function (err) {
             if (err) {
                 if (err.code === 11000) {
@@ -41,7 +43,7 @@ module.exports = function (basicRouter) {
         });
     });
 
-    basicRouter.post("/login", function (req, res) {
+    publicRouter.post("/signin", function (req, res) {
         User.findOne(
             {
                 "email": req.body.email
@@ -62,7 +64,7 @@ module.exports = function (basicRouter) {
                         });
                 }
                 else if (user) {
-                    if (user.hash != crypto.createHash("sha256").update(req.body.password).digest("hex")) {
+                    if (user.hash != crypto.createHash("sha256").update("shit").digest("hex")) {
                         res.send(
                             {
                                 "success": false,
@@ -75,7 +77,7 @@ module.exports = function (basicRouter) {
                                 "lastName": user.lastName,
                                 "admin": user.admin
                             },
-                            basicRouter.get("superSecret"));
+                            conf.secret);
                         res.send(
                             {
                                 "success": true,
@@ -87,4 +89,6 @@ module.exports = function (basicRouter) {
             });
 
     });
-};
+
+    return publicRouter;
+})();
