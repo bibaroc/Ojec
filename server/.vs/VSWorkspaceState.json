@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\middlewares",
     "\\modules",
     "\\routes"
   ],
-  "SelectedNode": "\\index.js",
-  "PreviewInSolutionExplorer": false
+  "PreviewInSolutionExplorer": true
 }

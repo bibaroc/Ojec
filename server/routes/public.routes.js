@@ -10,11 +10,12 @@ module.exports = (function () {
     publicRouter.use(parser.urlencoded({ "extended": true }));
     publicRouter.use(parser.json());
     publicRouter.get('/', function (req, res) {
-        res.send('Hello World!');
+        res.json('Hello World!');
     });
 
     publicRouter.get('/signup', function (req, res) {
         //TODO: get actual data
+        //r
         var user = new User(
             {
                 "name": 'Vladyslav',
@@ -26,7 +27,7 @@ module.exports = (function () {
         user.save(function (err) {
             if (err) {
                 if (err.code === 11000) {
-                    res.send(
+                    res.json(
                         {
                             "success": false,
                             "msg": "Duplciate key, there can only be one account per email."
@@ -34,7 +35,7 @@ module.exports = (function () {
                 }
             }
             else {
-                res.send(
+                res.json(
                     {
                         "success": true,
                         "msg": "User " + user.name + " " + user.lastName + " added."
@@ -46,45 +47,39 @@ module.exports = (function () {
     publicRouter.post("/signin", function (req, res) {
         User.findOne(
             {
-                "email": req.body.email
+                "email": req.body.email,
+                "hash": crypto.createHash("sha256").update(req.body.password).digest("hex")
             },
             function (err, user) {
                 if (err) {
-                    res.send(
+                    res.json(
                         {
                             "success": false,
                             "msg": "There was an error while looking up the user."
                         });
                 }
                 else if (!user) {
-                    res.send(
+                    res.json(
                         {
                             "success": false,
-                            "msg": "User not found."
+                            "msg": "User not found/wrong password."
                         });
                 }
-                else if (user) {
-                    if (user.hash != crypto.createHash("sha256").update("shit").digest("hex")) {
-                        res.send(
-                            {
-                                "success": false,
-                                "msg": "Wrong password."
-                            });
-                    } else {
-                        var token = jwt.sign(
-                            {
-                                "name": user.name,
-                                "lastName": user.lastName,
-                                "admin": user.admin
-                            },
-                            conf.secret);
-                        res.send(
-                            {
-                                "success": true,
-                                "msg": "You logged in! Here is your token.",
-                                "token": token
-                            });
-                    }
+                else {
+
+                    var token = jwt.sign(
+                        {
+                            "name": user.name,
+                            "lastName": user.lastName,
+                            "admin": user.admin
+                        },
+                        conf.secret);
+                    res.json(
+                        {
+                            "success": true,
+                            "msg": user.hash,
+                            "token": token
+                        });
                 }
             });
 

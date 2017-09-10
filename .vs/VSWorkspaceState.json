@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\server",
+    "\\server\\routes"
+  ],
+  "SelectedNode": "\\server\\routes\\public.routes.js",
+  "PreviewInSolutionExplorer": false
+}

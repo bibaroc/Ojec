@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OJec | Home</title>
+  <meta charset="utf-8" />
+  <meta name="description" content="The front page of the Ojec e-commerce website." />
+  <meta name="keywords" content="online shop, shop, online, ojec, ojek, oiec, e-commerce" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+  <meta name="robots" content="index,nofollow" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+  <script src="app.controller.js"></script>
+  <script src="app.service.js"></script>
+</head>
+<body ng-app="mainApp">
+  <form ng-controller="signInController" ng-submit="submit()">
+    Your Email:
+    <input type="email" ng-model="email" placeholder="yourEmail@example.com" />
+    <br />
+    Your password:
+    <input type="password" ng-model="password" placeholder="password" />
+    <br />
+    <button type="submit">Submit</button>
+   <div ng-bind="email"></div>
+  </form>
+  <footer>
+    <p>Vlado Swago, Copyright&copy; 2017</p>
+  </footer>
+</body>
+</html>
