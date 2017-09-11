@@ -45,6 +45,7 @@ module.exports = (function () {
     });
 
     publicRouter.post("/signin", function (req, res) {
+        console.log(req);
         User.findOne(
             {
                 "email": req.body.email,
