@@ -17,7 +17,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,POST");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
@@ -26,6 +26,7 @@ app.use(function(req, res, next) {
 //BASIC ROUTES, NO NEED FOR AUTHENTICATION,
 //ALLOWS FOR LOGIN TO HAPPEN, THEN PROCEED
 /////////////////////////////////////////////////////
+app.use(express.static('../client/public'));
 app.use("", require("./routes/public.routes"));
 
 /////////////////////////////////////////////////////

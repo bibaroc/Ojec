@@ -2,9 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\client",
+    "\\client\\public",
+    "\\client\\public\\angular",
+    "\\client\\public\\css",
+    "\\client\\public\\javascript",
     "\\server",
+    "\\server\\middlewares",
+    "\\server\\modules",
     "\\server\\routes"
   ],
-  "SelectedNode": "\\server\\routes\\public.routes.js",
+  "SelectedNode": "\\client\\index.html",
   "PreviewInSolutionExplorer": false
 }

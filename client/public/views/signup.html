@@ -1,0 +1,30 @@
+﻿<form name="signUpForm" class="elegant-aero" ng-submit="submit()">
+    <label>First Name:</label>
+    <input type="text" name="userFirstName" ng-model="firstName" ng-minlength="2" ng-maxlength="32765" required />
+    <div ng-messages="signUpForm.userFirstName.$error">
+        <div ng-message="required">This field is required</div>
+        <div ng-message="minlength">Is your name realy that short?</div>
+        <div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
+    </div>
+    <label>Last Name:</label>
+    <input type="text" name="userLastName" ng-model="lastName" ng-minlength="2" ng-maxlength="32765" required />
+    <div ng-messages="signUpForm.userLastName.$error">
+        <div ng-message="required">This field is required</div>
+        <div ng-message="minlength">Is your name realy that short?</div>
+        <div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
+    </div>
+    <label>Email Address:</label>
+    <input type="email" name="userEmail" ng-model="email" required />
+    <div ng-messages="signUpForm.userEmail.$error">
+        <div ng-message="required">This field is required</div>
+        <div ng-message="email">Your email address is invalid</div>
+    </div>
+
+    <label>Password:</label>
+    <input type="password" ng-model="password" required />
+    <div ng-messages="signUpForm.userEmail.$error">
+        <div ng-message="required">You could realy use a password...</div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary btn-block">SignUp</button><button type="reset" class="btn btn-primary btn-block">Reset</button>
+</form>

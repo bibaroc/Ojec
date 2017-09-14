@@ -7,22 +7,22 @@ module.exports = (function () {
     'use strict';
     var publicRouter = require("express").Router();
     var parser = require("body-parser");
+
     publicRouter.use(parser.urlencoded({ "extended": true }));
     publicRouter.use(parser.json());
+
     publicRouter.get('/', function (req, res) {
-        res.json('Hello World!');
+        res.sendFile("C:/Users/Vladyslav Sulimovsky/Desktop/Ojec/client/index.html");
     });
 
-    publicRouter.get('/signup', function (req, res) {
-        //TODO: get actual data
-        //r
+    publicRouter.post('/signup', function (req, res) {
         var user = new User(
             {
-                "name": 'Vladyslav',
-                "lastName": 'Sulimovskyy',
-                "email": 'sulimovskyy.vladyslav@gmail.com',
-                "hash": crypto.createHash("sha256").update("shit").digest("hex"),
-                "admin": true
+                "name": req.body.name,
+                "lastName": req.body.lastName,
+                "email": req.body.email,
+                "hash": crypto.createHash("sha256").update(req.body.password).digest("hex"),
+                "admin": false
             });
         user.save(function (err) {
             if (err) {
@@ -38,14 +38,20 @@ module.exports = (function () {
                 res.json(
                     {
                         "success": true,
-                        "msg": "User " + user.name + " " + user.lastName + " added."
+                        "msg": "User " + user.name + " " + user.lastName + " added.",
+                        "token": jwt.sign(
+                            {
+                                "name": user.name,
+                                "lastName": user.lastName,
+                                "admin": user.admin
+                            },
+                            conf.secret)
                     });
             }
         });
     });
 
     publicRouter.post("/signin", function (req, res) {
-        console.log(req);
         User.findOne(
             {
                 "email": req.body.email,
@@ -67,7 +73,6 @@ module.exports = (function () {
                         });
                 }
                 else {
-
                     var token = jwt.sign(
                         {
                             "name": user.name,
@@ -85,6 +90,5 @@ module.exports = (function () {
             });
 
     });
-
     return publicRouter;
 })();
