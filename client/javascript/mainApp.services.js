@@ -1,14 +1,14 @@
 var app = angular.module('mainApp')
     .factory('Main', ['$http', '$localStorage', function ($http, $localStorage) {
-        var baseUrl = "localhost:8080";
+        var baseUrl = 'http://localhost:8080';
         return {
             signin: function (data, success, error) {
                 $http({
-                    "method": "POST",
-                    "url": "http://localhost:8080/signin",
-                    "data": {
-                        "email": data.email,
-                        "password": data.password
+                    'method': 'POST',
+                    'url': baseUrl + 'signin',
+                    'data': {
+                        'email': data.email,
+                        'password': data.password
                     }
                 }).then(function successCallback(response) {
                     // this callback will be called asynchronously

@@ -1,30 +1,32 @@
-﻿<!DOCTYPE html>
-
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <title>OJec Store | Front page</title>
-    <!-- Angular. Newer version crashes-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
-    <script src="http://localhost:8080/angular/angular.messages.min.js"></script>
+    <!-- Angular and dependencies-->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
     <!--  MainApplcation javascript-->
-    <script src="http://localhost:8080/javascript/mainApp.controller.js"></script>
-    <script src="http://localhost:8080/javascript/mainApp.configuration.js"></script>
-    <script src="http://localhost:8080/javascript/mainApp.service.js"></script>
-
-
-    <link rel="stylesheet" href="http://localhost:8080/css/style.css">
-    <link rel="stylesheet" href="http://localhost:8080/css/form-Style.css">
+    <script src="javascript/mainApp.module.js"></script>
+    <script src="javascript/mainApp.controllers.js"></script>
+    <script src="javascript/mainApp.configuration.js"></script>
+    <script src="javascript/mainApp.services.js"></script>
+    <!-- Externaly imported scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.6.0/ui-bootstrap-tpls.js"></script>
     <script src="https://code.angularjs.org/1.6.5/angular-animate.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ngstorage@0.3.11/ngStorage.min.js"></script>
+    <!-- Stylesheets-->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form-Style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 
 </head>
+
 <body ng-app="mainApp">
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
         <div class="container-fluid">
@@ -85,10 +87,11 @@
         </div>
     </nav>
     <ng-view></ng-view>
-  <!--
+    <!--
     TODO: footer
       
       
       -->
 </body>
+
 </html>

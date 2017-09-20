@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
 //BASIC ROUTES, NO NEED FOR AUTHENTICATION,
 //ALLOWS FOR LOGIN TO HAPPEN, THEN PROCEED
 /////////////////////////////////////////////////////
-app.use(express.static('../client/public'));
+app.use(express.static('../client'));
 app.use("", require("./routes/public.routes"));
 
 /////////////////////////////////////////////////////

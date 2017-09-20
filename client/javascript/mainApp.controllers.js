@@ -1,24 +1,23 @@
-﻿angular.module('mainApp', ['ngStorage', 'ngMessages', 'ngRoute'])
+angular.module('mainApp')
     .controller('signInController', ['$scope', 'Main', function ($scope, Main) {
         $scope.submit = () => {
             var data = {
-                "email": $scope.email,
-                "password": $scope.password
+                'email': $scope.email,
+                'password': $scope.password
             };
             console.log(data);
             Main.signin(data);
         };
     }])
     .controller('signUpController', ['$scope', 'Main', function ($scope, Main) {
-        alert("sdfsd");
+        alert('SignUpControllerLoaded');
         $scope.submit = () => {
             var data = {
-                "email": $scope.email,
-                "password": $scope.password
+                'email': $scope.email,
+                'password': $scope.password
             };
             console.log(data);
             Main.signin(data);
-            alert("submitted");
         };
     }]);
 
