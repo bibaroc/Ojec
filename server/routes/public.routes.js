@@ -12,7 +12,7 @@ module.exports = (function () {
     publicRouter.use(parser.json());
 
     publicRouter.get('/', function (req, res) {
-        res.sendFile("C:/Users/Vladyslav/Desktop/Ojec/client/index.html");
+        res.redirect("/index.html");
     });
 
     publicRouter.post('/signup', function (req, res) {

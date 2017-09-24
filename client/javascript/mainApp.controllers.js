@@ -10,14 +10,25 @@ angular.module('mainApp')
         };
     }])
     .controller('signUpController', ['$scope', 'Main', function ($scope, Main) {
-        alert('SignUpControllerLoaded');
         $scope.submit = () => {
             var data = {
+                'name': $scope.firstName,
+                'lastName': $scope.lastName,
                 'email': $scope.email,
                 'password': $scope.password
             };
-            console.log(data);
-            Main.signin(data);
+            Main.signup(data);
         };
-    }]);
+    }])
+    .controller('me', ['$scope', 'Main', function ($scope, Main) {
+        $scope.submit = () => {
+            var data = {
+                'name': $scope.firstName,
+                'lastName': $scope.lastName,
+                'email': $scope.email,
+                'password': $scope.password
+            };
+            Main.signup(data);
+        };
+    }])
 

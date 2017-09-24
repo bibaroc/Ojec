@@ -12,6 +12,12 @@ var User = mongoose.model('User', new Schema({
     },
     "admin": {
         "type": Boolean, "default": false
+    },
+    "itemsWatching": {
+        //"type": any
+    },
+    "itemsSelling": {
+       // "type": any
     }
 }));
 

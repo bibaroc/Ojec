@@ -1,6 +1,6 @@
 var app = angular.module('mainApp')
-    .factory('Main', ['$http', '$localStorage', function ($http, $localStorage) {
-        var baseUrl = 'http://localhost:8080';
+    .factory('Main', ['$http', '$localStorage', '$window', function ($http, $localStorage, $window) {
+        var baseUrl = 'http://localhost:8080/';
         return {
             signin: function (data, success, error) {
                 $http({
@@ -11,15 +11,34 @@ var app = angular.module('mainApp')
                         'password': data.password
                     }
                 }).then(function successCallback(response) {
-                    // this callback will be called asynchronously
-                    // when the response is available
+                    if (response.data.token) {
+                        console.log(response.data.token);
+                        $localStorage.ojecToken = response.data.token;
+                        $window.location.href = '/index.html';
+                    }
                 }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert("Wrong email or password.")
                 });
             },
             signup: function (data, success, error) {
-                $http.post(baseUrl + '/signup', data);
+                $http({
+                    'method': 'POST',
+                    'url': baseUrl + 'signup',
+                    'data': {
+                        'name': data.name,
+                        'lastName': data.lastName,
+                        'email': data.email,
+                        'password': data.password
+                    }
+                }).then(function successCallback(response) {
+                    if (response.data.token) {
+                        console.log(response.data.token);
+                        $localStorage.ojecToken = response.data.token;
+                        $window.location.href = '/index.html';
+                    }
+                }, function errorCallback(response) {
+                    alert("Something went wrong.")
+                });
             }
         };
     }]);

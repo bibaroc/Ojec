@@ -1,7 +1,6 @@
 angular.module('mainApp')
 .config(['$httpProvider', '$locationProvider', '$routeProvider', function ($httpProvider, $locationProvider, $routeProvider) {
 
-
     $routeProvider.
         when('/signup', {
             templateUrl: '/partials/signup.html',
