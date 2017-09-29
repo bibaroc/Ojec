@@ -1,3 +1,5 @@
+var User = require("../modules/user");
+
 module.exports = (function () {
     'use strict';
     var userRouter = require("express").Router();
@@ -5,16 +7,59 @@ module.exports = (function () {
     userRouter.get("/", (req, res) => {
         res.send(
             {
-                "success": true,
-                "msg": "You logged in as a user."
+                'success': true,
+                'msg': 'You logged in as a user.'
             });
     });
     userRouter.get("/userInfo", (req, res) => {
-        var user = req.decoded;
-        res.send(
+        User.findOne(
             {
-                "name": user.name,
-                "lastName": user.lastName
+                "email": req.decoded.email
+            },
+            function (err, user) {
+                if (err) {
+                    res.json(
+                        {
+                            "success": false,
+                            "msg": "There was an error while looking up the user."
+                        });
+                }
+                else if (!user) {
+                    res.json(
+                        {
+                            "success": false,
+                            "msg": "User not found. Are you fucking up the server?"
+                        });
+                }
+                else {
+                    var token = jwt.sign(
+                        {
+                            "name": user.name,
+                            "lastName": user.lastName,
+                            "admin": user.admin,
+                            "email": user.email
+                        },
+                        conf.secret);
+                    res.json(
+                        {
+                            "success": true,
+                            "user": {
+                                "name": user.name,
+                                "lastName": user.lastName,
+                                "email": user.email,
+                                "itemsWatching": user.itemsWatching,
+                                "itemsSelling": user.itemsSelling
+                            }
+                        });
+                }
+            });
+
+
+
+        res.json(
+            {
+                'name': user.name,
+                'lastName': user.lastName
             });
     });
     return userRouter;

@@ -43,7 +43,8 @@ module.exports = (function () {
                             {
                                 "name": user.name,
                                 "lastName": user.lastName,
-                                "admin": user.admin
+                                "admin": user.admin,
+                                "email": user.email
                             },
                             conf.secret)
                     });
@@ -77,7 +78,8 @@ module.exports = (function () {
                         {
                             "name": user.name,
                             "lastName": user.lastName,
-                            "admin": user.admin
+                            "admin": user.admin,
+                            "email": user.email
                         },
                         conf.secret);
                     res.json(

@@ -15,7 +15,6 @@ var app = angular.module('mainApp')
                         console.log(response.data.token);
                         $localStorage.ojecToken = response.data.token;
                         $window.location.href = '/index.html';
-                       // $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     }
                 }, function errorCallback(response) {
                     alert("Wrong email or password.")
@@ -41,13 +40,13 @@ var app = angular.module('mainApp')
                     alert("Something went wrong.")
                 });
             },
-            getUserData: function () {
+            getUserData: function (callback) {
                 $http({
                     'method': 'GET',
                     'url': baseUrl + 'user/userInfo'
                 }).then(function successCallback(response) {
                     if (response.data) {
-                        console.log(response.data);
+                      callback(response.data);
                     }
                 }, function errorCallback(response) {
                     alert("Something went wrong.")

@@ -22,7 +22,11 @@ angular.module('mainApp')
     }])
     .controller('meController', ['$scope', '$localStorage', 'Main', function ($scope, $localStorage, Main) {
         this.user = {
-            'name': 'Vlad'
+            "name": "",
+            "lastName": "",
+            "email": "",
+            "itemsWatching": "",
+            "itemsSelling": ""
         };
         if ($localStorage.ojecToken) {
             this.logged = true;
@@ -30,6 +34,10 @@ angular.module('mainApp')
         } else {
             this.logged = false;
         }
-        Main.getUserData();
+        Main.getUserData(function gotta(data) {
+
+            alert(data.name);
+        });
+        
     }]);
 
