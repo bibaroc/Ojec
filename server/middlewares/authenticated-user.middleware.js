@@ -4,7 +4,7 @@ var jwt = require("jsonwebtoken");
 module.exports = function (req, res, next) {
     'use strict';
     //Check header or url for token.
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.token;
     if (token) {
         //Verify the token with the superSecret.
         jwt.verify(token, config.secret,
@@ -27,6 +27,7 @@ module.exports = function (req, res, next) {
     }
     //Token wasn't provided.
     else {
+        console.log("someone tried to log in");
         return res.send(
             {
                 "success": false,

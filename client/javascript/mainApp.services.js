@@ -2,7 +2,7 @@ var app = angular.module('mainApp')
     .factory('Main', ['$http', '$localStorage', '$window', function ($http, $localStorage, $window) {
         var baseUrl = 'http://localhost:8080/';
         return {
-            signin: function (data, success, error) {
+            signin: function (data) {
                 $http({
                     'method': 'POST',
                     'url': baseUrl + 'signin',
@@ -15,12 +15,13 @@ var app = angular.module('mainApp')
                         console.log(response.data.token);
                         $localStorage.ojecToken = response.data.token;
                         $window.location.href = '/index.html';
+                       // $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     }
                 }, function errorCallback(response) {
                     alert("Wrong email or password.")
                 });
             },
-            signup: function (data, success, error) {
+            signup: function (data) {
                 $http({
                     'method': 'POST',
                     'url': baseUrl + 'signup',
@@ -35,6 +36,18 @@ var app = angular.module('mainApp')
                         console.log(response.data.token);
                         $localStorage.ojecToken = response.data.token;
                         $window.location.href = '/index.html';
+                    }
+                }, function errorCallback(response) {
+                    alert("Something went wrong.")
+                });
+            },
+            getUserData: function () {
+                $http({
+                    'method': 'GET',
+                    'url': baseUrl + 'user/userInfo'
+                }).then(function successCallback(response) {
+                    if (response.data) {
+                        console.log(response.data);
                     }
                 }, function errorCallback(response) {
                     alert("Something went wrong.")

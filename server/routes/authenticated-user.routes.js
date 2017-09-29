@@ -9,5 +9,13 @@ module.exports = (function () {
                 "msg": "You logged in as a user."
             });
     });
+    userRouter.get("/userInfo", (req, res) => {
+        var user = req.decoded;
+        res.send(
+            {
+                "name": user.name,
+                "lastName": user.lastName
+            });
+    });
     return userRouter;
 })();
