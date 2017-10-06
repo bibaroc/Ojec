@@ -1,43 +1,68 @@
-﻿.elegant-aero {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 25px;
-    max-width: 600px;
-    background: #D2E9FF;
-    padding: 20px 20px 20px 20px;
-    font: 12px Arial, Helvetica, sans-serif;
-    color: #666;
+﻿#logbox {
+	margin: auto;
+	padding-top: 40px;
+	padding-bottom: 200px;
+	width: 340px;
 }
-
-    .elegant-aero label {
-        display: block;
-        margin: 0px 0px 5px;
-    }
-
-    .elegant-aero input[type="text"], input[type="password"], .elegant-aero input[type="email"], .elegant-aero textarea {
-        color: #888;
-        width: 60%;
-        padding: 0px 0px 0px 5px;
-        border: 1px solid #C5E2FF;
-        background: #FBFBFB;
-        outline: 0;
-        -webkit-box-shadow: inset 0px 1px 6px #ECF3F5;
-        box-shadow: inset 0px 1px 6px #ECF3F5;
-        font: 200 12px/25px Arial, Helvetica, sans-serif;
-        height: 30px;
-        line-height: 15px;
-        margin: 2px 6px 16px 0px;
-    }
-
-    .elegant-aero textarea {
-        height: 100px;
-        padding: 5px 0px 0px 5px;
-        width: 60%;
-    }
-
-form div {
-    display: inline-block;
-    vertical-align: top;
-    color: red;
-    margin-top: 5px;
+#logbox label {
+	text-align: center;
+	text-transform: uppercase;
+}
+#logbox h1 {
+	color: #757575;
+	font-size: 2em;
+	text-transform: uppercase;
+	font-family: Arial, Helvetica;
+}
+#logbox input {
+	float: left;
+	width: 75%;
+	height: 30px;
+	display: block;
+	margin: 0 auto 15px;
+	padding: 0 15px;
+	border: none;
+	border-bottom: 2px solid #ebebeb;
+}
+#logbox input:focus {
+	outline: none;
+	border-bottom-color: #cc0000 !important;
+}
+#logbox input:hover {
+	border-bottom-color: #dcdcdc;
+}
+#logbox input:invalid dirty {
+	box-shadow: none;
+	background-color: #cc0000;
+}
+#logbox button {
+	float: left;
+	position: static;
+	display: block;
+	width: 90%;
+	margin: 20px auto 10px;
+	color: #ffffff;
+	background-color: #cc0000;
+	border: none;
+}
+#logbox button:hover {
+	background-color: #b30000;
+}
+#logbox select {
+	height: 35px;
+	overflow: hidden;
+	width: 90%;
+   	border-radius: 5px;
+	border-color: #dcdcdc;
+	background-color: #dcdcdc;	
+	margin-bottom: 10px;
+}
+#login:after {
+  content: '';
+  width: 0;
+  height: 450px;
+  position: absolute;
+  border: 1px solid #cc0000;
+  top: 100px;
+  left: 10px;
 }

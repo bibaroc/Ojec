@@ -1,21 +1,21 @@
 angular.module('mainApp')
     .controller('signInController', ['$scope', 'Main', function ($scope, Main) {
-        $scope.submit = () => {
+        $scope.signin = () => {
             var data = {
-                'email': $scope.email,
-                'password': $scope.password
+                'email': $scope.inemail,
+                'password': $scope.inpassword
             };
             console.log(data);
             Main.signin(data);
         };
     }])
     .controller('signUpController', ['$scope', 'Main', function ($scope, Main) {
-        $scope.submit = () => {
+        $scope.signup = () => {
             var data = {
                 'name': $scope.firstName,
                 'lastName': $scope.lastName,
-                'email': $scope.email,
-                'password': $scope.password
+                'email': $scope.upemail,
+                'password': $scope.uppassword
             };
             Main.signup(data);
         };
