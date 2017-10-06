@@ -1,19 +1,23 @@
-﻿#logbox {
+﻿/* FORM */
+#logbox {
 	margin: auto;
 	padding-top: 40px;
 	padding-bottom: 200px;
 	width: 340px;
 }
-#logbox label {
-	text-align: center;
-	text-transform: uppercase;
-}
+/* H1 */
 #logbox h1 {
 	color: #757575;
 	font-size: 2em;
 	text-transform: uppercase;
 	font-family: Arial, Helvetica;
 }
+/* LABEL */
+#logbox label {
+	text-align: center;
+	text-transform: uppercase;
+}
+/* INPUT */
 #logbox input {
 	float: left;
 	width: 75%;
@@ -35,6 +39,7 @@
 	box-shadow: none;
 	background-color: #cc0000;
 }
+/* BUTTON */
 #logbox button {
 	float: left;
 	position: static;
@@ -48,6 +53,7 @@
 #logbox button:hover {
 	background-color: #b30000;
 }
+/* SECURITY QUESTION */
 #logbox select {
 	height: 35px;
 	overflow: hidden;
@@ -57,6 +63,7 @@
 	background-color: #dcdcdc;	
 	margin-bottom: 10px;
 }
+/* VERTICAL LINE */
 #login:after {
   content: '';
   width: 0;

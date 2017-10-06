@@ -8,7 +8,13 @@ angular.module('mainApp')
             })
             .when('/user', {
                 templateUrl: '/partials/user.html',
-            });
+            })
+			.when('/about',{
+				templateUrl : '/partials/about.html'
+            })
+			.when('/contact', {
+				templateUrl: 'partials/contact.html'
+			});
 
         $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
            return {

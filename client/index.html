@@ -30,11 +30,12 @@
 </head>
 
 <body ng-app="mainApp">
+	<!-- Navbar-->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid" id="nav">
             <!--Logo.-->
             <div class="navbar-header">`
-                <a class="navbar-brand" href="#">Ecommerce</a>
+                <a class="navbar-brand" href="index.html">Ecommerce</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-navbar-collapse" >
@@ -69,7 +70,7 @@
                                             <div class="form-group">
                                                 <label class="sr-only">Password</label>
                                                 <input type="password" ng-model="inpassword" class="form-control" id="exampleInputPassword" placeholder="Password" required>
-                                                <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                                                <div class="help-block text-right"><a href="#!/forget">Forget the password ?</a></div>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
@@ -92,14 +93,16 @@
         </div>
     </nav>
     <ng-view></ng-view>
+	<!--Footer-->
 	<footer>
 		<div class="content">
 			<ul>
-				<li><a href="#">About us</a></li>
-				<li><a href="#">Contact us!</a></li>				
+				<li><a href="#!/about">About us</a></li>
+				<li><a href="#!/contact">Contact us!</a></li>
+				<li><a href="">vendi con noi</a></li>
 				<li><address>vlado.swago@gmail.com</address></li>
 				<li><address>lucia.lucia@gmail.com</address></li>
-				<li><span>Feel free to copy&copy;</span></li>
+				<li><span>Feel free to copy &copy;</span></li>
 			</ul>
 		</div>
 	</footer>
