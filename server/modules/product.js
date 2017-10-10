@@ -9,11 +9,21 @@ var Product = mongoose.model('Product', new Schema({
         "type": String, "required": true
     },
     "category": {
-        "type": String, "required": true
+        "type": String, "required": false
     },
     "weight": {
-        "type": String, "required": true
-    }
+        "type": Number, "required": true
+    },
+    "price": {
+        "type": Number, "required": true
+    },
+    "quantity": {
+        "type": Number, "required": true
+    },
+    "img": {
+        "type": [String], "required": false
+    },
+    "seller": Schema.ObjectId,
 }));
 
-module.exports = User;
+module.exports = Product;

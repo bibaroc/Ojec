@@ -6,11 +6,6 @@ module.exports = function (req, res, next) {
     if (req.decoded) {
         //Verify the token with the superSecret.
         if (req.decoded.admin) {
-            res.send(
-                {
-                    "success": true,
-                    "msg": "WelcomeAbboard."
-                });
             next()
         }
         else {

@@ -1,56 +1,65 @@
+'use strict'
 var app = angular.module('mainApp')
-    .factory('Main', ['$http', '$localStorage', '$window', function ($http, $localStorage, $window) {
+    .factory('Main', ['$http', '$localStorage', '$window', '$route', function ($http, $localStorage, $window, $route) {
         var baseUrl = 'http://localhost:8080/';
         return {
-            signin: function (data) {
-                $http({
-                    'method': 'POST',
-                    'url': baseUrl + 'signin',
-                    'data': {
-                        'email': data.email,
-                        'password': data.password
-                    }
-                }).then(function successCallback(response) {
-                    if (response.data.token) {
-                        console.log(response.data.token);
-                        $localStorage.ojecToken = response.data.token;
-                        $window.location.href = '/index.html';
-                    }
-                }, function errorCallback(response) {
-                    alert("Wrong email or password.")
-                });
+            signin: function (data, error) {
+                $http.post(baseUrl + 'signin', data)
+                    .then(function successCallback(response) {
+                        if (response.data.token) {
+                            $localStorage.ojecToken = response.data.token;
+                            $window.location.href = '#!/index.html';
+                            $window.location.reload();
+                        } else {
+                            error(response.data.msg);
+                        }
+                    }, function errorCallback(response) {
+                        alert("Wrong email or password.")
+                    });
             },
             signup: function (data) {
-                $http({
-                    'method': 'POST',
-                    'url': baseUrl + 'signup',
-                    'data': {
-                        'name': data.name,
-                        'lastName': data.lastName,
-                        'email': data.email,
-                        'password': data.password
-                    }
-                }).then(function successCallback(response) {
-                    if (response.data.token) {
-                        console.log(response.data.token);
-                        $localStorage.ojecToken = response.data.token;
-                        $window.location.href = '/index.html';
-                    }
-                }, function errorCallback(response) {
-                    alert("Something went wrong.")
-                });
+                $http.post(baseUrl + 'signup', data)
+                    .then(function successCallback(response) {
+                        if (response.data.token) {
+                            $localStorage.ojecToken = response.data.token;
+                            $window.location.href = '#!/index.html';
+                            $window.location.reload();
+                        }
+                    }, function errorCallback(response) {
+                        alert("Something went wrong.")
+                    });
+            },
+            logout: function () {
+                delete $localStorage.ojecToken;
+                $window.location.href = '#!/index.html';
+                $window.location.reload();
             },
             getUserData: function (callback) {
-                $http({
-                    'method': 'GET',
-                    'url': baseUrl + 'user/userInfo'
-                }).then(function successCallback(response) {
-                    if (response.data) {
-                      callback(response.data);
+                $http.get(baseUrl + 'user/userInfo')
+                    .then(function successCallback(response) {
+                        if (response.data.user) {
+                            callback(response.data);
+                        }
+                    }, function errorCallback(response) {
+                        alert("Something went wrong.")
+                    });
+            },
+            postProduct: function (data) {
+                $http.post(baseUrl + 'admin/addProduct', data, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                        'Authorization': 'Bearer ' + $localStorage.ojecToken
                     }
-                }, function errorCallback(response) {
-                    alert("Something went wrong.")
-                });
-            }
+                })
+                    .then(function successCallback(response) {
+                        if (response.data.success) {
+                            alert("success");
+                            $window.location.href = '#!/user.html';
+                        }
+                    }, function errorCallback(response) {
+                        alert("Something went wrong.")
+                    });
+            },
         };
     }]);

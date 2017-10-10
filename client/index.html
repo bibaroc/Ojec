@@ -3,16 +3,20 @@
 
 <head>
     <meta charset="utf-8" />
-	<meta name="robots" content="index,nofollow"/>
-	<meta name="viewport" content="width=device-width"/>
+    <meta name="robots" content="index,nofollow" />
+    <meta name="viewport" content="width=device-width" />
     <title>OJec Store | Front page</title>
     <!-- Angular and dependencies-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-messages.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-messages.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <!--  MainApplcation javascript-->
     <script src="javascript/mainApp.module.js"></script>
-    <script src="javascript/mainApp.controllers.js"></script>
+    <script src="javascript/mainApp.controller.js"></script>
+    <script src="partials/user/user.controller.js"></script>
+    <script src="partials/signup/signup.controller.js"></script>
+    <script src="partials/sellItem/sellItem.controller.js"></script>
     <script src="javascript/mainApp.configuration.js"></script>
     <script src="javascript/mainApp.services.js"></script>
     <!-- Externaly imported scripts-->
@@ -20,26 +24,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.6.0/ui-bootstrap-tpls.js"></script>
     <script src="https://code.angularjs.org/1.6.5/angular-animate.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ngstorage@0.3.11/ngStorage.min.js"></script>
     <!-- Stylesheets-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form-Style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-
 </head>
 
 <body ng-app="mainApp">
-	<!-- Navbar-->
+    <!-- Navbar-->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid" id="nav">
             <!--Logo.-->
-            <div class="navbar-header">`
-                <a class="navbar-brand" href="index.html">Ecommerce</a>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#!/index">Ecommerce</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-navbar-collapse" >
-                <ul class="nav navbar-nav navbar-right" ng-controller="meController as me" >
+            <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right" ng-controller="meController as me">
                     <li>
                         <!--SearchBox.-->
                         <form class="navbar-form " role="search">
@@ -53,9 +55,12 @@
                             </div>
                         </form>
                     </li>
-                    <li class="dropdown" ng-hide="me.logged">
+                    <li class="dropdown" ng-hide="logged">
                         <!--Link to my personal page.-->
-                        <a  href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="caret"></span>
+                        </a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
                                 <div class="row">
@@ -64,48 +69,67 @@
                                         <b>Log in: </b>
                                         <form ng-controller="signInController" ng-submit="signin()" class="form" role="form" id="login-nav">
                                             <div class="form-group">
-                                                <label class="sr-only" >Email address</label>
+                                                <label class="sr-only">Email address</label>
                                                 <input type="email" ng-model="inemail" class="form-control" id="exampleInputEmail" placeholder="Email address" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only">Password</label>
                                                 <input type="password" ng-model="inpassword" class="form-control" id="exampleInputPassword" placeholder="Password" required>
-                                                <div class="help-block text-right"><a href="#!/forget">Forget the password ?</a></div>
+                                                <div class="help-block text-right">
+                                                    <a>Forget the password ?</a>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align:center;width:95%">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                                <span style="color: red">{{msg}}</span>
                                             </div>
                                         </form>
                                     </div>
                                     <!--Link to sign up page.-->
                                     <div class="bottom text-center">
-                                        <a href="#!/signup"><b>Sign Up!</b></a>
+                                        <a href="#!/signup">
+                                            <b>Sign Up!</b>
+                                        </a>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </li>
-                    <li ng-show="me.logged">
-                        <a href="#!/user" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>{{me.user.name}}<span class="caret"></span></a>
+                    <li ng-show="logged">
+                        <a href="#!/user" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"> {{user.name}}</span>
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <ng-view></ng-view>
-	<!--Footer-->
-	<footer>
-		<div class="content">
-			<ul>
-				<li><a href="#!/about">About us</a></li>
-				<li><a href="#!/contact">Contact us!</a></li>
-				<li><a href="">vendi con noi</a></li>
-				<li><address>vlado.swago@gmail.com</address></li>
-				<li><address>lucia.lucia@gmail.com</address></li>
-				<li><span>Feel free to copy &copy;</span></li>
-			</ul>
-		</div>
-	</footer>
+    <!--Footer-->
+    <footer>
+        <div class="content">
+            <ul>
+                <li>
+                    <a href="#!/about">About us</a>
+                </li>
+                <li>
+                    <a href="#!/contact">Contact us!</a>
+                </li>
+                <li>
+                    <a href="">vendi con noi</a>
+                </li>
+                <li>
+                    <address>vlado.swago@gmail.com</address>
+                </li>
+                <li>
+                    <address>lucia.lucia@gmail.com</address>
+                </li>
+                <li>
+                    <span>Feel free to copy &copy;</span>
+                </li>
+            </ul>
+        </div>
+    </footer>
 </body>
 
 </html>

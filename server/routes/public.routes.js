@@ -18,11 +18,48 @@ module.exports = (function () {
     publicRouter.post('/signup', function (req, res) {
         var user = new User(
             {
-                "name": req.body.name,
-                "lastName": req.body.lastName,
-                "email": req.body.email,
+                "name": req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1).toLowerCase(),
+                "lastName": req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1).toLowerCase(),
+                "email": req.body.email.toLowerCase(),
                 "hash": crypto.createHash("sha256").update(req.body.password).digest("hex"),
                 "admin": false
+            });
+        user.save(function (err) {
+            if (err) {
+                if (err.code === 11000) {
+                    res.json(
+                        {
+                            "success": false,
+                            "msg": "Duplciate key, there can only be one account per email."
+                        });
+                }
+            }
+            else {
+                res.json(
+                    {
+                        "success": true,
+                        "msg": "User " + user.name + " " + user.lastName + " added.",
+                        "token": jwt.sign(
+                            {
+                                "name": user.name,
+                                "lastName": user.lastName,
+                                "admin": user.admin,
+                                "email": user.email
+                            },
+                            conf.secret)
+                    });
+            }
+        });
+    });
+
+    publicRouter.post('/test', function (req, res) {
+        var user = new User(
+            {
+                "name": "Vladyslav",
+                "lastName": "Sulimovskyy",
+                "email": "sulimovskyy.vladyslav@gmail.com",
+                "hash": crypto.createHash("sha256").update("shit").digest("hex"),
+                "admin": true
             });
         user.save(function (err) {
             if (err) {

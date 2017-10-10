@@ -3,7 +3,7 @@ var User = require("../modules/user");
 module.exports = (function () {
     'use strict';
     var userRouter = require("express").Router();
-    userRouter.use(require("../middlewares/authenticated-user.middleware"));
+    //userRouter.use(require("../middlewares/authenticated-user.middleware"));
     userRouter.get("/", (req, res) => {
         res.send(
             {
@@ -32,14 +32,6 @@ module.exports = (function () {
                         });
                 }
                 else {
-                    var token = jwt.sign(
-                        {
-                            "name": user.name,
-                            "lastName": user.lastName,
-                            "admin": user.admin,
-                            "email": user.email
-                        },
-                        conf.secret);
                     res.json(
                         {
                             "success": true,
@@ -48,18 +40,11 @@ module.exports = (function () {
                                 "lastName": user.lastName,
                                 "email": user.email,
                                 "itemsWatching": user.itemsWatching,
-                                "itemsSelling": user.itemsSelling
+                                "itemsSelling": user.itemsSelling,
+                                "admin": user.admin
                             }
                         });
                 }
-            });
-
-
-
-        res.json(
-            {
-                'name': user.name,
-                'lastName': user.lastName
             });
     });
     return userRouter;

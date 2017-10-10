@@ -1,0 +1,12 @@
+<div>
+    <span class="glyphicon glyphicon-user">Welcole back, {{user.name}} {{user.lastName}}</span><br />
+    <a ng-click="popup = !popup">Review your account details</a><br />
+    <div ng-show="popup">
+        <span>Name: {{user.name}}</span><br />
+        <span>Last name: {{user.lastName}}</span><br />
+        <span>Email: {{user.email}}</span><br />
+
+        <a href="#!/addItemToSell" ng-show="user.admin">Items you'r selling</a><br />
+    </div>
+    <a ng-click="logout()">LogOut</a><br/>
+</div>

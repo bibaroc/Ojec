@@ -19,7 +19,10 @@ module.exports = function (req, res, next) {
                 //It's allright here.
                 else {
                     //I save the decoded token in the request for further use.
-                    req.decoded = decoded;
+                    req.decoded = {
+                        "admin": decoded.admin,
+                        "email": decoded.email
+                    };
                     //Next does exit from the middleware.
                     next();
                 }
@@ -31,7 +34,7 @@ module.exports = function (req, res, next) {
         return res.send(
             {
                 "success": false,
-                "msg": "LogIn please."
+                "msg": "LogIn please. Token not provided"
             });
     }
 };

@@ -34,12 +34,14 @@ app.use("", require("./routes/public.routes"));
 //BASIC USER ROUTES, NEEDS LOGIN
 //CONTAINS MIDDLEWARE CHECKING FOR JWT
 /////////////////////////////////////////////////////
+app.use(require("./middlewares/authenticated-user.middleware"));
 app.use("/user", require("./routes/authenticated-user.routes"));
 
 /////////////////////////////////////////////////////
 //ADMIN USER ROUTES, NEEDS LOGIN
 //CONTAINS MIDDLEWARE CHECKING FOR ADMIN PROPERTIES
 /////////////////////////////////////////////////////
+app.use(require("./middlewares/authenticated-admin.middleware"));
 app.use("/admin", require("./routes/authenticated-admin.routes"));
 
 app.listen(port, () => {
