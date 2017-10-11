@@ -17,13 +17,15 @@ var app = angular.module('mainApp')
                         alert("Wrong email or password.")
                     });
             },
-            signup: function (data) {
+            signup: function (data, error) {
                 $http.post(baseUrl + 'signup', data)
                     .then(function successCallback(response) {
                         if (response.data.token) {
                             $localStorage.ojecToken = response.data.token;
                             $window.location.href = '#!/index.html';
                             $window.location.reload();
+                        } else{
+                            error(response.data.msg);
                         }
                     }, function errorCallback(response) {
                         alert("Something went wrong.")

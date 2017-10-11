@@ -3,8 +3,8 @@ angular.module('mainApp')
 
         $routeProvider
             .when('/signup', {
-                templateUrl: '/partials/signup/signup.html',
-                controller: 'signUpController'
+                templateUrl: '/partials/signup.html',
+                controller: 'signInController'
             })
             .when('/user', {
                 templateUrl: '/partials/user/user.html',
