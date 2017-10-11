@@ -18,21 +18,21 @@ module.exports = (function () {
             },
             function (err, user) {
                 if (err) {
-                    res.json(
+                    res.status(500).send(
                         {
                             "success": false,
                             "msg": "There was an error while looking up the user."
                         });
                 }
                 else if (!user) {
-                    res.json(
+                    res.status(406).send(
                         {
                             "success": false,
                             "msg": "User not found. Are you fucking up the server?"
                         });
                 }
                 else {
-                    res.json(
+                    res.status(200).send(
                         {
                             "success": true,
                             "user": {

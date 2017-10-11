@@ -10,10 +10,10 @@ module.exports = function (req, res, next) {
         jwt.verify(token, config.secret,
             function (err, decoded) {
                 if (err) {
-                    res.send(
+                    res.status(401).send(
                         {
                             "success": false,
-                            "msg": "Invalid token."
+                            "msg": "Seems you have altered the token."
                         });
                 }
                 //It's allright here.
@@ -31,7 +31,7 @@ module.exports = function (req, res, next) {
     //Token wasn't provided.
     else {
         console.log("someone tried to log in");
-        return res.send(
+        return res.status(401).send(
             {
                 "success": false,
                 "msg": "LogIn please. Token not provided"

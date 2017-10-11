@@ -56,24 +56,24 @@ module.exports = (function () {
         for (var i = 0; i < req.files.length; i++) {
             product.img.push(req.files[i].destination.slice(10) + '/' + req.files[i].filename);
         }
-
+        var Errors = [];
         User.findOne(
             {
                 "email": req.decoded.email
             },
             function (err, user) {
                 if (err) {
-                    res.json(
+                    res.status(500).send(
                         {
                             "success": false,
                             "msg": "There was an error while looking up the user."
                         });
                 }
                 else if (!user) {
-                    res.json(
+                    res.status(406).send(
                         {
                             "success": false,
-                            "msg": "Can't find the user."
+                            "msg": "User not found: " + req.decoded.email
                         });
                 }
                 else {
@@ -84,22 +84,38 @@ module.exports = (function () {
                     //Saving products
                     user.save((errSavingUser) => {
                         if (errSavingUser) {
-                            let errorU = errSavingUser;
+                            Errors.push(errSavingUser);
                             console.log(rerrSavingUser);
-                        } else
-                            console.log(user);
+                        }
+                        // else
+                        //    console.log(user);
                     });
                     product.save((errSavingProducts) => {
                         if (errSavingProducts) {
-                            let errorP = errSavingProducts;
+                            Errors.push(errSavingProducts);
                             console.log(errSavingProducts);
-                        } else
-                            console.log(product);
+                        }
+                        // else
+                        //    console.log(product);
                     });
                 }
             });
-        res.send("ciao");
+        if (Errors.length == 0) {
+            res.status(200).send({
+                "success": true,
+                "msg": "Product addes to the db."
+            });
+        }
+        else {
+            var mss = "";
+            for (i in Errors) {
+                mss += "++++++++++" + i.message + "\r\n";
+            }
+            res.status(500).send({
+                "success": false,
+                "msg": mss
+            });
+        }
     });
-
     return adminRouter;
 })();

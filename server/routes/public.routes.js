@@ -27,15 +27,15 @@ module.exports = (function () {
         user.save(function (err) {
             if (err) {
                 if (err.code === 11000) {
-                    res.json(
+                    res.status(406).send(
                         {
                             "success": false,
-                            "msg": "Duplciate key, there can only be one account per email."
+                            "msg": "There is already an account registered with this email."
                         });
                 }
             }
             else {
-                res.json(
+                res.status(200).send(
                     {
                         "success": true,
                         "msg": "User " + user.name + " " + user.lastName + " added.",
@@ -64,15 +64,15 @@ module.exports = (function () {
         user.save(function (err) {
             if (err) {
                 if (err.code === 11000) {
-                    res.json(
+                    res.send(
                         {
                             "success": false,
-                            "msg": "Duplciate key, there can only be one account per email."
+                            "msg": "There is already an account registered with this email."
                         });
                 }
             }
             else {
-                res.json(
+                res.status(200).send(
                     {
                         "success": true,
                         "msg": "User " + user.name + " " + user.lastName + " added.",
@@ -97,14 +97,14 @@ module.exports = (function () {
             },
             function (err, user) {
                 if (err) {
-                    res.json(
+                    res.status(500).send(
                         {
                             "success": false,
-                            "msg": "There was an error while looking up the user."
+                            "msg": "Server internal error while looking up the db."
                         });
                 }
                 else if (!user) {
-                    res.json(
+                    res.status(406).send(
                         {
                             "success": false,
                             "msg": "User not found/wrong password."
@@ -119,7 +119,7 @@ module.exports = (function () {
                             "email": user.email
                         },
                         conf.secret);
-                    res.json(
+                    res.status(200).send(
                         {
                             "success": true,
                             "msg": user.hash,

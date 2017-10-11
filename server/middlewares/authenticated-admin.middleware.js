@@ -9,7 +9,7 @@ module.exports = function (req, res, next) {
             next()
         }
         else {
-            return res.send(
+            return res.status(401).send(
                 {
                     "success": false,
                     "msg": "You are not a certified seller."
@@ -18,10 +18,10 @@ module.exports = function (req, res, next) {
     }
     //Token wasn't decoded.
     else {
-        return res.send(
+        return res.status(401).send(
             {
                 "success": false,
-                "msg": "LogIn please."
+                "msg": "Please sign in as a certified seller."
             });
     }
 };
