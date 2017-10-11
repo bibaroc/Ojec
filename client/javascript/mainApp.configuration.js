@@ -18,7 +18,15 @@ angular.module('mainApp')
             })
 			.when('/contact', {
 				templateUrl: 'partials/contact.html'
-			});
+            })
+            .when('/frontpage', {
+                templateUrl: 'partials/frontpage.html',
+                controller: 'frontPageController'
+            })
+            .otherwise({
+                templateUrl: 'partials/frontpage.html',
+                controller: 'frontPageController'
+            });
 
         $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
             return {

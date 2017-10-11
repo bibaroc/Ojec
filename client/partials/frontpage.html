@@ -1,0 +1,13 @@
+<div>
+    <div style="padding:15px 15px 15px 15px; display: inline-block;width:100%" ng-repeat="item in items">
+        <img ng-src="{{item.img[0]}}" style="float: left;padding-right: 20px; max-height: 15em">
+        <div>
+            <h3 style="margin-top:0">{{item.name}}</h3>
+            <p>{{item.description}}</p>
+            <div style="float: right">
+                <p>{{item.quantity}} available</p>
+                <p>{{item.price | currency:'€'}}</p>
+            </div>
+        </div>
+    </div>
+</div>

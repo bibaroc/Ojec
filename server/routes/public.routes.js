@@ -1,5 +1,6 @@
 var crypto = require("crypto");
 var User = require("../modules/user");
+var Product = require("../modules/product");
 var jwt = require("jsonwebtoken");
 var conf = require("../modules/config")
 
@@ -127,6 +128,23 @@ module.exports = (function () {
                         });
                 }
             });
+
+    });
+
+    publicRouter.get("/getItems", function (req, res) {
+        //Product.find({}, (error, product) => { });
+        var items = [];
+        //Last 10 products
+        Product.find({}).sort('-date').limit(10).exec(function (err, products) {
+            products.forEach(function (prod) {
+                items.push(prod);
+            });
+            res.status(200).send({
+                "success": true,
+                "msg": "Ya itemz bra",
+                "data": items
+            });
+        });
 
     });
     return publicRouter;

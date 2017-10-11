@@ -24,7 +24,7 @@ var app = angular.module('mainApp')
                             $localStorage.ojecToken = response.data.token;
                             $window.location.href = '#!/index.html';
                             $window.location.reload();
-                        } else{
+                        } else {
                             error(response.data.msg);
                         }
                     }, function errorCallback(response) {
@@ -63,5 +63,20 @@ var app = angular.module('mainApp')
                         alert("Something went wrong.")
                     });
             },
+            getItems: (query, callback) => {
+                if (!query) {
+                    $http.get(baseUrl + 'getItems')
+                        .then((successResponse) => {
+                            if (successResponse.data.data) {
+                                callback(successResponse.data.data);
+                            }
+                        }, (errorResponse) => {
+                            alert("Something went wrong.")
+                        });
+                }
+
+
+
+            }
         };
     }]);

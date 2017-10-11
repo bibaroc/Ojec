@@ -108,9 +108,9 @@ module.exports = (function () {
         }
         else {
             var mss = "";
-            for (i in Errors) {
+            Errors.forEach(function (i) {
                 mss += "++++++++++" + i.message + "\r\n";
-            }
+            });
             res.status(500).send({
                 "success": false,
                 "msg": mss
