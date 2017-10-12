@@ -13,19 +13,25 @@ angular.module('mainApp')
                 templateUrl: '/partials/sellItem/sellItem.html',
                 controller: 'sellItem'
             })
-            .when('/about',{
-				templateUrl : '/partials/about.html'
+            .when('/about', {
+                templateUrl: '/partials/about.html'
             })
-			.when('/contact', {
-				templateUrl: 'partials/contact.html'
+            .when('/contact', {
+                templateUrl: 'partials/contact.html'
             })
             .when('/frontpage', {
                 templateUrl: 'partials/frontpage.html',
                 controller: 'frontPageController'
             })
+            .when('/product/:productID', {
+                template: "matches",
+                controller: "productPageController"
+            })
+            .when('/404', {
+                template: "<h1>404 NON FOUND</h1>"
+            })
             .otherwise({
-                templateUrl: 'partials/frontpage.html',
-                controller: 'frontPageController'
+                redirectTo: "/frontpage"
             });
 
         $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
@@ -40,6 +46,8 @@ angular.module('mainApp')
                 'responseError': function (response) {
                     if (response.status === 401 || response.status === 403) {
                         $location.path('/signin');
+                    } else if (response.status === 404) {
+                        $location.path('/404')
                     }
                     return $q.reject(response);
                 }

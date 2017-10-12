@@ -4,11 +4,12 @@ var Product = require("../modules/product");
 var jwt = require("jsonwebtoken");
 var conf = require("../modules/config")
 
+
 module.exports = (function () {
     'use strict';
     var publicRouter = require("express").Router();
-    var parser = require("body-parser");
 
+    var parser = require("body-parser");
     publicRouter.use(parser.urlencoded({ "extended": true }));
     publicRouter.use(parser.json());
 
@@ -131,20 +132,59 @@ module.exports = (function () {
 
     });
 
-    publicRouter.get("/getItems", function (req, res) {
-        //Product.find({}, (error, product) => { });
-        var items = [];
-        //Last 10 products
-        Product.find({}).sort('-date').limit(10).exec(function (err, products) {
-            products.forEach(function (prod) {
-                items.push(prod);
+    //TODO: Fix
+    publicRouter.post("/getItems", function (req, res) {
+        console.log(req.body);
+        //If someone asks for a specific id i can try and search the db
+        if (req.body.id) {
+            //Regex pattern
+            if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
+                Product.findOne({ "id": req.body.id }, function (err, product) {
+                    //Error looking up the db
+                    if (err) {
+                        console.log(err.code + " : " + err.message);
+                        res.status(500).send({
+                            "success": false,
+                            "msg": "Something went very wrong."
+                        });
+                    }
+                    //Nothing found
+                    else if (!product) {
+                        res.status(404).send({
+                            "success": false,
+                            "msg": "Can't find the product brah."
+                        });
+                    }
+                    //Something found kek, could be only one item
+                    else {
+                        res.status(200).send({
+                            "success": true,
+                            "msg": "Ya item bra",
+                            "data": product
+                        });
+                    }
+                });
+            } else {
+                res.status(404).send({
+                    "success": false,
+                    "msg": "Can't find the product brah."
+                });
+            }
+        } else {
+            //Product.find({}, (error, product) => { });
+            var items = [];
+            //Last 10 products
+            Product.find({}).sort('-date').limit(10).exec(function (err, products) {
+                products.forEach(function (prod) {
+                    items.push(prod);
+                });
+                res.status(200).send({
+                    "success": true,
+                    "msg": "Ya itemz bra.",
+                    "data": items
+                });
             });
-            res.status(200).send({
-                "success": true,
-                "msg": "Ya itemz bra",
-                "data": items
-            });
-        });
+        }
 
     });
     return publicRouter;

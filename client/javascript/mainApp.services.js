@@ -64,19 +64,26 @@ var app = angular.module('mainApp')
                     });
             },
             getItems: (query, callback) => {
+                //No query
                 if (!query) {
-                    $http.get(baseUrl + 'getItems')
+                    $http.post(baseUrl + 'getItems')
                         .then((successResponse) => {
                             if (successResponse.data.data) {
                                 callback(successResponse.data.data);
                             }
                         }, (errorResponse) => {
-                            alert("Something went wrong.")
                         });
                 }
-
-
-
+                //Some query
+                else {
+                    $http.post(baseUrl + 'getItems', query)
+                        .then((successResponse) => {
+                            if (successResponse.data.data) {
+                                callback(successResponse.data.data);
+                            }
+                        }, (errorResponse) => {
+                        });
+                }
             }
         };
     }]);
