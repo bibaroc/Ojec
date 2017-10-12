@@ -1,11 +1,13 @@
 <div>
     <div style="padding:15px 15px 15px 15px; display: inline-block;width:100%;border:1px solid black" ng-repeat="item in items">
-        <img ng-click="rerout(item)" ng-src="{{item.img[0]}}" style="float: left;padding-right: 20px; max-height: 18em; width:32em">
+        <img ng-click="rerout(item)" ng-src="{{item.img[0]}}" style="float: left;margin-right: 20px; max-height: 18em; width:25%">
         <div>
-            <h3 style="margin-top:0" ng-click="rerout(item)">
-                {{item.name}}
-            </h3>
-            <p>{{item.description}}</p>
+            <div style="width:70%">
+                <h3 style="margin-top:0" ng-click="rerout(item)">
+                    {{item.name}}
+                </h3>
+                <p>{{item.description}}</p>
+            </div>
             <div style="float: right">
                 <p>{{item.quantity}} available</p>
                 <p>{{item.price | currency:'€'}}</p>

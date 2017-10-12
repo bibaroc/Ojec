@@ -17,7 +17,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
 /////////////////////////////////////////////////////
 (new Product({
     "name": "Alpaca",
-    "description": "+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++AlpacaDescription+++",
+    "description": " +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ AlpacaDescription +++ ",
     "category": "",
     "weight": 14,
     "price": 3,
@@ -31,7 +31,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
     else {
         (new Product({
             "name": "Pepe",
-            "description": "+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++PepeDescription+++",
+            "description": " +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ PepeDescription +++ ",
             "category": "",
             "weight": 1,
             "price": 1,
@@ -45,7 +45,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
             else {
                 (new Product({
                     "name": "Doge",
-                    "description": "DogeDescription+++DogeDescription+++DogeDescription+++DogeDescription+++DogeDescription+++DogeDescription+++DogeDescription+++DogeDescription+++DogeDescription+++DogeDescription+++",
+                    "description": "DogeDescription +++ DogeDescription +++ DogeDescription +++ DogeDescription +++ DogeDescription +++ DogeDescription +++ DogeDescription +++ DogeDescription +++ DogeDescription +++ DogeDescription +++ ",
                     "category": "",
                     "weight": 2,
                     "price": 2,
@@ -59,7 +59,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                     else {
                         (new Product({
                             "name": "Frog",
-                            "description": "FrogDescription+++FrogDescription+++FrogDescription+++FrogDescription+++FrogDescription+++FrogDescription+++FrogDescription+++FrogDescription+++FrogDescription+++FrogDescription+++",
+                            "description": "FrogDescription +++ FrogDescription +++ FrogDescription +++ FrogDescription +++ FrogDescription +++ FrogDescription +++ FrogDescription +++ FrogDescription +++ FrogDescription +++ FrogDescription +++ ",
                             "category": "",
                             "weight": 3,
                             "price": 3,
@@ -73,7 +73,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                             else {
                                 (new Product({
                                     "name": "LeekSpin",
-                                    "description": "LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++LeekSpinDescription+++",
+                                    "description": "LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ LeekSpinDescription +++ ",
                                     "category": "",
                                     "weight": 4,
                                     "price": 4,
@@ -101,7 +101,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                                             else {
                                                 (new Product({
                                                     "name": "Cat",
-                                                    "description": "catDescription+++catDescription+++catDescription+++catDescription+++catDescription+++catDescription+++catDescription+++catDescription+++catDescription+++catDescription+++",
+                                                    "description": "catDescription +++ catDescription +++ catDescription +++ catDescription +++ catDescription +++ catDescription +++ catDescription +++ catDescription +++ catDescription +++ catDescription +++ ",
                                                     "category": "",
                                                     "weight": 7,
                                                     "price": 7,
@@ -115,7 +115,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                                                     else {
                                                         (new Product({
                                                             "name": "Cow",
-                                                            "description": "cowDescription+++cowDescription+++cowDescription+++cowDescription+++cowDescription+++cowDescription+++cowDescription+++cowDescription+++cowDescription+++cowDescription+++",
+                                                            "description": "cowDescription +++ cowDescription +++ cowDescription +++ cowDescription +++ cowDescription +++ cowDescription +++ cowDescription +++ cowDescription +++ cowDescription +++ cowDescription +++ ",
                                                             "category": "",
                                                             "weight": 8,
                                                             "price": 8,
@@ -129,7 +129,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                                                             else {
                                                                 (new Product({
                                                                     "name": "Dog",
-                                                                    "description": "dogDescription+++dogDescription+++dogDescription+++dogDescription+++dogDescription+++dogDescription+++dogDescription+++dogDescription+++dogDescription+++dogDescription+++",
+                                                                    "description": "dogDescription +++ dogDescription +++ dogDescription +++ dogDescription +++ dogDescription +++ dogDescription +++ dogDescription +++ dogDescription +++ dogDescription +++ dogDescription +++ ",
                                                                     "category": "",
                                                                     "weight": 9,
                                                                     "price": 9,
@@ -143,7 +143,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                                                                     else {
                                                                         (new Product({
                                                                             "name": "Mouse",
-                                                                            "description": "mouseDescription+++mouseDescription+++mouseDescription+++mouseDescription+++mouseDescription+++mouseDescription+++mouseDescription+++mouseDescription+++mouseDescription+++mouseDescription+++",
+                                                                            "description": "mouseDescription +++ mouseDescription +++ mouseDescription +++ mouseDescription +++ mouseDescription +++ mouseDescription +++ mouseDescription +++ mouseDescription +++ mouseDescription +++ mouseDescription +++ ",
                                                                             "category": "",
                                                                             "weight": 10,
                                                                             "price": 10,
@@ -157,7 +157,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                                                                             else {
                                                                                 (new Product({
                                                                                     "name": "Sonic",
-                                                                                    "description": "sonicDescription+++sonicDescription+++sonicDescription+++sonicDescription+++sonicDescription+++sonicDescription+++sonicDescription+++sonicDescription+++sonicDescription+++sonicDescription+++",
+                                                                                    "description": "sonicDescription +++ sonicDescription +++ sonicDescription +++ sonicDescription +++ sonicDescription +++ sonicDescription +++ sonicDescription +++ sonicDescription +++ sonicDescription +++ sonicDescription +++ ",
                                                                                     "category": "",
                                                                                     "weight": 11,
                                                                                     "price": 11,
@@ -171,7 +171,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                                                                                     else {
                                                                                         (new Product({
                                                                                             "name": "Rat",
-                                                                                            "description": "ratDescription+++ratDescription+++ratDescription+++ratDescription+++ratDescription+++ratDescription+++ratDescription+++ratDescription+++ratDescription+++ratDescription+++",
+                                                                                            "description": "ratDescription +++ ratDescription +++ ratDescription +++ ratDescription +++ ratDescription +++ ratDescription +++ ratDescription +++ ratDescription +++ ratDescription +++ ratDescription +++ ",
                                                                                             "category": "",
                                                                                             "weight": 12,
                                                                                             "price": 12,
@@ -185,7 +185,7 @@ mongoose.connect(conf.database, conf.databaseOptions);
                                                                                             else {
                                                                                                 (new Product({
                                                                                                     "name": "Sheldon",
-                                                                                                    "description": "SheldonDescription+++SheldonDescription+++SheldonDescription+++SheldonDescription+++SheldonDescription+++SheldonDescription+++SheldonDescription+++SheldonDescription+++SheldonDescription+++SheldonDescription+++",
+                                                                                                    "description": "SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ SheldonDescription +++ ",
                                                                                                     "category": "",
                                                                                                     "weight": 5,
                                                                                                     "price": 5,
