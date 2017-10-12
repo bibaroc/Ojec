@@ -24,7 +24,7 @@ angular.module('mainApp')
                 controller: 'frontPageController'
             })
             .when('/product/:productID', {
-                template: "matches",
+                templateUrl: "partials/productPage.html",
                 controller: "productPageController"
             })
             .when('/404', {

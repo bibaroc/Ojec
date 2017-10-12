@@ -1,0 +1,21 @@
+<!-- <div style="display:inline"> -->
+<!-- <div style="width: 40%; margin:3em 3em 3em 3em"> -->
+<!-- <img ng-click="next()" ng-src="{{item.img[current]}}" style="width: 100%;max-height: 100%; float:left"> -->
+<!-- </div> -->
+<!-- <h1>{{item.name}}</h1> -->
+<!-- </div> -->
+
+
+<div style="padding:15px 15px 15px 15px; display: inline-block;width:100%;">
+    <img ng-click="next()" ng-src="{{item.img[current]}}" style="float: left;margin-right: 20px; max-height: auto; width:40%">
+    <div>
+        <h1 style="margin-top:0;">
+            {{item.name}}
+        </h1>
+    </div>
+    <div style="float: right;text-transform: uppercase">
+            <p>{{item.quantity}} available</p>
+            <p>{{item.price | currency:'€'}}</p>
+        </div>
+</div>
+<p>{{item.description}}</p>
