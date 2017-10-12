@@ -139,7 +139,7 @@ module.exports = (function () {
         if (req.body.id) {
             //Regex pattern
             if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-                Product.findOne({ "id": req.body.id }, function (err, product) {
+                Product.findOne({ "_id": req.body.id }, function (err, product) {
                     //Error looking up the db
                     if (err) {
                         console.log(err.code + " : " + err.message);
