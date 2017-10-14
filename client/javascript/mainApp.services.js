@@ -84,6 +84,33 @@ var app = angular.module('mainApp')
                         }, (errorResponse) => {
                         });
                 }
+            },
+            unWatch: (item, callback) => {
+                alert("unwatching");
+                $http.post(baseUrl + 'user/unwatch', {"id":item._id})
+                    .then((successResponse) => {
+                        if (successResponse.data.msg) {
+                            callback(successResponse.data.msg);
+                        }
+                    }, (errorResponse) => {
+                    });
             }
         };
-    }]);
+    }])
+    .service('productService', function () {
+        var productList = [];
+
+        var addProduct = function (newObj) {
+            productList.push(newObj);
+        };
+
+        var getProducts = function () {
+            return productList;
+        };
+
+        return {
+            addProduct: addProduct,
+            getProducts: getProducts
+        };
+
+    });

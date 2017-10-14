@@ -1,5 +1,5 @@
 angular.module('mainApp')
-    .controller('meController', ['$scope', '$localStorage', 'Main', function ($scope, $localStorage, Main) {
+    .controller('meController', ['$scope', '$localStorage', 'Main', 'productService', function ($scope, $localStorage, Main, productService) {
         if ($localStorage.ojecToken) {
             $scope.logged = true;
             Main.getUserData(function gotta(data) {
@@ -12,6 +12,19 @@ angular.module('mainApp')
                     "admin": data.user.admin
                 }
                 $scope.user = user;
+                // console.log(data.user.itemsWatching);
+                // angular.forEach(data.user.itemsWatching, function (key, value) {
+                // productService.addProduct(value + '  ' + key);
+                // });
+                // console.log(productService.getProducts());
+                var itemsWatching = [];
+                angular.forEach(data.user.itemsWatching, function (item) {
+                    Main.getItems({ "id": item }, (data) => {
+                        itemsWatching.push(data);
+                    });
+                });
+                $scope.itemsWatching = itemsWatching;
+                console.log(itemsWatching);
             });
         } else {
             $scope.logged = false;
@@ -20,8 +33,16 @@ angular.module('mainApp')
             "name": "undefined"
         }
         $scope.popup = false;
-       
-        $scope.logout = ()=>{
+
+        $scope.unWatch = function (item) {
+            alert("unwaching");
+            Main.unWatch(item, (data) => {
+                $scope.message = data;
+            });
+
+        };
+
+        $scope.logout = () => {
             Main.logout();
         }
     }]);

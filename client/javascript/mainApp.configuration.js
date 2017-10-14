@@ -9,7 +9,12 @@ angular.module('mainApp')
             .when('/user', {
                 templateUrl: '/partials/user/user.html',
                 controller: 'meController'
-            }).when('/addItemToSell', {
+            })
+            .when('/watchList', {
+                templateUrl: 'partials/watchList.html',
+                controller: 'meController'
+            })
+            .when('/addItemToSell', {
                 templateUrl: '/partials/sellItem/sellItem.html',
                 controller: 'sellItem'
             })

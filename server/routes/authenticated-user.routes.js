@@ -1,4 +1,5 @@
 var User = require("../modules/user");
+var mongoose = require('mongoose');
 
 module.exports = (function () {
     'use strict';
@@ -44,6 +45,58 @@ module.exports = (function () {
                                 "admin": user.admin
                             }
                         });
+                }
+            });
+    });
+    userRouter.post("/unwatch", function (req, res) {
+        console.log(req.body);
+        User.findOne(
+            { "email": req.decoded.email },
+            function (error, user) {
+                if (error) {
+                    res.status(500).send(
+                        {
+                            "success": false,
+                            "msg": "There was an error while looking up the user."
+                        });
+                }
+                else if (!user) {
+                    res.status(406).send(
+                        {
+                            "success": false,
+                            "msg": "This should never happen...wtf?"
+                        });
+                }
+                else {
+                    var index = user.itemsWatching.indexOf(req.body.id);
+                    if (index > -1) {
+                        user.itemsWatching.splice(index, 1);
+                        console.log(user.itemsWatching[index]);
+                        user.save((errorSavingUser) => {
+                            if (errorSavingUser)
+                                res.send({ "success": false, "msg": "Apparently we cannot code." });
+                            else
+                                res.send({
+                                    "success": true, "msg": "Item deleted from your watchlist"
+                                });
+                        });
+                    } else {
+                        res.send({
+                            "success": false,
+                            "msg": "Are you messing me up u little bastard?"
+                        });
+                    }
+                    // var code = mongoose.Types.ObjectId(req.body.id);
+                    // user.itemsWatching = user.itemsWatching.filter((id) => { return id !== req.body.id });
+                    // console.log(user.itemsWatching);
+                    // user.save((errorSavingUser) => {
+                    //     if (errorSavingUser)
+                    //         res.send({ "success": false, "msg": "Apparently we cannot code." });
+                    //     else
+                    //         res.send({
+                    //             "success": true, "msg": "Item deleted from your watchlist"
+                    //         });
+                    // });
                 }
             });
     });
