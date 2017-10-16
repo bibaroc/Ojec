@@ -7,7 +7,7 @@ angular.module('mainApp')
                 controller: 'signInController'
             })
             .when('/user', {
-                templateUrl: '/partials/user/user.html',
+                templateUrl: '/partials/user.html',
                 controller: 'meController'
             })
             .when('/watchList', {
@@ -15,7 +15,7 @@ angular.module('mainApp')
                 controller: 'meController'
             })
             .when('/addItemToSell', {
-                templateUrl: '/partials/sellItem/sellItem.html',
+                templateUrl: '/partials/sellItem.html',
                 controller: 'sellItem'
             })
             .when('/about', {
