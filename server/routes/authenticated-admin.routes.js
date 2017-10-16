@@ -5,7 +5,6 @@ module.exports = (function () {
     var mongoose = require('mongoose');
     var User = require("../modules/user");
     var Product = require("../modules/product");
-    // var parser = require("body-parser");
 
     //Multer configuration
     var multer = require('multer');
@@ -30,8 +29,30 @@ module.exports = (function () {
     });
     var upload = multer({ storage: storage });
 
-    // adminRouter.use(parser.urlencoded({ "extended": true }));
-    // adminRouter.use(parser.json());
+    //Mailer Configuration
+    // var nodemailer = require('nodemailer');
+    // var transporter = nodemailer.createTransport({
+    //   service: 'gmail',
+    //   auth: {
+    //     user: 'vladyslavbbb@gmail.com',
+    //     pass: '#########'
+    //   }
+    // });
+
+    // var mailOptions = {
+    //     from: 'youremail@gmail.com',
+    //     to: 'myfriend@yahoo.com',
+    //     subject: 'Sending Email using Node.js',
+    //     text: 'That was easy!'
+    //   };
+
+    //   transporter.sendMail(mailOptions, function(error, info){
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log('Email sent: ' + info.response);
+    //     }
+    //   });
 
     adminRouter.get("/", (req, res) => {
         res.send(
@@ -116,6 +137,91 @@ module.exports = (function () {
                 "msg": mss
             });
         }
+    });
+
+    adminRouter.post("/deleteItem", function (req, res) {
+        User.findOne({ "email": req.decoded.email }, function (errorLookingUpSeller, seller) {
+            if (errorLookingUpSeller) {
+                res.status(500).send(
+                    {
+                        "success": false,
+                        "msg": "There was an error while looking ypou up."
+                    });
+            }
+            else if (!seller) {
+                res.status(406).send(
+                    {
+                        "success": false,
+                        "msg": "Seller not found: " + req.decoded.email + " . Should never happen."
+                    });
+            }
+            else {
+                //Found the seller.20
+                if (seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
+                    //He actualy sells the item
+                    Product.findById(req.body.id, function (errorLookingUpProduct, productFound) {
+                        if (errorLookingUpProduct) {
+                            res.status(500).send(
+                                {
+                                    "success": false,
+                                    "msg": "There was an error while looking up the product you are trying to delete."
+                                });
+                        }
+                        else if (!productFound) {
+                            res.status(406).send(
+                                {
+                                    "success": false,
+                                    "msg": "Apparently we are not able to find the product you are trying to delete."
+                                });
+                        } else {
+                            //Certain of the poroduct and of the seller
+                            seller.itemsSelling.splice(seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                            productFound.remove((errorRemoving) => {
+                                if (errorRemoving)
+                                    res.status(500).send(
+                                        {
+                                            "success": false,
+                                            "msg": "There was an error while removing the document."
+                                        });
+                                else {
+                                    seller.save(function (errorSavingUser) {
+                                        if (errorSavingUser)
+                                            res.status(500).send(
+                                                {
+                                                    "success": false,
+                                                    "msg": "There was an error while removing the document."
+                                                });
+                                        else {
+                                            //Document removed and seller updated and saved.
+                                            User.find({ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, function (err, userList) {
+                                                if (err)
+                                                    res.status(500).send({
+                                                        "success": true,
+                                                        "msg": "Item currently removed and you information updated but crashed while looking up subscribers."
+                                                    });
+                                                else {
+                                                    //Send an email to every subscriber
+                                                }
+                                            });
+                                            res.status(200).send({
+                                                "success": true,
+                                                "msg": "Item currently removed, your personal info updated and potential buyers will be notified soon(ish)."
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+
+                        }
+                    });
+                } else {
+                    res.status(200).send({
+                        "success": false,
+                        "msg": "Are you tinkering with the server? Trying to delete items you dont own?"
+                    });
+                }
+            }
+        });
     });
     return adminRouter;
 })();

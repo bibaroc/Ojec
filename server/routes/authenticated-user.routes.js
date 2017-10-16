@@ -121,7 +121,6 @@ module.exports = (function () {
                         });
                     } else {
                         //Everything is ok
-                        user.itemsWatching.push(mongoose.Types.ObjectId(req.body.id));
                         if (user.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
                             res.status(200).send({
                                 "success": false,
@@ -129,6 +128,7 @@ module.exports = (function () {
                             });
                         }
                         else {
+                            user.itemsWatching.push(mongoose.Types.ObjectId(req.body.id));
                             user.save((errorSavingUser) => {
                                 if (errorSavingUser)
                                     res.status(500).send({ "success": false, "msg": "Apparently I cannot code." });

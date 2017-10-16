@@ -1,5 +1,5 @@
 angular.module('mainApp')
-    .controller('meController', ['$scope', '$localStorage', 'Main', 'productService', function ($scope, $localStorage, Main, productService) {
+    .controller('userController', ['$scope', '$localStorage', 'Main', '$http', function ($scope, $localStorage, Main, $http) {
         if ($localStorage.ojecToken) {
             $scope.logged = true;
             Main.getUserData(function gotta(data) {
@@ -7,8 +7,6 @@ angular.module('mainApp')
                     "name": data.user.name,
                     "lastName": data.user.lastName,
                     "email": data.user.email,
-                    "itemsWatching": data.user.itemsWatching,
-                    "itemsSelling": data.user.itemsSelling,
                     "admin": data.user.admin
                 }
                 $scope.user = user;
@@ -24,25 +22,47 @@ angular.module('mainApp')
                     });
                 });
                 $scope.itemsWatching = itemsWatching;
-                console.log(itemsWatching);
+                // console.log(itemsWatching);
+                if (data.user.admin) {
+                    var itemsSelling = [];
+                    angular.forEach(data.user.itemsSelling, function (item) {
+                        Main.getItems({ "id": item }, (data) => {
+                            itemsSelling.push(data);
+                        });
+                    });
+                    $scope.itemsSelling = itemsSelling;
+                }
             });
         } else {
             $scope.logged = false;
-        }
-        $scope.user = {
-            "name": "undefined"
+            $scope.user = {
+                "name": "undefined"
+            }
         }
         $scope.popup = false;
 
         $scope.unWatch = function (item) {
-            alert("unwaching");
             Main.unWatch(item, (data) => {
                 $scope.message = data;
             });
 
         };
 
+        $scope.deleteItem = (item) => {
+            if (confirm("Are you sure you want to delete the insertion?")) {
+                $http.post("http://localhost:8080/admin/deleteItem", { "id": item._id })
+                    .then(function successCallback(response) {
+                        if (response.data.success) {
+                            alert("ItemDeleted");
+                            $scope.itemsSelling.splice($scope.itemsSelling.indexOf(item));
+                        } else
+                            alert(response.dat.msg);
+                    }, function errorCallback(response) {
+                        // alert("Something went wrong.")
+                    });
+            }
+        };
         $scope.logout = () => {
             Main.logout();
-        }
+        };
     }]);
