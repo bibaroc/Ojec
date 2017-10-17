@@ -173,7 +173,7 @@ module.exports = (function () {
             //Product.find({}, (error, product) => { });
             var items = [];
             //Last 10 products
-            Product.find({}).sort('-date').limit(10).exec(function (err, products) {
+            Product.find({}).sort('date').limit(10).exec(function (err, products) {
                 products.forEach(function (prod) {
                     items.push(prod);
                 });

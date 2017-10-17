@@ -35,7 +35,7 @@ module.exports = (function () {
         service: 'gmail',
         auth: {
             user: 'myfreakinmailer@gmail.com',
-            pass: '###############'
+            pass: '###########'
         }
     });
 
@@ -230,6 +230,91 @@ module.exports = (function () {
                     res.status(200).send({
                         "success": false,
                         "msg": "Are you tinkering with the server? Trying to delete items you dont own?"
+                    });
+                }
+            }
+        });
+    });
+
+
+    adminRouter.post("/updateItem", (req, res) => {
+        User.findOne({ "email": req.decoded.email }, (errorSearchingUser, seller) => {
+            if (errorSearchingUser)
+                res.status(500).send({
+                    "success": false,
+                    "msg": "Apparently I cant code for shits and giggles"
+                });
+            else if (!seller)
+                res.status(400).send({
+                    "success": false,
+                    "msg": "Apparently we cannot find you in out db, are you ure you are a certified seller?"
+                });
+            else {
+                var itemID = mongoose.Types.ObjectId(req.body.id);
+                if (seller.itemsSelling.indexOf(itemID) > -1) {
+                    //He should own the item....
+                    Product.findById(itemID, (errorSearchingProduct, product) => {
+                        if (errorSearchingProduct)
+                            res.status(500).send({
+                                "success": false,
+                                "msg": "Seems like i cant code for shit"
+                            });
+                        else if (!product)
+                            res.status(400).send({
+                                "success": false,
+                                "msg": "We cannot find the item you are looking to update"
+                            });
+                        else {
+                            //Update product unconditionaly
+                            product.name = req.body.name;
+                            product.description = req.body.description;
+                            product.quantity = parseInt(req.body.quantity);
+                            product.price = parseFloat(req.body.price);
+                            product.weight = parseFloat(req.body.weight);
+                            product.save((errorSaving) => {
+                                if (errorSaving)
+                                    res.status(500).send({
+                                        "success": false,
+                                        "msg": "well fking done vlad"
+                                    });
+                                else {
+                                    //Product Saved successfuly
+                                    var mailOptions = {
+                                        from: 'myfreakinmailer@gmail.com',
+                                        to: "",
+                                        subject: 'Information',
+                                        text: 'Dear Customer, we kindly inform you that an item you were watching was updated bu his owner and we invite you to take a look.'
+                                    };
+                                    User.find({ "itemsWatching": itemID }, (error, subscribers) => {
+                                        if (error)
+                                            res.status(500).send({
+                                                "success": false,
+                                                "msg": "repetition, repetition"
+                                            });
+                                        else {
+                                            subscribers.forEach((unit) => {
+                                                if (subscribers.indexOf(unit) === 0)
+                                                    mailOptions.to += unit.email;
+                                                else
+                                                    mailOptions.to += ", " + unit.email
+                                                if (subscribers.indexOf(unit) + 1 === subscribers.length)
+                                                    transporter.sendMail(mailOptions, function (error, info) {
+                                                        if (error) {
+                                                            console.log(error);
+                                                        } else {
+                                                            console.log('Email sent: ' + info.response);
+                                                        }
+                                                    });
+                                            });
+                                        }
+                                    });
+                                    res.status(200).send({
+                                        "success": true,
+                                        "msg": "Desired product updated and potential buyers will be notified soon(ish)."
+                                    });
+                                }
+                            });
+                        }
                     });
                 }
             }

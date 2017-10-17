@@ -18,7 +18,7 @@ angular.module('mainApp')
         $scope.addToWishist = () => {
             $http.post("http://localhost:8080/user/addToWishist", { "id": $window.location.href.split("/product/")[1] })
                 .then(function successCallback(response) {
-                    $scope.added = response.data.msg;
+                    alert(response.data.msg);
                 }, function errorCallback(response) {
                     // alert("Something went wrong.")
                 });
