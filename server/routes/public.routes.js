@@ -134,7 +134,6 @@ module.exports = (function () {
 
     //TODO: Fix
     publicRouter.post("/getItems", function (req, res) {
-        console.log(req.body);
         //If someone asks for a specific id i can try and search the db
         if (req.body.id) {
             //Regex pattern

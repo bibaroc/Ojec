@@ -56,7 +56,7 @@ var app = angular.module('mainApp')
                 })
                     .then(function successCallback(response) {
                         if (response.data.success) {
-                            alert("success");
+                            alert(response.data.msg);
                             $window.location.href = '#!/user.html';
                         }
                     }, function errorCallback(response) {
@@ -86,7 +86,6 @@ var app = angular.module('mainApp')
                 }
             },
             unWatch: (item, callback) => {
-                alert("unwatching");
                 $http.post(baseUrl + 'user/unwatch', {"id":item._id})
                     .then((successResponse) => {
                         if (successResponse.data.msg) {

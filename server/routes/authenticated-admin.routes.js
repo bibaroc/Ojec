@@ -1,13 +1,13 @@
 module.exports = (function () {
     'use strict';
     var adminRouter = require("express").Router();
-    var fs = require('fs');
     var mongoose = require('mongoose');
     var User = require("../modules/user");
     var Product = require("../modules/product");
 
     //Multer configuration
     var multer = require('multer');
+    var fs = require('fs');
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             fs.stat("../client/uploads/" + req.decoded.email.split('@')[0], function (err, stats) {
@@ -30,29 +30,14 @@ module.exports = (function () {
     var upload = multer({ storage: storage });
 
     //Mailer Configuration
-    // var nodemailer = require('nodemailer');
-    // var transporter = nodemailer.createTransport({
-    //   service: 'gmail',
-    //   auth: {
-    //     user: 'vladyslavbbb@gmail.com',
-    //     pass: '#########'
-    //   }
-    // });
-
-    // var mailOptions = {
-    //     from: 'youremail@gmail.com',
-    //     to: 'myfriend@yahoo.com',
-    //     subject: 'Sending Email using Node.js',
-    //     text: 'That was easy!'
-    //   };
-
-    //   transporter.sendMail(mailOptions, function(error, info){
-    //     if (error) {
-    //       console.log(error);
-    //     } else {
-    //       console.log('Email sent: ' + info.response);
-    //     }
-    //   });
+    var nodemailer = require('nodemailer');
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'myfreakinmailer@gmail.com',
+            pass: '###############'
+        }
+    });
 
     adminRouter.get("/", (req, res) => {
         res.send(
@@ -176,6 +161,8 @@ module.exports = (function () {
                         } else {
                             //Certain of the poroduct and of the seller
                             seller.itemsSelling.splice(seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                            if (seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
+                                seller.itemsWatching.splice(seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
                             productFound.remove((errorRemoving) => {
                                 if (errorRemoving)
                                     res.status(500).send(
@@ -194,13 +181,38 @@ module.exports = (function () {
                                         else {
                                             //Document removed and seller updated and saved.
                                             User.find({ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, function (err, userList) {
+                                                // console.log(userList);
                                                 if (err)
                                                     res.status(500).send({
                                                         "success": true,
                                                         "msg": "Item currently removed and you information updated but crashed while looking up subscribers."
                                                     });
                                                 else {
-                                                    //Send an email to every subscriber
+                                                    var mailOptions = {
+                                                        from: 'myfreakinmailer@gmail.com',
+                                                        to: "",
+                                                        subject: 'Information',
+                                                        text: 'Dear Customer, we kindly inform you that an item you were watching was removed from our website by his owner.'
+                                                    };
+                                                    userList.forEach((subscriber) => {
+                                                        // console.log("operating on " + subscriber.email);
+                                                        //Remove the item from the watchlist
+                                                        subscriber.itemsWatching.splice(subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                                                        if (userList.indexOf(subscriber) == 0)
+                                                            mailOptions.to += subscriber.email;
+                                                        else
+                                                            mailOptions.to += ", " + subscriber.email;
+                                                        if (userList.indexOf(subscriber) + 1 == userList.length) {
+                                                            // console.log(mailOptions);
+                                                            transporter.sendMail(mailOptions, function (error, info) {
+                                                                if (error) {
+                                                                    console.log(error);
+                                                                } else {
+                                                                    console.log('Email sent: ' + info.response);
+                                                                }
+                                                            });
+                                                        }
+                                                    });
                                                 }
                                             });
                                             res.status(200).send({

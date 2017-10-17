@@ -29,9 +29,9 @@ names.forEach((name) => {
         "name": name,
         "description": ("+++ " + name + "Description ").repeat(10),
         "category": "",
-        "weight": names.indexOf(name),
-        "price": names.indexOf(name),
-        "quantity": names.indexOf(name),
+        "weight": names.indexOf(name) + 1,
+        "price": names.indexOf(name) + 1,
+        "quantity": names.indexOf(name) + 1,
         "img": ["uploads/" + name.toLowerCase() + "0.jpg", "uploads/" + name.toLowerCase() + "1.jpg", "uploads/" + name.toLowerCase() + "2.jpg"],
         "seller": seller._id
     });
