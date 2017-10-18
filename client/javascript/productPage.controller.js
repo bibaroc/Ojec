@@ -1,5 +1,5 @@
 angular.module('mainApp')
-    .controller('productPageController', ['$scope', 'Main', '$window', '$http', function ($scope, Main, $window, $http) {
+    .controller('productPageController', ['$scope', 'Main', '$window', '$http', 'itemsWatchingSrv', function ($scope, Main, $window, $http, itemsWatchingSrv) {
         $scope.current = 0;
         var size = 0;
         Main.getItems({ 'id': $window.location.href.split("/product/")[1] }, (responseData) => {
@@ -18,7 +18,9 @@ angular.module('mainApp')
         $scope.addToWishist = () => {
             $http.post("http://localhost:8080/user/addToWishist", { "id": $window.location.href.split("/product/")[1] })
                 .then(function successCallback(response) {
-                    alert(response.data.msg);
+                    if (response.data.success)
+                        itemsWatchingSrv.addProduct($scope.item);
+                    $scope.watchingMsg = response.data.msg;
                 }, function errorCallback(response) {
                     // alert("Something went wrong.")
                 });

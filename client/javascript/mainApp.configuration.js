@@ -12,11 +12,11 @@ angular.module('mainApp')
             })
             .when('/watchList', {
                 templateUrl: 'partials/watchList.html',
-                controller: 'userController'
+                controller: 'watchListController'
             })
             .when("/itemsSelling", {
                 templateUrl: "partials/itemsCurrentlySelling.html",
-                controller: "userController"
+                controller: "sellListController"
             })
             .when('/addItemToSell', {
                 templateUrl: '/partials/sellItem.html',
