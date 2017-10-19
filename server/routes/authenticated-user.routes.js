@@ -42,6 +42,7 @@ module.exports = (function () {
                                 "email": user.email,
                                 "itemsWatching": user.itemsWatching,
                                 "itemsSelling": user.itemsSelling,
+                                "cart": user.cart,
                                 "admin": user.admin
                             }
                         });

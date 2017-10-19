@@ -18,6 +18,10 @@ angular.module('mainApp')
                 templateUrl: "partials/itemsCurrentlySelling.html",
                 controller: "sellListController"
             })
+            .when('/cart', {
+                templateUrl: '/partials/cart.html',
+                controller: 'cartController'
+            })
             .when('/addItemToSell', {
                 templateUrl: '/partials/sellItem.html',
                 controller: 'sellItem'

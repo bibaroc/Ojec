@@ -37,4 +37,23 @@ var app = angular.module('mainApp')
             getProducts: getProducts,
             remove: remove
         };
-    });
+    })
+    .service('cartSrv', function () {
+        var cart = [];
+
+        var addProduct = function (newObj) {
+            cart.push(newObj);
+        };
+        var getProducts = function () {
+            return cart;
+        };
+        var remove = function (item) {
+            return cart.indexOf(item) > -1 ? cart.splice(cart.indexOf(item), 1) : -1;
+        }
+
+        return {
+            addProduct: addProduct,
+            getProducts: getProducts,
+            remove: remove
+        };
+    })
