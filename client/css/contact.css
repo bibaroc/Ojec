@@ -1,0 +1,55 @@
+/* H1 */
+#h1 {
+    text-transform: uppercase;
+    padding-left: 20px;
+    color: #757575;
+    font-family: Arial, Helvetica;
+}
+/* STYLE DIV */
+#form { 
+    display: inline-block;
+    width:70%;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-left: 400px;
+}
+/* DIV AUTHOR LUCIA */
+#lucia {
+    float: left;
+}
+#lucia label {
+    color: #cc0000;
+    text-transform: uppercase;
+}
+#lucia p {
+    border-bottom: 2px solid #dcdcdc;
+    padding-bottom: 3px;
+}
+/* IMG AUTHOR LUCIA */
+#luciaf {
+    float: right;
+    margin-right: 20px;
+    max-height: auto; 
+    width:40%;
+    border: 2px solid #b30000;
+}
+/* DIV AUTHOR VLADYSLAV */
+#vlad {
+    float: right;
+}
+#vlad label {
+    color: #cc0000;
+    text-transform: uppercase;
+}
+#vlad p {
+    border-bottom: 2px solid #dcdcdc;
+    padding-bottom: 3px;
+}
+/* IMG AUTHOR VLADYSLAV */
+#vladf {
+    float: left;
+    margin-right: 20px; 
+    max-height: auto; 
+    width:40%;
+    border: 2px solid #b30000;
+}

@@ -18,10 +18,6 @@ angular.module('mainApp')
                 templateUrl: "partials/itemsCurrentlySelling.html",
                 controller: "sellListController"
             })
-            .when('/cart', {
-                templateUrl: '/partials/cart.html',
-                controller: 'cartController'
-            })
             .when('/addItemToSell', {
                 templateUrl: '/partials/sellItem.html',
                 controller: 'sellItem'
@@ -31,6 +27,9 @@ angular.module('mainApp')
             })
             .when('/contact', {
                 templateUrl: 'partials/contact.html'
+            })
+            .when('/sell', {
+                templateUrl: 'partials/sell.html'
             })
             .when('/frontpage', {
                 templateUrl: 'partials/frontpage.html',

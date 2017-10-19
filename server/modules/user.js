@@ -14,8 +14,7 @@ var User = mongoose.model('User', new Schema({
         "type": Boolean, "default": false
     },
     "itemsWatching": [Schema.ObjectId],
-    "itemsSelling": [Schema.ObjectId],
-    "cart": [Schema.ObjectId]
+    "itemsSelling": [Schema.ObjectId]
 }));
 
 module.exports = User;

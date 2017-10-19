@@ -1,0 +1,59 @@
+/* FORM */
+#sellbox {
+	margin: auto;
+	width: 80%;
+}
+#sellbox h1 {
+	color: #cc0000;
+	font-size: 3em;
+	text-transform: uppercase;
+	font-family: Arial, Helvetica;
+}
+#sellbox h2 {
+	color: #757575;
+	font-size: 2em;
+	text-transform: uppercase;
+	font-family: Arial, Helvetica;
+}
+#sellbox label {
+	text-align: center;
+	text-transform: uppercase;
+}
+#sellbox input {
+	width: 50%;
+	height: 30px;
+    display: block;
+	border: none;
+	border-bottom: 2px solid #ebebeb;
+}
+#sellbox input:focus {
+	outline: none;
+	border-bottom-color: #cc0000 !important;
+}
+#sellbox input:hover {
+	border-bottom-color: #dcdcdc;
+}
+#sellbox input:invalid dirty {
+	box-shadow: none;
+	background-color: #cc0000;
+}
+#sellbox textarea {
+    width: 50%;
+    height: 30px;
+    display: block;
+	border: none;
+	border-bottom: 2px solid #ebebeb;
+}
+#sellbox button {
+	float: left;
+	position: static;
+	display: block;
+	width: 50%;
+	margin: 20px auto 10px;
+	color: #ffffff;
+	background-color: #cc0000;
+	border: none;
+}
+#sellbox button:hover {
+	background-color: #b30000;
+}
