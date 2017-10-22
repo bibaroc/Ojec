@@ -24,49 +24,15 @@ module.exports = (function () {
                 "lastName": req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1).toLowerCase(),
                 "email": req.body.email.toLowerCase(),
                 "hash": crypto.createHash("sha256").update(req.body.password).digest("hex"),
-                "admin": false
+                "admin": false,
+                "cart": [],
+                "itemsWatching": [],
+                "itemsSelling": []
             });
         user.save(function (err) {
             if (err) {
                 if (err.code === 11000) {
                     res.status(406).send(
-                        {
-                            "success": false,
-                            "msg": "There is already an account registered with this email."
-                        });
-                }
-            }
-            else {
-                res.status(200).send(
-                    {
-                        "success": true,
-                        "msg": "User " + user.name + " " + user.lastName + " added.",
-                        "token": jwt.sign(
-                            {
-                                "name": user.name,
-                                "lastName": user.lastName,
-                                "admin": user.admin,
-                                "email": user.email
-                            },
-                            conf.secret)
-                    });
-            }
-        });
-    });
-
-    publicRouter.post('/test', function (req, res) {
-        var user = new User(
-            {
-                "name": "Vladyslav",
-                "lastName": "Sulimovskyy",
-                "email": "sulimovskyy.vladyslav@gmail.com",
-                "hash": crypto.createHash("sha256").update("shit").digest("hex"),
-                "admin": true
-            });
-        user.save(function (err) {
-            if (err) {
-                if (err.code === 11000) {
-                    res.send(
                         {
                             "success": false,
                             "msg": "There is already an account registered with this email."

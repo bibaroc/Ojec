@@ -18,6 +18,10 @@ angular.module('mainApp')
                 templateUrl: "partials/itemsCurrentlySelling.html",
                 controller: "sellListController"
             })
+            .when('/cart', {
+                templateUrl: '/partials/cart.html',
+                controller: 'cartController'
+            })
             .when('/addItemToSell', {
                 templateUrl: '/partials/sellItem.html',
                 controller: 'sellItem'
@@ -27,9 +31,6 @@ angular.module('mainApp')
             })
             .when('/contact', {
                 templateUrl: 'partials/contact.html'
-            })
-            .when('/sell', {
-                templateUrl: 'partials/sell.html'
             })
             .when('/frontpage', {
                 templateUrl: 'partials/frontpage.html',
@@ -41,6 +42,9 @@ angular.module('mainApp')
             })
             .when('/404', {
                 template: "<h1>404 NON FOUND</h1>"
+            })
+            .when('/sell', {
+                templateUrl: 'partials/sell.html'
             })
             .otherwise({
                 redirectTo: "/frontpage"

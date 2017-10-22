@@ -58,7 +58,6 @@ module.exports = (function () {
             "quantity": parseInt(req.body.quantity),
             "img": [],
         });
-
         for (var i = 0; i < req.files.length; i++) {
             product.img.push(req.files[i].destination.slice(10) + '/' + req.files[i].filename);
         }
@@ -141,7 +140,7 @@ module.exports = (function () {
                     });
             }
             else {
-                //Found the seller.20
+                //Found the seller.
                 if (seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
                     //He actualy sells the item
                     Product.findById(req.body.id, function (errorLookingUpProduct, productFound) {
@@ -161,8 +160,8 @@ module.exports = (function () {
                         } else {
                             //Certain of the poroduct and of the seller
                             seller.itemsSelling.splice(seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
-                            if (seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
-                                seller.itemsWatching.splice(seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                            // if (seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
+                            //     seller.itemsWatching.splice(seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
                             productFound.remove((errorRemoving) => {
                                 if (errorRemoving)
                                     res.status(500).send(
@@ -180,7 +179,7 @@ module.exports = (function () {
                                                 });
                                         else {
                                             //Document removed and seller updated and saved.
-                                            User.find({ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, function (err, userList) {
+                                            User.find({$or:[{ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, { "cart": mongoose.Types.ObjectId(req.body.id) }]}, function (err, userList) {
                                                 // console.log(userList);
                                                 if (err)
                                                     res.status(500).send({
@@ -195,9 +194,11 @@ module.exports = (function () {
                                                         text: 'Dear Customer, we kindly inform you that an item you were watching was removed from our website by his owner.'
                                                     };
                                                     userList.forEach((subscriber) => {
-                                                        // console.log("operating on " + subscriber.email);
                                                         //Remove the item from the watchlist
-                                                        subscriber.itemsWatching.splice(subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                                                        if (subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
+                                                            subscriber.itemsWatching.splice(subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                                                        else if (subscriber.cart.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
+                                                            subscriber.cart.splice(subscriber.cart.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
                                                         if (userList.indexOf(subscriber) == 0)
                                                             mailOptions.to += subscriber.email;
                                                         else
@@ -207,11 +208,13 @@ module.exports = (function () {
                                                             transporter.sendMail(mailOptions, function (error, info) {
                                                                 if (error) {
                                                                     console.log(error);
-                                                                } else {
-                                                                    console.log('Email sent: ' + info.response);
                                                                 }
                                                             });
                                                         }
+                                                        subscriber.save((error) => {
+                                                            if (error)
+                                                                console.log(error);
+                                                        });
                                                     });
                                                 }
                                             });
@@ -285,7 +288,7 @@ module.exports = (function () {
                                         subject: 'Information',
                                         text: 'Dear Customer, we kindly inform you that an item you were watching was updated bu his owner and we invite you to take a look.'
                                     };
-                                    User.find({ "itemsWatching": itemID }, (error, subscribers) => {
+                                    User.find({$or:[{ "itemsWatching": itemID }, { "cart": itemsID }]}, (error, subscribers) => {
                                         if (error)
                                             res.status(500).send({
                                                 "success": false,

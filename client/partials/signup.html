@@ -1,11 +1,11 @@
 ﻿<div class="container">
     <!-- Sign Up Form -->
     <div class="col-md-6">
-    <div id="logbox">
-        <form name="signUpForm" ng-submit="signup()">
-            <h1>Create an account</h1>
-            <label>First Name:</label>
-            <input type="text" name="userFirstName" ng-model="firstName" ng-minlength="2" ng-maxlength="32765" required />
+        <div id="logbox">
+            <form name="signUpForm" ng-submit="signup()">
+                <h1>Create an account</h1>
+                <label>First Name:</label>
+                <input type="text" name="userFirstName" ng-model="firstName" ng-minlength="2" ng-maxlength="32765" required />
                 <div ng-messages="signUpForm.userFirstName.$error">
                     <div ng-message="required">This field is required</div>
                     <div ng-message="minlength">Is your name realy that short?</div>
@@ -37,17 +37,17 @@
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                 <button type="reset" class="btn btn-primary btn-block">Delete All</button>
                 <span style="color: red; float: left">{{signUpMsg}}</span>
-        </form>
+            </form>
+        </div>
     </div>
-    </div>
-    <div class="col-md-6">
     <!-- Log In Form-->
-    <div id="logbox">
-        <form name="signInForm" ng-submit="signin()" id="login">
-            <h1>Forgot to LogIn?</h1>
-            <label>Email Address:</label>
-            <input type="email" name="userEmail" ng-model="inemail" required />
-            <br/>
+    <div class="col-md-6">
+        <div id="logbox">
+            <form name="signInForm" ng-submit="signin()" id="login">
+                <h1>Forgot to LogIn?</h1>
+                <label>Email Address:</label>
+                <input type="email" name="userEmail" ng-model="inemail" required />
+                <br/>
                 <div ng-messages="signInForm.userEmail.$error">
                     <div ng-message="email">Your email address is invalid</div>
                 </div>
