@@ -288,7 +288,7 @@ module.exports = (function () {
                                         subject: 'Information',
                                         text: 'Dear Customer, we kindly inform you that an item you were watching was updated bu his owner and we invite you to take a look.'
                                     };
-                                    User.find({$or:[{ "itemsWatching": itemID }, { "cart": itemsID }]}, (error, subscribers) => {
+                                    User.find({$or:[{ "itemsWatching": itemID }, { "cart": itemID }]}, (error, subscribers) => {
                                         if (error)
                                             res.status(500).send({
                                                 "success": false,
