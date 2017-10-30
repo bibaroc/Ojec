@@ -41,14 +41,19 @@ var app = angular.module('mainApp')
     .service('cartSrv', function () {
         var cart = [];
 
-        var addProduct = function (newObj) {
-            cart.push(newObj);
+        var addProduct = function (newObj, qnt) {
+            cart.push({ item: newObj, qntt: qnt });
+            console.log(newObj.name+"  "+qnt);
         };
         var getProducts = function () {
             return cart;
         };
         var remove = function (item) {
-            return cart.indexOf(item) > -1 ? cart.splice(cart.indexOf(item), 1) : -1;
+            angular.forEach(cart, function (element) {
+                if (element.item == item)
+                    return cart.splice(cart.indexOf(element), 1);
+            });
+            return -1;
         }
 
         return {

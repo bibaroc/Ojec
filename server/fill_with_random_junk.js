@@ -21,7 +21,8 @@ var seller = new User(
         "hash": crypto.createHash("sha256").update("shit").digest("hex"),
         "admin": true,
         "itemsWatching": [],
-        "itemsSelling": []
+        "itemsSelling": [],
+        "cart": []
     });
 console.log("There should be: " + names.length + " products in the db.");
 names.forEach((name) => {

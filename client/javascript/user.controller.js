@@ -27,8 +27,8 @@ angular.module('mainApp')
                 }
                 if (cartSrv.getProducts().length === 0) {
                     angular.forEach(data.user.cart, function (item) {
-                        Main.getItems({ "id": item }, (data) => {
-                           cartSrv.addProduct(data);
+                        Main.getItems({ "id": item.item }, (data) => {
+                            cartSrv.addProduct(data, item.qnt);
                         });
                     });
                 }

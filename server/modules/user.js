@@ -15,7 +15,10 @@ var User = mongoose.model('User', new Schema({
     },
     "itemsWatching": [Schema.ObjectId],
     "itemsSelling": [Schema.ObjectId],
-    "cart": [Schema.ObjectId]
+    "cart": [{
+        item: Schema.ObjectId,
+        qnt: Number
+    }]
 }));
 
 module.exports = User;
