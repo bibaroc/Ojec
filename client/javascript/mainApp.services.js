@@ -43,7 +43,7 @@ var app = angular.module('mainApp')
 
         var addProduct = function (newObj, qnt) {
             cart.push({ item: newObj, qntt: qnt });
-            // console.log(newObj.name+"  "+qnt);
+            console.log(newObj.name+"  "+qnt);
         };
         var getProducts = function () {
             return cart;

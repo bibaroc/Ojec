@@ -19,7 +19,7 @@ var seller = new User(
         "lastName": "Sulimovskyy",
         "email": "sulimovskyy.vladyslav@gmail.com",
         "hash": crypto.createHash("sha256").update("shit").digest("hex"),
-        "admin": true,
+        "admin": true, //Admin stands for seller
         "itemsWatching": [],
         "itemsSelling": [],
         "cart": []

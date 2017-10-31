@@ -18,13 +18,17 @@
         <p>{{item.price | currency:'€'}}</p>
         <button ng-click="addToWishist()">ADD TO WISHLIST</button>
         <p>{{watchingMsg}}</p>
-        <select ng-model="chosen" ng-show="item.quantity>0">
-            <option ng-repeat="a in [].constructor(item.quantity) track by $index" ng-value="$index+1">{{$index+1}}</option>
-        </select>
+        <div ng-show="item.quantity>0">
+            <select ng-model="chosen">
+                <option ng-repeat="a in [].constructor(item.quantity) track by $index" ng-value="$index+1">{{$index+1}}</option>
+            </select>
+            <button ng-click="addToCart()">ADD TO CART</button>
+            <p>{{cartMsg}}</p>
+        </div>
         <div ng-hide="item.quantity>0">
             We are sorry, the item is currently unavailable
         </div>
-        <button ng-click="alert(chosen)">sdf</button>
+
     </div>
 </div>
 <p>{{item.description}}</p>
