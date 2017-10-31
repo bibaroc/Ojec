@@ -40,7 +40,7 @@ module.exports = (function () {
     });
 
     adminRouter.get("/", (req, res) => {
-        res.send(
+        return res.send(
             {
                 "success": true,
                 "msg": "You logged in as an admin."
@@ -68,14 +68,14 @@ module.exports = (function () {
             },
             function (err, user) {
                 if (err) {
-                    res.status(500).send(
+                    return res.status(500).send(
                         {
                             "success": false,
                             "msg": "There was an error while looking up the user."
                         });
                 }
                 else if (!user) {
-                    res.status(406).send(
+                    return res.status(406).send(
                         {
                             "success": false,
                             "msg": "User not found: " + req.decoded.email
@@ -106,7 +106,7 @@ module.exports = (function () {
                 }
             });
         if (Errors.length == 0) {
-            res.status(200).send({
+            return res.status(200).send({
                 "success": true,
                 "msg": "Product addes to the db."
             });
@@ -116,7 +116,7 @@ module.exports = (function () {
             Errors.forEach(function (i) {
                 mss += "++++++++++" + i.message + "\r\n";
             });
-            res.status(500).send({
+            return res.status(500).send({
                 "success": false,
                 "msg": mss
             });
@@ -126,14 +126,14 @@ module.exports = (function () {
     adminRouter.post("/deleteItem", function (req, res) {
         User.findOne({ "email": req.decoded.email }, function (errorLookingUpSeller, seller) {
             if (errorLookingUpSeller) {
-                res.status(500).send(
+                return res.status(500).send(
                     {
                         "success": false,
                         "msg": "There was an error while looking ypou up."
                     });
             }
             else if (!seller) {
-                res.status(406).send(
+                return res.status(406).send(
                     {
                         "success": false,
                         "msg": "Seller not found: " + req.decoded.email + " . Should never happen."
@@ -145,14 +145,14 @@ module.exports = (function () {
                     //He actualy sells the item
                     Product.findById(req.body.id, function (errorLookingUpProduct, productFound) {
                         if (errorLookingUpProduct) {
-                            res.status(500).send(
+                            return res.status(500).send(
                                 {
                                     "success": false,
                                     "msg": "There was an error while looking up the product you are trying to delete."
                                 });
                         }
                         else if (!productFound) {
-                            res.status(406).send(
+                            return res.status(406).send(
                                 {
                                     "success": false,
                                     "msg": "Apparently we are not able to find the product you are trying to delete."
@@ -164,7 +164,7 @@ module.exports = (function () {
                             //     seller.itemsWatching.splice(seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
                             productFound.remove((errorRemoving) => {
                                 if (errorRemoving)
-                                    res.status(500).send(
+                                    return res.status(500).send(
                                         {
                                             "success": false,
                                             "msg": "There was an error while removing the document."
@@ -172,17 +172,17 @@ module.exports = (function () {
                                 else {
                                     seller.save(function (errorSavingUser) {
                                         if (errorSavingUser)
-                                            res.status(500).send(
+                                            return res.status(500).send(
                                                 {
                                                     "success": false,
                                                     "msg": "There was an error while removing the document."
                                                 });
                                         else {
                                             //Document removed and seller updated and saved.
-                                            User.find({$or:[{ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, { "cart": mongoose.Types.ObjectId(req.body.id) }]}, function (err, userList) {
+                                            User.find({ $or: [{ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, { "cart": mongoose.Types.ObjectId(req.body.id) }] }, function (err, userList) {
                                                 // console.log(userList);
                                                 if (err)
-                                                    res.status(500).send({
+                                                    return res.status(500).send({
                                                         "success": true,
                                                         "msg": "Item currently removed and you information updated but crashed while looking up subscribers."
                                                     });
@@ -243,12 +243,12 @@ module.exports = (function () {
     adminRouter.post("/updateItem", (req, res) => {
         User.findOne({ "email": req.decoded.email }, (errorSearchingUser, seller) => {
             if (errorSearchingUser)
-                res.status(500).send({
+                return res.status(500).send({
                     "success": false,
                     "msg": "Apparently I cant code for shits and giggles"
                 });
             else if (!seller)
-                res.status(400).send({
+                return res.status(400).send({
                     "success": false,
                     "msg": "Apparently we cannot find you in out db, are you ure you are a certified seller?"
                 });
@@ -258,12 +258,12 @@ module.exports = (function () {
                     //He should own the item....
                     Product.findById(itemID, (errorSearchingProduct, product) => {
                         if (errorSearchingProduct)
-                            res.status(500).send({
+                            return res.status(500).send({
                                 "success": false,
                                 "msg": "Seems like i cant code for shit"
                             });
                         else if (!product)
-                            res.status(400).send({
+                            return res.status(400).send({
                                 "success": false,
                                 "msg": "We cannot find the item you are looking to update"
                             });
@@ -276,7 +276,7 @@ module.exports = (function () {
                             product.weight = parseFloat(req.body.weight);
                             product.save((errorSaving) => {
                                 if (errorSaving)
-                                    res.status(500).send({
+                                    return res.status(500).send({
                                         "success": false,
                                         "msg": "well fking done vlad"
                                     });
@@ -288,9 +288,9 @@ module.exports = (function () {
                                         subject: 'Information',
                                         text: 'Dear Customer, we kindly inform you that an item you were watching was updated bu his owner and we invite you to take a look.'
                                     };
-                                    User.find({$or:[{ "itemsWatching": itemID }, { "cart": itemID }]}, (error, subscribers) => {
+                                    User.find({ $or: [{ "itemsWatching": itemID }, { "cart": itemID }] }, (error, subscribers) => {
                                         if (error)
-                                            res.status(500).send({
+                                            return res.status(500).send({
                                                 "success": false,
                                                 "msg": "repetition, repetition"
                                             });
