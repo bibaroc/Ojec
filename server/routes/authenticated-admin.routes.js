@@ -5,6 +5,9 @@ module.exports = (function () {
     var User = require("../modules/user");
     var Product = require("../modules/product");
 
+    //If dev no emails will be send
+    var dev = true;
+
     //Multer configuration
     var multer = require('multer');
     var fs = require('fs');
@@ -121,6 +124,7 @@ module.exports = (function () {
         }
     });
 
+
     adminRouter.post("/deleteItem", function (req, res) {
         User.findOne({ "email": req.decoded.email }, function (errorLookingUpSeller, seller) {
             if (errorLookingUpSeller) {
@@ -137,7 +141,8 @@ module.exports = (function () {
                     });
             } else {
                 //Found the seller.
-                if (seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
+                var productToDelete = mongoose.Types.ObjectId(req.body.id);
+                if (seller.itemsSelling.indexOf(productToDelete) > -1) {
                     //He actualy sells the item
                     Product.findById(req.body.id, function (errorLookingUpProduct, productFound) {
                         if (errorLookingUpProduct) {
@@ -154,9 +159,9 @@ module.exports = (function () {
                                 });
                         } else {
                             //Certain of the poroduct and of the seller
-                            seller.itemsSelling.splice(seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
-                            // if (seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
-                            //     seller.itemsWatching.splice(seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                            seller.itemsSelling.splice(seller.itemsSelling.indexOf(productToDelete), 1);
+                            // if (seller.itemsWatching.indexOf(productToDelete) > -1)
+                            //     seller.itemsWatching.splice(seller.itemsWatching.indexOf(productToDelete), 1);
                             productFound.remove(function (errorRemoving) {
                                 if (errorRemoving) {
                                     return res.status(500).send(
@@ -174,14 +179,14 @@ module.exports = (function () {
                                                 });
                                         } else {
                                             //Document removed and seller updated and saved.
-                                            User.find({ $or: [{ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, { "cart": mongoose.Types.ObjectId(req.body.id) }] }, function (err, userList) {
+                                            User.find({ $or: [{ "itemsWatching": productToDelete }, { "cart.item": productToDelete }] }, function (err, userList) {
                                                 // console.log(userList);
                                                 if (err) {
                                                     return res.status(500).send({
                                                         "success": true,
                                                         "msg": "Item currently removed and you information updated but crashed while looking up subscribers."
                                                     });
-                                            } else {
+                                                } else {
                                                     var mailOptions = {
                                                         from: 'myfreakinmailer@gmail.com',
                                                         to: "",
@@ -189,31 +194,38 @@ module.exports = (function () {
                                                         text: 'Dear Customer, we kindly inform you that an item you were watching was removed from our website by his owner.'
                                                     };
                                                     userList.forEach(function (subscriber) {
-                                                        //Remove the item from the watchlist
-                                                        if (subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
-                                                             subscriber.itemsWatching.splice(subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
-                                                        } else if (subscriber.cart.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
-                                                            subscriber.cart.splice(subscriber.cart.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                                                        //Remove the item from the watchlist if any
+                                                        if (subscriber.itemsWatching.indexOf(productToDelete) > -1) {
+                                                            subscriber.itemsWatching.splice(subscriber.itemsWatching.indexOf(productToDelete), 1);
                                                         }
-                                                            
+                                                        //Remove from cart
+                                                        subscriber.cart.forEach(function (element) {
+                                                            if (element.item == req.body.id) {
+                                                                subscriber.cart.splice(subscriber.cart.indexOf(productToDelete), 1);
+                                                            }
+                                                        });
+                                                        //Add Email to the mail list
                                                         if (userList.indexOf(subscriber) === 0) {
                                                             mailOptions.to += subscriber.email;
                                                         } else {
                                                             mailOptions.to += ", " + subscriber.email;
                                                         }
+                                                        //Last user
                                                         if (userList.indexOf(subscriber) + 1 === userList.length) {
-                                                            // console.log(mailOptions);
-                                                            transporter.sendMail(mailOptions, function (error, info) {
-                                                                if (error) {
-                                                                    console.log(error);
-                                                                }
-                                                            });
+                                                            if (dev) {
+                                                                console.log("Mailing the following after the deletion: " + mailOptions.to);
+                                                            } else {
+                                                                transporter.sendMail(mailOptions, function (error, info) {
+                                                                    if (error) {
+                                                                        console.log(error);
+                                                                    }
+                                                                });
+                                                            }
                                                         }
                                                         subscriber.save(function (error) {
                                                             if (error) {
                                                                 console.log(error);
                                                             }
-                                                                
                                                         });
                                                     });
                                                 }
@@ -226,7 +238,6 @@ module.exports = (function () {
                                     });
                                 }
                             });
-
                         }
                     });
                 } else {
@@ -238,7 +249,6 @@ module.exports = (function () {
             }
         });
     });
-
 
     adminRouter.post("/updateItem", function (req, res) {
         User.findOne({ "email": req.decoded.email }, function (errorSearchingUser, seller) {
@@ -260,12 +270,12 @@ module.exports = (function () {
                         if (errorSearchingProduct) {
                             return res.status(500).send({
                                 "success": false,
-                                "msg": "Seems like i cant code for shit"
+                                "msg": "Seems like i cant code for shit."
                             });
                         } else if (!product) {
                             return res.status(400).send({
                                 "success": false,
-                                "msg": "We cannot find the item you are looking to update"
+                                "msg": "We cannot find the item you are looking to update."
                             });
                         } else {
                             //Update product unconditionaly
@@ -280,7 +290,7 @@ module.exports = (function () {
                                         "success": false,
                                         "msg": "well fking done vlad"
                                     });
-                            } else {
+                                } else {
                                     //Product Saved successfuly
                                     var mailOptions = {
                                         from: 'myfreakinmailer@gmail.com',
@@ -288,7 +298,7 @@ module.exports = (function () {
                                         subject: 'Information',
                                         text: 'Dear Customer, we kindly inform you that an item you were watching was updated bu his owner and we invite you to take a look.'
                                     };
-                                    User.find({ $or: [{ "itemsWatching": itemID }, { "cart": itemID }] }, function (error, subscribers) {
+                                    User.find({ $or: [{ "itemsWatching": itemID }, { "cart.item": itemID }] }, function (error, subscribers) {
                                         if (error) {
                                             return res.status(500).send({
                                                 "success": false,
@@ -301,15 +311,17 @@ module.exports = (function () {
                                                 } else {
                                                     mailOptions.to += ", " + unit.email;
                                                 }
-                                                    
+                                                //Last one
                                                 if (subscribers.indexOf(unit) + 1 === subscribers.length) {
-                                                    transporter.sendMail(mailOptions, function (error, info) {
-                                                        if (error) {
-                                                            console.log(error);
-                                                        } else {
-                                                            console.log('Email sent: ' + info.response);
-                                                        }
-                                                    });
+                                                    if (dev) {
+                                                        console.log("Mailing the following after the deletion: " + mailOptions.to);
+                                                    } else {
+                                                        transporter.sendMail(mailOptions, function (error, info) {
+                                                            if (error) {
+                                                                console.log(error);
+                                                            }
+                                                        });
+                                                    }
                                                 }
                                             });
                                         }

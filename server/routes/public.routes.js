@@ -115,6 +115,7 @@ module.exports = (function () {
                     }
                     //Nothing found
                     else if (!product) {
+                        console.log("requested "+req.body.id);
                         res.status(404).send({
                             "success": false,
                             "msg": "Can't find the product brah."
