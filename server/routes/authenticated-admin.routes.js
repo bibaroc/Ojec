@@ -56,9 +56,10 @@ module.exports = (function () {
             "weight": parseFloat(req.body.weight),
             "price": parseFloat(req.body.price),
             "quantity": parseInt(req.body.quantity),
-            "img": [],
+            "img": []
         });
-        for (var i = 0; i < req.files.length; i++) {
+        var i = 0;
+        for (i = 0; i < req.files.length; i += 1) {
             product.img.push(req.files[i].destination.slice(10) + '/' + req.files[i].filename);
         }
         var Errors = [];
@@ -73,15 +74,13 @@ module.exports = (function () {
                             "success": false,
                             "msg": "There was an error while looking up the user."
                         });
-                }
-                else if (!user) {
+                } else if (!user) {
                     return res.status(406).send(
                         {
                             "success": false,
                             "msg": "User not found: " + req.decoded.email
                         });
-                }
-                else {
+                } else {
                     //Setting the seller of the product
                     product.seller = mongoose.Types.ObjectId(user._id);
                     //Adding a product to the sellers list
@@ -105,13 +104,12 @@ module.exports = (function () {
                     });
                 }
             });
-        if (Errors.length == 0) {
+        if (Errors.length === 0) {
             return res.status(200).send({
                 "success": true,
                 "msg": "Product addes to the db."
             });
-        }
-        else {
+        } else {
             var mss = "";
             Errors.forEach(function (i) {
                 mss += "++++++++++" + i.message + "\r\n";
@@ -131,15 +129,13 @@ module.exports = (function () {
                         "success": false,
                         "msg": "There was an error while looking ypou up."
                     });
-            }
-            else if (!seller) {
+            } else if (!seller) {
                 return res.status(406).send(
                     {
                         "success": false,
                         "msg": "Seller not found: " + req.decoded.email + " . Should never happen."
                     });
-            }
-            else {
+            } else {
                 //Found the seller.
                 if (seller.itemsSelling.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
                     //He actualy sells the item
@@ -150,8 +146,7 @@ module.exports = (function () {
                                     "success": false,
                                     "msg": "There was an error while looking up the product you are trying to delete."
                                 });
-                        }
-                        else if (!productFound) {
+                        } else if (!productFound) {
                             return res.status(406).send(
                                 {
                                     "success": false,
@@ -163,30 +158,30 @@ module.exports = (function () {
                             // if (seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
                             //     seller.itemsWatching.splice(seller.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
                             productFound.remove(function (errorRemoving) {
-                                if (errorRemoving)
+                                if (errorRemoving) {
                                     return res.status(500).send(
                                         {
                                             "success": false,
                                             "msg": "There was an error while removing the document."
                                         });
-                                else {
+                                } else {
                                     seller.save(function (errorSavingUser) {
-                                        if (errorSavingUser)
+                                        if (errorSavingUser) {
                                             return res.status(500).send(
                                                 {
                                                     "success": false,
                                                     "msg": "There was an error while removing the document."
                                                 });
-                                        else {
+                                        } else {
                                             //Document removed and seller updated and saved.
                                             User.find({ $or: [{ "itemsWatching": mongoose.Types.ObjectId(req.body.id) }, { "cart": mongoose.Types.ObjectId(req.body.id) }] }, function (err, userList) {
                                                 // console.log(userList);
-                                                if (err)
+                                                if (err) {
                                                     return res.status(500).send({
                                                         "success": true,
                                                         "msg": "Item currently removed and you information updated but crashed while looking up subscribers."
                                                     });
-                                                else {
+                                            } else {
                                                     var mailOptions = {
                                                         from: 'myfreakinmailer@gmail.com',
                                                         to: "",
@@ -195,15 +190,18 @@ module.exports = (function () {
                                                     };
                                                     userList.forEach(function (subscriber) {
                                                         //Remove the item from the watchlist
-                                                        if (subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
-                                                            subscriber.itemsWatching.splice(subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
-                                                        else if (subscriber.cart.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1)
+                                                        if (subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
+                                                             subscriber.itemsWatching.splice(subscriber.itemsWatching.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
+                                                        } else if (subscriber.cart.indexOf(mongoose.Types.ObjectId(req.body.id)) > -1) {
                                                             subscriber.cart.splice(subscriber.cart.indexOf(mongoose.Types.ObjectId(req.body.id)), 1);
-                                                        if (userList.indexOf(subscriber) == 0)
+                                                        }
+                                                            
+                                                        if (userList.indexOf(subscriber) === 0) {
                                                             mailOptions.to += subscriber.email;
-                                                        else
+                                                        } else {
                                                             mailOptions.to += ", " + subscriber.email;
-                                                        if (userList.indexOf(subscriber) + 1 == userList.length) {
+                                                        }
+                                                        if (userList.indexOf(subscriber) + 1 === userList.length) {
                                                             // console.log(mailOptions);
                                                             transporter.sendMail(mailOptions, function (error, info) {
                                                                 if (error) {
@@ -212,8 +210,10 @@ module.exports = (function () {
                                                             });
                                                         }
                                                         subscriber.save(function (error) {
-                                                            if (error)
+                                                            if (error) {
                                                                 console.log(error);
+                                                            }
+                                                                
                                                         });
                                                     });
                                                 }
@@ -242,32 +242,32 @@ module.exports = (function () {
 
     adminRouter.post("/updateItem", function (req, res) {
         User.findOne({ "email": req.decoded.email }, function (errorSearchingUser, seller) {
-            if (errorSearchingUser)
+            if (errorSearchingUser) {
                 return res.status(500).send({
                     "success": false,
                     "msg": "Apparently I cant code for shits and giggles"
                 });
-            else if (!seller)
+            } else if (!seller) {
                 return res.status(400).send({
                     "success": false,
                     "msg": "Apparently we cannot find you in out db, are you ure you are a certified seller?"
                 });
-            else {
+            } else {
                 var itemID = mongoose.Types.ObjectId(req.body.id);
                 if (seller.itemsSelling.indexOf(itemID) > -1) {
                     //He should own the item....
                     Product.findById(itemID, function (errorSearchingProduct, product) {
-                        if (errorSearchingProduct)
+                        if (errorSearchingProduct) {
                             return res.status(500).send({
                                 "success": false,
                                 "msg": "Seems like i cant code for shit"
                             });
-                        else if (!product)
+                        } else if (!product) {
                             return res.status(400).send({
                                 "success": false,
                                 "msg": "We cannot find the item you are looking to update"
                             });
-                        else {
+                        } else {
                             //Update product unconditionaly
                             product.name = req.body.name;
                             product.description = req.body.description;
@@ -275,12 +275,12 @@ module.exports = (function () {
                             product.price = parseFloat(req.body.price);
                             product.weight = parseFloat(req.body.weight);
                             product.save(function (errorSaving) {
-                                if (errorSaving)
+                                if (errorSaving) {
                                     return res.status(500).send({
                                         "success": false,
                                         "msg": "well fking done vlad"
                                     });
-                                else {
+                            } else {
                                     //Product Saved successfuly
                                     var mailOptions = {
                                         from: 'myfreakinmailer@gmail.com',
@@ -289,18 +289,20 @@ module.exports = (function () {
                                         text: 'Dear Customer, we kindly inform you that an item you were watching was updated bu his owner and we invite you to take a look.'
                                     };
                                     User.find({ $or: [{ "itemsWatching": itemID }, { "cart": itemID }] }, function (error, subscribers) {
-                                        if (error)
+                                        if (error) {
                                             return res.status(500).send({
                                                 "success": false,
                                                 "msg": "repetition, repetition"
                                             });
-                                        else {
+                                        } else {
                                             subscribers.forEach(function (unit) {
-                                                if (subscribers.indexOf(unit) === 0)
+                                                if (subscribers.indexOf(unit) === 0) {
                                                     mailOptions.to += unit.email;
-                                                else
+                                                } else {
                                                     mailOptions.to += ", " + unit.email;
-                                                if (subscribers.indexOf(unit) + 1 === subscribers.length)
+                                                }
+                                                    
+                                                if (subscribers.indexOf(unit) + 1 === subscribers.length) {
                                                     transporter.sendMail(mailOptions, function (error, info) {
                                                         if (error) {
                                                             console.log(error);
@@ -308,6 +310,7 @@ module.exports = (function () {
                                                             console.log('Email sent: ' + info.response);
                                                         }
                                                     });
+                                                }
                                             });
                                         }
                                     });
@@ -324,4 +327,4 @@ module.exports = (function () {
         });
     });
     return adminRouter;
-})();
+}());

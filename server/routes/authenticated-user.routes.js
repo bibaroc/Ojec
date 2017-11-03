@@ -5,14 +5,14 @@ var mongoose = require('mongoose');
 module.exports = (function () {
     'use strict';
     var userRouter = require("express").Router();
-    userRouter.get("/", (req, res) => {
+    userRouter.get("/", function (req, res) {
         res.send(
             {
                 'success': true,
                 'msg': 'You logged in as a user.'
             });
     });
-    userRouter.get("/userInfo", (req, res) => {
+    userRouter.get("/userInfo", function (req, res) {
         User.findOne(
             {
                 "email": req.decoded.email
@@ -73,7 +73,7 @@ module.exports = (function () {
                     if (index > -1) {
                         user.itemsWatching.splice(index, 1);
                         // console.log(user.itemsWatching[index]);
-                        user.save((errorSavingUser) => {
+                        user.save(function (errorSavingUser) {
                             if (errorSavingUser)
                                 return res.status(500).send({ "success": false, "msg": "Apparently we cannot code." });
                             else
@@ -92,7 +92,7 @@ module.exports = (function () {
     });
 
     userRouter.post("/addToCart", function (request, response) {
-        Product.findById(request.body.id, (errorLookingUpProduct, product) => {
+        Product.findById(request.body.id, function (errorLookingUpProduct, product) {
             if (errorLookingUpProduct)
                 return response.status(500).send(
                     {
@@ -112,7 +112,7 @@ module.exports = (function () {
                             "success": false,
                             "msg": "Are you tinkering with the server? Trying to add to cart more items than there are available."
                         });
-                User.findOne({ "email": request.decoded.email }, (errorLookingUpUser, user) => {
+                User.findOne({ "email": request.decoded.email }, function (errorLookingUpUser, user) {
                     if (errorLookingUpUser)
                         return response.status(500).send(
                             {
@@ -133,7 +133,7 @@ module.exports = (function () {
                             if (element.item == request.body.id) {
                                 inCart = true;
                                 element.qnt = element.qnt + request.body.qnt > product.quantity ? product.quantity : element.qnt + request.body.qnt;
-                                user.save((errorSavingUser) => {
+                                user.save(function (errorSavingUser) {
                                     if (errorSavingUser)
                                         return response.status(500).send({
                                             "success": false,
@@ -185,7 +185,7 @@ module.exports = (function () {
                         "msg": "Are you tinkering with the server? Product not found."
                     });
             } else {
-                User.findOne({ "email": req.decoded.email }, (error, user) => {
+                User.findOne({ "email": req.decoded.email }, function (error, user) {
                     if (error) {
                         return res.status(500).send(
                             {
@@ -207,7 +207,7 @@ module.exports = (function () {
                         }
                         else {
                             user.itemsWatching.push(mongoose.Types.ObjectId(req.body.id));
-                            user.save((errorSavingUser) => {
+                            user.save(function (errorSavingUser) {
                                 if (errorSavingUser)
                                     return res.status(500).send({ "success": false, "msg": "Apparently I cannot code." });
                                 else
@@ -221,4 +221,4 @@ module.exports = (function () {
 
     });
     return userRouter;
-})();
+}());

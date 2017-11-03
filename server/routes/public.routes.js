@@ -153,4 +153,4 @@ module.exports = (function () {
 
     });
     return publicRouter;
-})();
+}());
