@@ -43,15 +43,16 @@ var app = angular.module('mainApp')
 
         var addProduct = function (newObj, qnt) {
             cart.push({ item: newObj, qntt: qnt });
-            console.log(newObj.name+"  "+qnt);
         };
         var getProducts = function () {
             return cart;
         };
         var remove = function (item) {
             angular.forEach(cart, function (element) {
-                if (element.item == item)
+                //Fuck me right?
+                if (element.item._id == item._id) {
                     return cart.splice(cart.indexOf(element), 1);
+                }
             });
             return -1;
         }

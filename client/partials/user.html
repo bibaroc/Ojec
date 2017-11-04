@@ -1,21 +1,24 @@
 <div>
     <span class="glyphicon glyphicon-user">Welcole back, {{user.name}} {{user.lastName}}</span>
+
     <br />
-    <a ng-click="popup = !popup">Review your account details</a>
+    <span>Name: {{user.name}}</span>
     <br />
-    <div ng-show="popup">
-        <span>Name: {{user.name}}</span>
-        <br />
-        <span>Last name: {{user.lastName}}</span>
-        <br />
-        <span>Email: {{user.email}}</span>
-        <br />
+    <span>Last name: {{user.lastName}}</span>
+    <br />
+    <span>Email: {{user.email}}</span>
+    <br />
+
+    <div style="float:right">
         <a href="#!/addItemToSell" ng-show="user.admin">Sell something</a>
         <br />
         <a href="#!/itemsSelling" ng-show="user.admin">Menage items you're selling</a>
-        <br />
     </div>
+
+
     <a href="#!/watchList">Items you are watching</a>
+    <br />
+    <a href="#!/cart">Your cart</a>
     <br />
     <a ng-click="logout()">LogOut</a>
     <br/>

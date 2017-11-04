@@ -90,6 +90,116 @@ module.exports = (function () {
                 }
             });
     });
+    userRouter.post("/updateItem", function (req, res) {
+        User.findOne({ "email": req.decoded.email }, function (errorLookingUpUser, user) {
+            if (errorLookingUpUser) {
+                return res.status(500).send(
+                    {
+                        "success": false,
+                        "msg": "There was an error while looking up the user."
+                    });
+            }
+            else if (!user) {
+                return res.status(406).send(
+                    {
+                        "success": false,
+                        "msg": "Are you tinkering with the server? User not found."
+                    });
+            }
+            else {
+                //user found
+                Product.findById(mongoose.Types.ObjectId(req.body.id), function (errorLookingUpProduct, prod) {
+                    if (errorLookingUpProduct)
+                        return res.status(500).send(
+                            {
+                                "success": false,
+                                "msg": "There was an error while looking up the product."
+                            });
+                    else if (!prod)
+                        return res.status(406).send(
+                            {
+                                "success": false,
+                                "msg": "Are you tinkering with the server? Product not found."
+                            });
+                    else {
+                        //D stands for delete
+                        if (req.body.flag === "d") {
+                            var found = false;
+                            user.cart.forEach(function (element) {
+                                if (element.item == req.body.id) {
+                                    found = true;
+                                    user.cart.splice(user.cart.indexOf(element), 1);
+                                    user.save((errorSavingUser) => {
+                                        if (errorSavingUser) {
+                                            return res.status(500).send({
+                                                "success": false,
+                                                "msg": "Error saving changes to the user."
+                                            });
+                                        }
+                                        else {
+                                            return res.status(200).send({
+                                                "success": true,
+                                                "msg": prod.name + " was removed from your cart."
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                            //Here the flag was to delete but there item marked for death was not in the users cart
+                            if (!found) {
+                                return res.status(200).send({
+                                    "success": false,
+                                    "msg": "The item you said to remove from your cart was not in your cart in the first place."
+                                });
+                            }
+                        }
+                        //U stands for update
+                        else if (req.body.flag === "u") {
+                            var found = false;
+                            user.cart.forEach(function (element) {
+                                if (element.item == req.body.id) {
+                                    found = true;
+                                    if (req.body.qnt > prod.quantity) {
+                                        res.status(200).send({
+                                            "success": true,
+                                            "msg": "Trying to add more items to the cart than there are available? I shit you not."
+                                        });
+                                    } else {
+                                        element.qnt = req.body.qnt;
+                                        user.save((errorSavingUser) => {
+                                            if (errorSavingUser) {
+                                                return res.status(500).send({
+                                                    "success": false,
+                                                    "msg": "Error saving changes to the user."
+                                                });
+                                            }
+                                            else {
+                                                return res.status(200).send({
+                                                    "success": true,
+                                                    "msg": prod.name + " was updated."
+                                                });
+                                            }
+                                        });
+                                    }
+
+                                }
+                            });
+                            //Here the flag was to delete but there item marked for death was not in the users cart
+                            if (!found) {
+                                return res.status(200).send({
+                                    "success": false,
+                                    "msg": "The item you said to update the ammount of was not in your cart in the first place."
+                                });
+
+                            }
+                        }
+
+                    }
+                });
+
+            }
+        });
+    });
 
     userRouter.post("/addToCart", function (request, response) {
         Product.findById(request.body.id, function (errorLookingUpProduct, product) {

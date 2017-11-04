@@ -10,18 +10,10 @@ angular.module('mainApp')
                     "admin": data.user.admin
                 }
                 $scope.user = user;
-                if (itemsWatchingSrv.getProducts().length === 0)
+                if (itemsWatchingSrv.getProducts().length === 0) {
                     angular.forEach(data.user.itemsWatching, function (item) {
                         Main.getItems({ "id": item }, (data) => {
                             itemsWatchingSrv.addProduct(data);
-                        });
-                    });
-                // $scope.itemsWatching = itemsWatchingSrv.getProducts;
-                // console.log(itemsWatching);
-                if (data.user.admin && itemsSellingSrv.getProducts().length === 0) {
-                    angular.forEach(data.user.itemsSelling, function (item) {
-                        Main.getItems({ "id": item }, (data) => {
-                            itemsSellingSrv.addProduct(data);
                         });
                     });
                 }
@@ -32,6 +24,16 @@ angular.module('mainApp')
                         });
                     });
                 }
+                // $scope.itemsWatching = itemsWatchingSrv.getProducts;
+                // console.log(itemsWatching);
+                if (data.user.admin && itemsSellingSrv.getProducts().length === 0) {
+                    angular.forEach(data.user.itemsSelling, function (item) {
+                        Main.getItems({ "id": item }, (data) => {
+                            itemsSellingSrv.addProduct(data);
+                        });
+                    });
+                }
+
             });
         } else {
             $scope.logged = false;
@@ -39,8 +41,6 @@ angular.module('mainApp')
                 "name": "undefined"
             }
         }
-        $scope.popup = false;
-
         $scope.logout = () => {
             Main.logout();
         };
