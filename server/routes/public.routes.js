@@ -27,7 +27,8 @@ module.exports = (function () {
                 "admin": false,
                 "cart": [],
                 "itemsWatching": [],
-                "itemsSelling": []
+                "itemsSelling": [],
+                "pastTransactions": []
             });
         user.save(function (err) {
             if (err) {

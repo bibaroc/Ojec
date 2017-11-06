@@ -57,9 +57,14 @@ var app = angular.module('mainApp')
             return -1;
         }
 
+        var reset = function () {
+            cart = [];
+        };
+
         return {
             addProduct: addProduct,
             getProducts: getProducts,
-            remove: remove
+            remove: remove,
+            reset: reset
         };
     })

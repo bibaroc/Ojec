@@ -1,5 +1,5 @@
 angular.module('mainApp')
-    .controller('cartController', ['$http', '$scope', 'Main', 'cartSrv', function ($http, $scope, Main, cartSrv, ) {
+    .controller('cartController', ['$http', '$scope', '$window', 'cartSrv', function ($http, $scope, $window, cartSrv) {
         $scope.items = cartSrv.getProducts();
         $scope.totalCost = function () {
             var money = 0;
@@ -27,9 +27,20 @@ angular.module('mainApp')
                     if (!response.data.success) {
                         alert(response.data.msg);
                     }
-                    else console.log(response.data.msg);
                 }, function errorCallback(response) {
                     // alert("Something went wrong.")
+                });
+        };
+        $scope.buy = function () {
+            $http.post("http://localhost:8080/user/buy")
+                .then(function successCallback(response) {
+                    alert(response.data.msg);
+                    if (!response.data.success) {
+                        cartSrv.reset();
+                        $window.location.href = '#!/index.html';
+                    }
+                }, function errorCallback(response) {
+                    alert(JSON.stringify(response.data));
                 });
         };
 

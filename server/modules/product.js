@@ -23,7 +23,7 @@ var Product = mongoose.model('Product', new Schema({
     "img": {
         "type": [String], "required": false
     },
-    "seller": Schema.ObjectId,
+    "seller": {"type": Schema.ObjectId, "ref": "User"},
 }));
 
 module.exports = Product;

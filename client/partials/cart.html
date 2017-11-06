@@ -18,5 +18,5 @@
 <div ng-show="items.length===0">Items added to the cart will be shown here</div>
 <h1>{{msg}}</h1>
 <div ng-hide="items.length===0">
-    <span style="padding:15pt"> Total: {{totalCost()}}</span>
+    <span style="padding:15pt"> Total: {{totalCost()|currency:'€'}}</span> <button ng-click="buy()">BUYME</button>
 </div>

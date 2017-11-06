@@ -1,5 +1,6 @@
 var User = require("../modules/user");
 var Product = require("../modules/product");
+var Transaction = require("../modules/transaction");
 var mongoose = require('mongoose');
 
 module.exports = (function () {
@@ -329,6 +330,61 @@ module.exports = (function () {
             }
         });
 
+    });
+
+    userRouter.post("/buy", function (req, res) {
+        User.findOne({ "email": req.decoded.email }).populate("cart.item").exec((error, userPopulated) => {
+            //As you can see i've stopped caring
+            if (error) {
+                return res.status(500).send({
+                    "success": false,
+                    "msg": error.message
+                });
+            } else if (!userPopulated) {
+                return res.status(400).send({
+                    "success": false,
+                    "msg": "User not found."
+                });
+            } else {
+                //User found and cart populated
+                var trans = new Transaction({
+                    "buyer": userPopulated._id,
+                    "items": [],
+                    "date": Date.now()
+                });
+                userPopulated.cart.forEach(function (element) {
+                    trans.items.push({
+                        "item": element.item,
+                        "qnt": element.qnt,
+                        "price": element.item.price
+                    });
+                });
+                trans.save(function (errorSavingTransaction) {
+                    if (errorSavingTransaction) {
+                        return res.status("500").send({
+                            "success": false,
+                            "msg": errorSavingTransaction.message
+                        });
+                    } else {
+                        userPopulated.cart = [];
+                        userPopulated.pastTransactions.push(trans);
+                        userPopulated.save(function (errorSavingUser) {
+                            if (errorSavingUser) {
+                                return res.status("500").send({
+                                    "success": false,
+                                    "msg": errorSavingUser
+                                });
+                            } else {
+                                return res.status(200).send({
+                                    "success": true,
+                                    "msg": "POOF! Magic happens, check the items at your door."
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
     return userRouter;
 }());

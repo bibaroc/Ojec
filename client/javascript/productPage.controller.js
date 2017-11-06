@@ -18,7 +18,7 @@ angular.module('mainApp')
             $http.post("http://localhost:8080/user/addToCart", { "id": $window.location.href.split("/product/")[1], "qnt": $scope.chosen })
                 .then(function successCallback(response) {
                     if (response.data.success)
-                        itemsWatchingSrv.addProduct($scope.item);
+                        cartSrv.addProduct($scope.item);
                     $scope.cartMsg = response.data.msg;
                 }, function errorCallback(response) {
                     // alert("Something went wrong.")
