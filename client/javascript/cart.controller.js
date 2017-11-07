@@ -35,10 +35,10 @@ angular.module('mainApp')
             $http.post("http://localhost:8080/user/buy")
                 .then(function successCallback(response) {
                     alert(response.data.msg);
-                    if (!response.data.success) {
+                    if (response.data.success) {
                         cartSrv.reset();
                         $window.location.href = '#!/index.html';
-                        $window.location.reload();
+                        // $window.location.reload();
                     }
                 }, function errorCallback(response) {
                     alert(JSON.stringify(response.data));

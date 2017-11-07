@@ -383,21 +383,15 @@ module.exports = (function () {
                                     "success": true,
                                     "msg": "POOF! Magic happens, check the items at your door."
                                 });
-                               
-                                // var sellers = {};
-                                // trans.items.forEach(function (element) {
-                                //     User.findById(element.item.seller).exec((error, seller) => {
-
-                                //             console.log(seller);
-                                //         if (sellers.seller) {
-                                //             sellers.seller.push({ "item": element.item, "qnt": element.qnt })
-                                //         } else {
-                                //             sellers = { seller: [{ "item": element.item, "qnt": element.qnt }] }
-                                //             sellers.seller.push({ "item": element.item, "qnt": element.qnt })
-                                //         }
-                                //     });
-                                // });
-                                // console.log(sellers);
+                                trans.items.forEach(function (element) {
+                                    element.item.quantity -= element.qnt;
+                                    //i dont even care
+                                    element.item.save(function (errorSavingChangesToProductFuckMeRight) {
+                                        if (errorSavingChangesToProductFuckMeRight) {
+                                            console.log(errorSavingChangesToProductFuckMeRight);
+                                        }
+                                    });
+                                });
                             }
                         });
                     }
