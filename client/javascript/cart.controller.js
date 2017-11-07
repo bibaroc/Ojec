@@ -38,6 +38,7 @@ angular.module('mainApp')
                     if (!response.data.success) {
                         cartSrv.reset();
                         $window.location.href = '#!/index.html';
+                        $window.location.reload();
                     }
                 }, function errorCallback(response) {
                     alert(JSON.stringify(response.data));

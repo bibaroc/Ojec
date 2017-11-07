@@ -1,5 +1,5 @@
 angular.module('mainApp')
-    .controller('userController', ['$scope', '$localStorage', 'Main', '$http', 'itemsWatchingSrv', 'itemsSellingSrv', 'cartSrv', function ($scope, $localStorage, Main, $http, itemsWatchingSrv, itemsSellingSrv, cartSrv) {
+    .controller('userController', ['$scope', '$localStorage', 'Main', '$http', 'itemsWatchingSrv', 'itemsSellingSrv', 'cartSrv', 'pastSrv', function ($scope, $localStorage, Main, $http, itemsWatchingSrv, itemsSellingSrv, cartSrv, pastSrv) {
         if ($localStorage.ojecToken) {
             $scope.logged = true;
             Main.getUserData(function gotta(data) {
@@ -24,8 +24,21 @@ angular.module('mainApp')
                         });
                     });
                 }
-                // $scope.itemsWatching = itemsWatchingSrv.getProducts;
-                // console.log(itemsWatching);
+                // console.log(data.user);
+                if (pastSrv.getProducts().length === 0) {
+                    data.user.history.forEach(function (transaction) {
+                        transaction.items.forEach(function (itemInTransaction) {
+                            Main.getItems({ "id": itemInTransaction.item }, (data) => {
+                                pastSrv.addProduct({
+                                    "item": data,
+                                    "qnt": itemInTransaction.qnt,
+                                    "pricePerUnit": itemInTransaction.price,
+                                    "date": transaction.date
+                                });
+                            });
+                        });
+                    });
+                }
                 if (data.user.admin && itemsSellingSrv.getProducts().length === 0) {
                     angular.forEach(data.user.itemsSelling, function (item) {
                         Main.getItems({ "id": item }, (data) => {

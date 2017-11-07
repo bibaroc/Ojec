@@ -17,7 +17,7 @@ module.exports = (function () {
         User.findOne(
             {
                 "email": req.decoded.email
-            },
+            }).populate("pastTransactions").exec(
             function (err, user) {
                 if (err) {
                     return res.status(500).send(
@@ -34,6 +34,7 @@ module.exports = (function () {
                         });
                 }
                 else {
+                    // var transactions = [];
                     return res.status(200).send(
                         {
                             "success": true,
@@ -44,7 +45,8 @@ module.exports = (function () {
                                 "itemsWatching": user.itemsWatching,
                                 "itemsSelling": user.itemsSelling,
                                 "cart": user.cart,
-                                "admin": user.admin
+                                "admin": user.admin,
+                                "history": user.pastTransactions
                             }
                         });
                 }
@@ -253,7 +255,8 @@ module.exports = (function () {
                                     else
                                         return response.status(200).send({
                                             "success": true,
-                                            "msg": "The item was added to the ones you already had in the cart."
+                                            "msg": "The item was added to the ones you already had in the cart.",
+                                            "n": element.qnt
                                         });
                                 });
                             }
@@ -270,7 +273,8 @@ module.exports = (function () {
                                 else
                                     return response.status(200).send({
                                         "success": true,
-                                        "msg": "The item was added to your cart."
+                                        "msg": "The item was added to your cart.",
+                                        "n": request.body.qnt
                                     });
                             });
                         }
