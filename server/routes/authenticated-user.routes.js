@@ -1,10 +1,10 @@
-var User = require("../modules/user");
-var Product = require("../modules/product");
-var Transaction = require("../modules/transaction");
-var mongoose = require('mongoose');
-
 module.exports = (function () {
     'use strict';
+    var User = require("../modules/user");
+    var Product = require("../modules/product");
+    var Transaction = require("../modules/transaction");
+    var mongoose = require('mongoose');
+
     var userRouter = require("express").Router();
     userRouter.get("/", function (req, res) {
         res.send(
@@ -379,10 +379,25 @@ module.exports = (function () {
                                     "msg": errorSavingUser
                                 });
                             } else {
-                                return res.status(200).send({
+                                res.status(200).send({
                                     "success": true,
                                     "msg": "POOF! Magic happens, check the items at your door."
                                 });
+                               
+                                // var sellers = {};
+                                // trans.items.forEach(function (element) {
+                                //     User.findById(element.item.seller).exec((error, seller) => {
+
+                                //             console.log(seller);
+                                //         if (sellers.seller) {
+                                //             sellers.seller.push({ "item": element.item, "qnt": element.qnt })
+                                //         } else {
+                                //             sellers = { seller: [{ "item": element.item, "qnt": element.qnt }] }
+                                //             sellers.seller.push({ "item": element.item, "qnt": element.qnt })
+                                //         }
+                                //     });
+                                // });
+                                // console.log(sellers);
                             }
                         });
                     }

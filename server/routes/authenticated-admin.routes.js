@@ -4,6 +4,15 @@ module.exports = (function () {
     var mongoose = require('mongoose');
     var User = require("../modules/user");
     var Product = require("../modules/product");
+    //Mailer Configuration
+    var nodemailer = require('nodemailer');
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'myfreakinmailer@gmail.com',
+            pass: '###########'
+        }
+    });
 
     //If dev no emails will be send
     var dev = true;
@@ -32,15 +41,7 @@ module.exports = (function () {
     });
     var upload = multer({ storage: storage });
 
-    //Mailer Configuration
-    var nodemailer = require('nodemailer');
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'myfreakinmailer@gmail.com',
-            pass: '###########'
-        }
-    });
+
 
     adminRouter.get("/", function (req, res) {
         return res.send(
@@ -97,7 +98,7 @@ module.exports = (function () {
                         // else
                         //    console.log(user);
                     });
-                    product.savefunction(function (errSavingProducts) {
+                    product.save(function (errSavingProducts) {
                         if (errSavingProducts) {
                             Errors.push(errSavingProducts);
                             console.log(errSavingProducts);
@@ -288,7 +289,7 @@ module.exports = (function () {
                                 if (errorSaving) {
                                     return res.status(500).send({
                                         "success": false,
-                                        "msg": "well fking done vlad"
+                                        "msg": errorSaving.message
                                     });
                                 } else {
                                     //Product Saved successfuly
