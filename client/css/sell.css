@@ -1,17 +1,18 @@
 /* FORM */
 #sellbox {
 	margin: auto;
-	width: 80%;
+	padding-top: 0px;
+	width: 500px;
 }
 #sellbox h1 {
-	color: #cc0000;
+	color: #757575;
 	font-size: 3em;
 	text-transform: uppercase;
 	font-family: Arial, Helvetica;
 }
 #sellbox h2 {
-	color: #757575;
-	font-size: 2em;
+	color: #8c8c8c;
+	font-size: 1.6em;
 	text-transform: uppercase;
 	font-family: Arial, Helvetica;
 }
@@ -20,7 +21,7 @@
 	text-transform: uppercase;
 }
 #sellbox input {
-	width: 50%;
+	width: 70%;
 	height: 30px;
     display: block;
 	border: none;
@@ -28,17 +29,17 @@
 }
 #sellbox input:focus {
 	outline: none;
-	border-bottom-color: #cc0000 !important;
+	border-bottom-color: #ff3e00 !important;
 }
 #sellbox input:hover {
 	border-bottom-color: #dcdcdc;
 }
 #sellbox input:invalid dirty {
 	box-shadow: none;
-	background-color: #cc0000;
+	background-color: #ff3e00;
 }
 #sellbox textarea {
-    width: 50%;
+    width: 70%;
     height: 30px;
     display: block;
 	border: none;
@@ -48,12 +49,12 @@
 	float: left;
 	position: static;
 	display: block;
-	width: 50%;
+	width: 70%;
 	margin: 20px auto 10px;
 	color: #ffffff;
-	background-color: #cc0000;
+	background-color: #ff3e00;
 	border: none;
 }
 #sellbox button:hover {
-	background-color: #b30000;
+	background-color: #cc3300;
 }
