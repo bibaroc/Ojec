@@ -5,27 +5,27 @@
             <form name="signUpForm" ng-submit="signup()">
                 <h1>Create an account</h1>
                 <label>First Name:</label>
-                <input type="text" name="userFirstName" ng-model="firstName" ng-minlength="2" ng-maxlength="32765" required />
-                <div ng-messages="signUpForm.userFirstName.$error">
+                <input type="text" name="userFirstName" ng-model="firstName" ng-minlength="2" ng-maxlength="32765" placeholder="First Name" required />
+                <div id="error" ng-messages="signUpForm.userFirstName.$error">
                     <div ng-message="required">This field is required</div>
                     <div ng-message="minlength">Is your name realy that short?</div>
                     <div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
                 </div>
                 <label>Last Name:</label>
-                <input type="text" name="userLastName" ng-model="lastName" ng-minlength="2" ng-maxlength="32765" required />
-                <div ng-messages="signUpForm.userLastName.$error">
+                <input type="text" name="userLastName" ng-model="lastName" ng-minlength="2" ng-maxlength="32765" placeholder="Last Name" required />
+                <div id="error" ng-messages="signUpForm.userLastName.$error">
                     <div ng-message="required">This field is required</div>
                     <div ng-message="minlength">Is your name realy that short?</div>
                     <div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
                 </div>
                 <label>Email Address:</label>
-                <input type="email" name="userEmail" ng-model="upemail" required />
-                <div ng-messages="signUpForm.userEmail.$error">
+                <input type="email" name="userEmail" ng-model="upemail" placeholder="Email" required />
+                <div id="error" ng-messages="signUpForm.userEmail.$error">
                     <div ng-message="email">Your email address is invalid</div>
                 </div>
                 <label>Password:</label>
-                <input type="password" ng-model="uppassword" required />
-                <div ng-messages="signUpForm.userEmail.$error">
+                <input type="password" ng-model="uppassword" placeholder="Password" required />
+                <div id="error" ng-messages="signUpForm.userEmail.$error">
                 </div>
                 <label>Security question:</label>
                 <select>
@@ -33,7 +33,7 @@
                     <option value="#1">kfsdjfkj?</option>
                     <option value="#1">wwrwer?</option>
                 </select>
-                <input type="text" name="answer" ng-model="calabbria" required/>
+                <input type="text" name="answer" ng-model="calabbria" placeholder="Enter Your Answer" required/>
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                 <button type="reset" class="btn btn-primary btn-block">Delete All</button>
                 <span style="color: red; float: left">{{signUpMsg}}</span>
@@ -46,15 +46,15 @@
             <form name="signInForm" ng-submit="signin()" id="login">
                 <h1>Forgot to LogIn?</h1>
                 <label>Email Address:</label>
-                <input type="email" name="userEmail" ng-model="inemail" required />
+                <input type="email" name="userEmail" ng-model="inemail" placeholder="Email" required />
                 <br/>
-                <div ng-messages="signInForm.userEmail.$error">
+                <div id="error" ng-messages="signInForm.userEmail.$error">
                     <div ng-message="email">Your email address is invalid</div>
                 </div>
                 <label>Password:</label>
-                <input type="password" ng-model="inpassword" required />
+                <input type="password" ng-model="inpassword" placeholder="Password" required />
                 <br/>
-                <div ng-messages="signInForm.userEmail.$error">
+                <div id="error" ng-messages="signInForm.userEmail.$error">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Log In</button>
                 <br/>
