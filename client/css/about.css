@@ -1,0 +1,37 @@
+.container {
+    display: block;
+	margin: auto;
+	padding-top: 20px;;
+	width: 500px;
+    font-family: Arial, Helvetica;
+}
+.container h1 {
+	color: #757575;
+	font-size: 2em;
+}
+.container h3 {
+    text-transform: uppercase;
+    color: #ff3e00;
+}
+#a {
+    color: #757575;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+#a:hover {
+    color: #ff3e00;
+    text-decoration: none;
+}
+dl {
+    padding: 0.5em;
+}
+dt {    
+    text-decoration-line: underline;
+    text-decoration-color: #ff3e00;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+dd {
+    padding-left: 10em;
+}

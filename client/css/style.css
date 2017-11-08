@@ -60,12 +60,12 @@ body {
 }
 
 #login-dp button {
-	background-color: #cc0000;
-	border: #cc0000;
+	background-color: #ff3e00;
+	border: #ff3e00;
 }
 
 #login-dp button:hover{
-	background-color: #b30000;
+	background-color: #cc3300;
 }
 
 #logbox input:focus{
@@ -90,7 +90,7 @@ footer ul {
 	padding: 0;
 }
 footer ul li {
-	display: inline;
+	display: block;
 	padding: 10px 15px 0 0;
 	float: left;
 	color: #f4f4f4;

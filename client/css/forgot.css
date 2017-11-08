@@ -1,51 +1,49 @@
 /* FORM */
-#sellbox {
+#forgot {
+    display: block;
 	margin: auto;
-	padding-top: 0px;
+	padding-top: 40px;
+	padding-bottom: 200px;
 	width: 500px;
 }
-#sellbox h1 {
+#forgot h1 {
 	color: #757575;
-	font-size: 3em;
+	font-size: 2em;
 	text-transform: uppercase;
 	font-family: Arial, Helvetica;
 }
-#sellbox h2 {
-	color: #8c8c8c;
-	font-size: 1.6em;
-	text-transform: uppercase;
-	font-family: Arial, Helvetica;
-}
-#sellbox label {
+#forgot label {
 	text-align: center;
 	text-transform: uppercase;
 }
-#sellbox input {
+#forgot input {
 	width: 70%;
 	height: 30px;
     display: block;
 	border: none;
 	border-bottom: 2px solid #ebebeb;
 }
-#sellbox input:focus {
+#forgot input:focus {
 	outline: none;
 	border-bottom-color: #ff3e00 !important;
 }
-#sellbox input:hover {
+#forgot input:hover {
 	border-bottom-color: #dcdcdc;
 }
-#sellbox input:invalid dirty {
+#forgot input:invalid dirty {
 	box-shadow: none;
 	background-color: #ff3e00;
 }
-#sellbox textarea {
-    width: 70%;
-    height: 30px;
-    display: block;
-	border: none;
-	border-bottom: 2px solid #ebebeb;
+#forgot select {
+	height: 35px;
+	overflow: hidden;
+	width: 70%;
+   	border-radius: 5px;
+	border-color: #dcdcdc;
+	background-color: #dcdcdc;	
+	margin-bottom: 10px;
 }
-#sellbox button {
+#forgot button {
 	float: left;
 	position: static;
 	display: block;
@@ -55,6 +53,6 @@
 	background-color: #ff3e00;
 	border: none;
 }
-#sellbox button:hover {
+#forgot button:hover {
 	background-color: #cc3300;
 }

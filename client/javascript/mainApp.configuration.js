@@ -26,6 +26,9 @@ angular.module('mainApp')
                 templateUrl: '/partials/sellItem.html',
                 controller: 'sellItem'
             })
+            .when('/forgot', {
+                templateUrl: 'partials/forgot.html'
+            })
             .when('/about', {
                 templateUrl: '/partials/about.html'
             })
