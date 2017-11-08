@@ -1,9 +1,9 @@
 ﻿/* FORM */
 #logbox {
 	margin: auto;
-	padding-top: 40px;
+	padding-top: 0px;
 	padding-bottom: 200px;
-	width: 340px;
+	width: 350px;
 }
 /* H1 */
 #logbox h1 {
@@ -20,24 +20,32 @@
 /* INPUT */
 #logbox input {
 	float: left;
-	width: 75%;
+	width: 90%;
 	height: 30px;
 	display: block;
-	margin: 0 auto 15px;
-	padding: 0 15px;
 	border: none;
 	border-bottom: 2px solid #ebebeb;
 }
 #logbox input:focus {
 	outline: none;
-	border-bottom-color: #cc0000 !important;
+	border-bottom-color: #ff3e00 !important;
 }
 #logbox input:hover {
 	border-bottom-color: #dcdcdc;
 }
 #logbox input:invalid dirty {
 	box-shadow: none;
-	background-color: #cc0000;
+	background-color: #ff3e00;
+}
+/* ERROR */
+#error div{
+	color: #757575;
+	float: left;
+	font-size: 0.6em;
+	text-transform: uppercase;
+	font-family: Arial, Helvetica;
+	margin: 0 auto 15px;
+	padding-right: 200px;
 }
 /* BUTTON */
 #logbox button {
@@ -47,11 +55,11 @@
 	width: 90%;
 	margin: 20px auto 10px;
 	color: #ffffff;
-	background-color: #cc0000;
+	background-color: #ff3e00;
 	border: none;
 }
 #logbox button:hover {
-	background-color: #b30000;
+	background-color: #cc3300;
 }
 /* SECURITY QUESTION */
 #logbox select {
@@ -67,9 +75,9 @@
 #login:after {
   content: '';
   width: 0;
-  height: 450px;
+  height: 500px;
   position: absolute;
-  border: 1px solid #cc0000;
-  top: 100px;
+  border: 1px solid #ff3e00;
+  top: 60px;
   left: 10px;
 }
