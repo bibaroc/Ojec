@@ -38,6 +38,20 @@ var app = angular.module('mainApp')
             remove: remove
         };
     })
+    .service('pastSrv', function () {
+        var history = [];
+        var addProduct = function (newObj) {
+            history.push(newObj);
+        };
+        var getProducts = function () {
+            return history;
+        };
+        
+        return {
+            addProduct: addProduct,
+            getProducts: getProducts,
+        };
+    })
     .service('cartSrv', function () {
         var cart = [];
 
@@ -57,9 +71,14 @@ var app = angular.module('mainApp')
             return -1;
         }
 
+        var reset = function () {
+            cart = [];
+        };
+
         return {
             addProduct: addProduct,
             getProducts: getProducts,
-            remove: remove
+            remove: remove,
+            reset: reset
         };
     })

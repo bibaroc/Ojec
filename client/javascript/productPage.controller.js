@@ -17,8 +17,11 @@ angular.module('mainApp')
         $scope.addToCart = () => {
             $http.post("http://localhost:8080/user/addToCart", { "id": $window.location.href.split("/product/")[1], "qnt": $scope.chosen })
                 .then(function successCallback(response) {
-                    if (response.data.success)
-                        itemsWatchingSrv.addProduct($scope.item);
+                    if (response.data.success){
+                        cartSrv.remove($scope.item);
+                        cartSrv.addProduct($scope.item, response.data.n);
+                    }
+                        // cartSrv.addProduct($scope.item, $scope.chosen);
                     $scope.cartMsg = response.data.msg;
                 }, function errorCallback(response) {
                     // alert("Something went wrong.")

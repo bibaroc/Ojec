@@ -22,7 +22,8 @@ var seller = new User(
         "admin": true, //Admin stands for seller
         "itemsWatching": [],
         "itemsSelling": [],
-        "cart": []
+        "cart": [],
+        "pastTransactions": []
     });
 console.log("There should be: " + names.length + " products in the db.");
 names.forEach((name) => {

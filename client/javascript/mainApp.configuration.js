@@ -49,6 +49,10 @@ angular.module('mainApp')
             .when('/sell', {
                 templateUrl: 'partials/sell.html'
             })
+            .when('/past', {
+                templateUrl: 'partials/past.html',
+                controller : "pastController"
+            })
             .otherwise({
                 redirectTo: "/frontpage"
             });

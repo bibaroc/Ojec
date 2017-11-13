@@ -1,9 +1,10 @@
-var User = require("../modules/user");
-var Product = require("../modules/product");
-var mongoose = require('mongoose');
-
 module.exports = (function () {
     'use strict';
+    var User = require("../modules/user");
+    var Product = require("../modules/product");
+    var Transaction = require("../modules/transaction");
+    var mongoose = require('mongoose');
+
     var userRouter = require("express").Router();
     userRouter.get("/", function (req, res) {
         res.send(
@@ -16,7 +17,7 @@ module.exports = (function () {
         User.findOne(
             {
                 "email": req.decoded.email
-            },
+            }).populate("pastTransactions").exec(
             function (err, user) {
                 if (err) {
                     return res.status(500).send(
@@ -33,6 +34,7 @@ module.exports = (function () {
                         });
                 }
                 else {
+                    // var transactions = [];
                     return res.status(200).send(
                         {
                             "success": true,
@@ -43,7 +45,8 @@ module.exports = (function () {
                                 "itemsWatching": user.itemsWatching,
                                 "itemsSelling": user.itemsSelling,
                                 "cart": user.cart,
-                                "admin": user.admin
+                                "admin": user.admin,
+                                "history": user.pastTransactions
                             }
                         });
                 }
@@ -252,7 +255,8 @@ module.exports = (function () {
                                     else
                                         return response.status(200).send({
                                             "success": true,
-                                            "msg": "The item was added to the ones you already had in the cart."
+                                            "msg": "The item was added to the ones you already had in the cart.",
+                                            "n": element.qnt
                                         });
                                 });
                             }
@@ -269,7 +273,8 @@ module.exports = (function () {
                                 else
                                     return response.status(200).send({
                                         "success": true,
-                                        "msg": "The item was added to your cart."
+                                        "msg": "The item was added to your cart.",
+                                        "n": request.body.qnt
                                     });
                             });
                         }
@@ -329,6 +334,70 @@ module.exports = (function () {
             }
         });
 
+    });
+
+    userRouter.post("/buy", function (req, res) {
+        User.findOne({ "email": req.decoded.email }).populate("cart.item").exec((error, userPopulated) => {
+            //As you can see i've stopped caring
+            if (error) {
+                return res.status(500).send({
+                    "success": false,
+                    "msg": error.message
+                });
+            } else if (!userPopulated) {
+                return res.status(400).send({
+                    "success": false,
+                    "msg": "User not found."
+                });
+            } else {
+                //User found and cart populated
+                var trans = new Transaction({
+                    "buyer": userPopulated._id,
+                    "items": [],
+                    "date": Date.now()
+                });
+                userPopulated.cart.forEach(function (element) {
+                    trans.items.push({
+                        "item": element.item,
+                        "qnt": element.qnt,
+                        "price": element.item.price
+                    });
+                });
+                trans.save(function (errorSavingTransaction) {
+                    if (errorSavingTransaction) {
+                        return res.status("500").send({
+                            "success": false,
+                            "msg": errorSavingTransaction.message
+                        });
+                    } else {
+                        userPopulated.cart = [];
+                        userPopulated.pastTransactions.push(trans);
+                        userPopulated.save(function (errorSavingUser) {
+                            if (errorSavingUser) {
+                                return res.status("500").send({
+                                    "success": false,
+                                    "msg": errorSavingUser
+                                });
+                            } else {
+                                res.status(200).send({
+                                    "success": true,
+                                    "msg": "POOF! Magic happens, check the items at your door."
+                                });
+                                trans.items.forEach(function (element) {
+                                    element.item.quantity -= element.qnt;
+                                    //i dont even care
+                                    element.item.save(function (errorSavingChangesToProductFuckMeRight) {
+                                        if (errorSavingChangesToProductFuckMeRight) {
+                                            console.log(errorSavingChangesToProductFuckMeRight);
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
     return userRouter;
 }());

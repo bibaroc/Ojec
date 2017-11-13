@@ -30,7 +30,7 @@ angular.module('mainApp')
                     .then(function successCallback(response) {
                         alert(response.data.msg);
                     }, function errorCallback(response) {
-                        // alert("Something went wrong.")
+                        alert(response.data.msg);
                     });
             }
         };

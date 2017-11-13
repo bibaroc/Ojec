@@ -13,12 +13,13 @@ var User = mongoose.model('User', new Schema({
     "admin": {
         "type": Boolean, "default": false
     },
-    "itemsWatching": [Schema.ObjectId],
-    "itemsSelling": [Schema.ObjectId],
+    "itemsWatching": [{ "type": Schema.ObjectId, "ref": "Product" }],
+    "itemsSelling": [{ "type": Schema.ObjectId, "ref": "Product" }],
     "cart": [{
-        item: Schema.ObjectId,
-        qnt: Number
-    }]
+        item: { "type": Schema.ObjectId, "ref": "Product" },
+        qnt: { "type": Number, "default": 1 }
+    }],
+    "pastTransactions": [{ "type": Schema.ObjectId, "ref": "Transaction" }]
 }));
 
 module.exports = User;
