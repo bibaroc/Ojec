@@ -34,8 +34,12 @@
     <!-- Stylesheets-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form-Style.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/forgot.css">
     <link rel="stylesheet" href="css/contacts.css">
     <link rel="stylesheet" href="css/sell.css">
+    <link rel="stylesheet" href="css/frontpage.css">
+    <link rel="stylesheet" href="css/productPage.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
@@ -79,13 +83,13 @@
                                         <form ng-controller="signInController" ng-submit="signin()" class="form" role="form" id="login-nav">
                                             <div class="form-group">
                                                 <label class="sr-only">Email address</label>
-                                                <input type="email" ng-model="inemail" class="form-control" id="exampleInputEmail" placeholder="Email address" required>
+                                                <input type="email" ng-model="inemail" class="form-control" id="exampleInputEmail" placeholder="Email" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only">Password</label>
                                                 <input type="password" ng-model="inpassword" class="form-control" id="exampleInputPassword" placeholder="Password" required>
                                                 <div class="help-block text-right">
-                                                    <a>Forget the password ?</a>
+                                                    <a href="#!/forgot">Forget the password ?</a>
                                                 </div>
                                             </div>
                                             <div class="form-group" style="text-align:center;width:95%">
