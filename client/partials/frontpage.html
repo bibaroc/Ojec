@@ -5,10 +5,10 @@
                 <li ng-repeat="item in items">
                     <div class="product">
                         <div class="image">
-                                <img ng-src="{{item.img[0]}}" alt="Product">
+                                <img ng-click="rerout(item)" ng-src="{{item.img[0]}}" alt="Product">
                                 <div class="button">
                                     <button><a ng-click="rerout(item)" class="glyphicon glyphicon-eye-open"></a></button>
-                                    <button><a ng-click="addToCart(item._id)" class="glyphicon glyphicon-shopping-cart"></a></button>
+                                    <button><a ng-click="addToCart(item)" class="glyphicon glyphicon-shopping-cart"></a></button>
                                     <div class="name">
                                         <h6>{{item.name}}</h6>
                                     </div>
