@@ -30,7 +30,8 @@ angular.module('mainApp')
                 templateUrl: 'partials/forgot.html'
             })
             .when('/about', {
-                templateUrl: '/partials/about.html'
+                templateUrl: '/partials/about.html',
+                controller : 'aboutController'
             })
             .when('/contact', {
                 templateUrl: 'partials/contact.html'

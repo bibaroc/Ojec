@@ -23,7 +23,9 @@ var seller = new User(
         "itemsWatching": [],
         "itemsSelling": [],
         "cart": [],
-        "pastTransactions": []
+        "pastTransactions": [],
+        "description": "",
+        "companyname": ""
     });
 console.log("There should be: " + names.length + " products in the db.");
 names.forEach((name) => {
