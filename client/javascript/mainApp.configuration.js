@@ -1,6 +1,6 @@
 angular.module('mainApp')
     .config(['$httpProvider', '$locationProvider', '$routeProvider', function ($httpProvider, $locationProvider, $routeProvider) {
-
+        "use strict";
         $routeProvider
             .when('/signup', {
                 templateUrl: '/partials/signup.html',
@@ -71,7 +71,7 @@ angular.module('mainApp')
                     if (response.status === 401 || response.status === 403) {
                         $location.path('/signup');
                     } else if (response.status === 404) {
-                        $location.path('/404')
+                        $location.path('/404');
                     }
                     return $q.reject(response);
                 }

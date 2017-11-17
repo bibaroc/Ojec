@@ -1,5 +1,6 @@
 angular.module('mainApp')
     .controller('userController', ['$scope', '$localStorage', 'Main', '$http', 'itemsWatchingSrv', 'itemsSellingSrv', 'cartSrv', 'pastSrv', function ($scope, $localStorage, Main, $http, itemsWatchingSrv, itemsSellingSrv, cartSrv, pastSrv) {
+        "use strict";
         if ($localStorage.ojecToken) {
             $scope.logged = true;
             Main.getUserData(function gotta(data) {
@@ -8,7 +9,7 @@ angular.module('mainApp')
                     "lastName": data.user.lastName,
                     "email": data.user.email,
                     "admin": data.user.admin
-                }
+                };
                 $scope.user = user;
                 if (itemsWatchingSrv.getProducts().length === 0) {
                     angular.forEach(data.user.itemsWatching, function (item) {
@@ -52,7 +53,7 @@ angular.module('mainApp')
             $scope.logged = false;
             $scope.user = {
                 "name": "undefined"
-            }
+            };
         }
         $scope.logout = () => {
             Main.logout();

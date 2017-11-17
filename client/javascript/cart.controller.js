@@ -1,5 +1,6 @@
 angular.module('mainApp')
     .controller('cartController', ['$http', '$scope', '$window', 'cartSrv', function ($http, $scope, $window, cartSrv) {
+        "use strict";
         $scope.items = cartSrv.getProducts();
         $scope.totalCost = function () {
             var money = 0;

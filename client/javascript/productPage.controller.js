@@ -1,5 +1,6 @@
 angular.module('mainApp')
     .controller('productPageController', ['$scope', 'Main', '$window', '$http', 'itemsWatchingSrv', 'cartSrv', function ($scope, Main, $window, $http, itemsWatchingSrv, cartSrv) {
+        "use strict";
         //Fucking angularjs adding <option value="? undefined:undefined"> DONT TOUCH
         $scope.current = 0;
         $scope.chosen = 1;

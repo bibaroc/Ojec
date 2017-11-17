@@ -1,5 +1,6 @@
 angular.module('mainApp')
     .controller('watchListController', ['$scope', 'Main', '$http', 'itemsWatchingSrv', function ($scope, Main, $http, itemsWatchingSrv) {
+        "use strict";
         $scope.itemsWatching = [];
         $scope.itemsWatching = itemsWatchingSrv.getProducts();
         $scope.unWatch = function (item) {

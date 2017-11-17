@@ -2,7 +2,7 @@ var crypto = require("crypto");
 var User = require("../modules/user");
 var Product = require("../modules/product");
 var jwt = require("jsonwebtoken");
-var conf = require("../modules/config")
+var conf = require("../modules/config");
 
 
 module.exports = (function () {

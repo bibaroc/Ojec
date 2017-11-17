@@ -1,5 +1,6 @@
 angular.module('mainApp')
     .controller('sellListController', ['$scope', 'Main', '$http', 'itemsSellingSrv', function ($scope, Main, $http, itemsSellingSrv) {
+        "use strict";
         $scope.itemsSelling = itemsSellingSrv.getProducts();
        
         $scope.deleteItem = (item) => {

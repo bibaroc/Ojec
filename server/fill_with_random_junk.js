@@ -49,9 +49,9 @@ names.forEach((name) => {
                 console.log("I've finished importing files, now I only need to save the user.");
                 seller.save((err) => {
                     if (err)
-                        console.log(err)
+                        console.log(err);
                     else
-                        console.log("Seller saved, data filled.")
+                        console.log("Seller saved, data filled.");
                 });
             }
         }
