@@ -13,6 +13,12 @@ var User = mongoose.model('User', new Schema({
     "admin": {
         "type": Boolean, "default": false
     },
+    "description": {
+        "type": String, "required": false
+    },
+    "companyname": {
+        "type": String, "required": false
+    },
     "itemsWatching": [{ "type": Schema.ObjectId, "ref": "Product" }],
     "itemsSelling": [{ "type": Schema.ObjectId, "ref": "Product" }],
     "cart": [{

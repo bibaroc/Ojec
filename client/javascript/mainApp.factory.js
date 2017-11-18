@@ -1,6 +1,6 @@
-'use strict'
 var app = angular.module('mainApp')
     .factory('Main', ['$http', '$localStorage', '$window', '$route', function ($http, $localStorage, $window, $route) {
+        'use strict';
         var baseUrl = 'http://localhost:8080/';
         return {
             signin: function (data, error) {
@@ -14,7 +14,7 @@ var app = angular.module('mainApp')
                             error(response.data.msg);
                         }
                     }, function errorCallback(response) {
-                        alert("Wrong email or password.")
+                        alert("Wrong email or password.");
                     });
             },
             signup: function (data, error) {
@@ -28,7 +28,7 @@ var app = angular.module('mainApp')
                             error(response.data.msg);
                         }
                     }, function errorCallback(response) {
-                        alert("Something went wrong.")
+                        alert("Something went wrong.");
                     });
             },
             logout: function () {
@@ -43,7 +43,7 @@ var app = angular.module('mainApp')
                             callback(response.data);
                         }
                     }, function errorCallback(response) {
-                        alert("Something went wrong.")
+                        alert("Something went wrong.");
                     });
             },
             postProduct: function (data) {
@@ -61,7 +61,7 @@ var app = angular.module('mainApp')
                             $window.location.reload();
                         }
                     }, function errorCallback(response) {
-                        alert("Something went wrong.")
+                        alert("Something went wrong.");
                     });
             },
             getItems: (query, callback) => {

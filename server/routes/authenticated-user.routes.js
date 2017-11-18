@@ -127,7 +127,7 @@ module.exports = (function () {
                     else {
                         //D stands for delete
                         if (req.body.flag === "d") {
-                            var found = false;
+                           let found = false;
                             user.cart.forEach(function (element) {
                                 if (element.item == req.body.id) {
                                     found = true;
@@ -158,7 +158,7 @@ module.exports = (function () {
                         }
                         //U stands for update
                         else if (req.body.flag === "u") {
-                            var found = false;
+                            let found = false;
                             user.cart.forEach(function (element) {
                                 if (element.item == req.body.id) {
                                     found = true;

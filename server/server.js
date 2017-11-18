@@ -6,7 +6,6 @@ var app = express();
 var morgan = require('morgan');
 var mongoose = require("mongoose");
 var conf = require("./modules/config");
-var User = require('./modules/user')
 
 /////////////////////////////////////////////////////
 //SETTING UP DEPENDENCIES
@@ -45,5 +44,5 @@ app.use(require("./middlewares/authenticated-admin.middleware"));
 app.use("/admin", require("./routes/authenticated-admin.routes"));
 
 app.listen(port, () => {
-    console.log('This simple server is listening on port:' + port + '!')
+    console.log('This simple server is listening on port:' + port + '!');
 });

@@ -1,4 +1,4 @@
-var config = require("../modules/config");
+//var config = require("../modules/config");
 
 module.exports = function (req, res, next) {
     'use strict';
@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
     if (req.decoded) {
         //Verify the token with the superSecret.
         if (req.decoded.admin) {
-            next()
+            next();
         }
         else {
             return res.status(401).send(

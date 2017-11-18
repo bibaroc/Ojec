@@ -1,25 +1,21 @@
 <div class="container">
-	<h1>OJec</h1>
+    <h1>OJec</h1>
     <div>
-        OJec is a platform where you can buy everykind of products by our sellers, and you can become one of our sellers too!
-        If you are interested on sell your merch, please go and check our <a id="a" href="#!/sell">sell form</a>.
+        OJec is a platform where you can buy everykind of products by our sellers, and you can become one of our sellers too! If
+        you are interested on sell your merch, please go and check our
+        <a id="a" href="#!/sell">sell form</a>.
         <br/>
-        <a id="a" ng-click="showme=true">Here</a> you can check our sellers. 
+        <a id="a" ng-click="showme=true">Here</a> you can check our sellers.
         <div class="wrapper" ng-show="showme">
             <h3>Sellers:</h3>
             <dl>
-                <dt> Orologeria Benigni,</dt>
-                <dd> sells all your favorites watches</dd>
-                <dt> Sovietspin,</dt>
-                <dd> for yours tasty and cheap dinners</dd>
-                <dt> ????</dt>
-                <dd> ?????????????</dd>
-                <dt> You can become the next one!</dt>
-                <dd> Go and fill our form!</dd>
+                <div ng-repeat="seller in sellers">
+                    <dt> {{seller.nm}}</dt>
+                    <dd> {{seller.desc}}</dd>
+                </div>
             </dl>
             <a id="a" ng-click="showme=false">See less</a>
         </div>
-        <br/>
-        Enjoy your stay in our store.
+        <br/> Enjoy your stay in our store.
     </div>
 </div>

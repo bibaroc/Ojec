@@ -1,6 +1,6 @@
 angular.module('mainApp')
     .controller('signInController', ['$scope', 'Main', function ($scope, Main) {
-        //$scope.msg = "dfsdf";
+        "use strict";
         $scope.signin = () => {
             var signInData = {
                 'email': $scope.inemail,

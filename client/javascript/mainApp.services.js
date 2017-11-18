@@ -1,6 +1,6 @@
-'use strict'
 var app = angular.module('mainApp')
     .service('itemsWatchingSrv', function () {
+        'use strict';
         var itemsWatching = [];
 
         var addProduct = function (newObj) {
@@ -11,7 +11,7 @@ var app = angular.module('mainApp')
         };
         var remove = function (item) {
             return itemsWatching.indexOf(item) > -1 ? itemsWatching.splice(itemsWatching.indexOf(item), 1) : -1;
-        }
+        };
 
         return {
             addProduct: addProduct,
@@ -20,6 +20,7 @@ var app = angular.module('mainApp')
         };
     })
     .service('itemsSellingSrv', function () {
+        'use strict';
         var itemsSelling = [];
 
         var addProduct = function (newObj) {
@@ -30,7 +31,7 @@ var app = angular.module('mainApp')
         };
         var remove = function (item) {
             return itemsSelling.indexOf(item) > -1 ? itemsSelling.splice(itemsSelling.indexOf(item), 1) : -1;
-        }
+        };
 
         return {
             addProduct: addProduct,
@@ -39,6 +40,7 @@ var app = angular.module('mainApp')
         };
     })
     .service('pastSrv', function () {
+        'use strict';
         var history = [];
         var addProduct = function (newObj) {
             history.push(newObj);
@@ -46,13 +48,14 @@ var app = angular.module('mainApp')
         var getProducts = function () {
             return history;
         };
-        
+
         return {
             addProduct: addProduct,
             getProducts: getProducts,
         };
     })
     .service('cartSrv', function () {
+        'use strict';
         var cart = [];
 
         var addProduct = function (newObj, qnt) {
@@ -69,7 +72,7 @@ var app = angular.module('mainApp')
                 }
             });
             return -1;
-        }
+        };
 
         var reset = function () {
             cart = [];
@@ -81,4 +84,4 @@ var app = angular.module('mainApp')
             remove: remove,
             reset: reset
         };
-    })
+    });

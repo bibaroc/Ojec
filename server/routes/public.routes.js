@@ -2,7 +2,7 @@ var crypto = require("crypto");
 var User = require("../modules/user");
 var Product = require("../modules/product");
 var jwt = require("jsonwebtoken");
-var conf = require("../modules/config")
+var conf = require("../modules/config");
 
 
 module.exports = (function () {
@@ -17,6 +17,36 @@ module.exports = (function () {
         res.redirect("/index.html");
     });
 
+    publicRouter.get("/getSellers", function (req, res) {
+        User.find({ "admin": true })
+            .sort("name")
+            .exec(function (error, sellers) {
+                if (error) {
+                    console.log(error.message);
+                    return res.status(500).send({
+                        "success": false,
+                        "msg": "I cant query a db"
+                    });
+                } else if (!sellers) {
+                    return res.status(200).send({
+                        "success": true,
+                        "msg": "I cant query a db.",
+                        "sellers": [{ "nm": "This could be your company name.", "desc": "And here there could be a description of your company. Come sell with us." }]
+                    });
+                } else {
+                    var response = {
+                        "success": true,
+                        "msg": "Here you go ya boi.",
+                        "sellers": []
+                    };
+                    sellers.forEach(function (seller) {
+                        response.sellers.push({ "nm": seller.companyname, "desc": seller.description });
+                    });
+                    return res.status(200).send(response);
+                }
+            });
+    });
+
     publicRouter.post('/signup', function (req, res) {
         var user = new User(
             {
@@ -28,7 +58,9 @@ module.exports = (function () {
                 "cart": [],
                 "itemsWatching": [],
                 "itemsSelling": [],
-                "pastTransactions": []
+                "pastTransactions": [],
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet velit imperdiet eros semper porta. In pellentesque blandit sem vel sollicitudin. Quisque sed ligula sed nisl congue egestas in non elit. Vivamus at dictum nibh. Sed id eros eu urna rutrum pharetra pellentesque id dui. Integer convallis eros eu odio luctus, ut facilisis arcu pellentesque. Ut vehicula volutpat scelerisque. In dapibus nibh sed erat ultricies convallis. Proin mattis vehicula porta. Donec eget erat molestie, fringilla leo eget, maximus odio. Maecenas ut risus quis massa sodales porttitor sagittis in felis. Donec in nisl quis justo egestas pellentesque eget eget libero. Sed in sagittis felis. Nulla facilisi.",
+                "companyname": "Sulimovskyy Srl"
             });
         user.save(function (err) {
             if (err) {
@@ -116,7 +148,7 @@ module.exports = (function () {
                     }
                     //Nothing found
                     else if (!product) {
-                        console.log("requested "+req.body.id);
+                        console.log("requested " + req.body.id);
                         res.status(404).send({
                             "success": false,
                             "msg": "Can't find the product brah."
