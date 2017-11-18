@@ -1,27 +1,37 @@
-<div style="padding:15px 15px 15px 15px; display: inline-block;width:100%;">
-    <img ng-click="next()" ng-src="{{item.img[current]}}" style="float: left;margin-right: 20px; max-height: auto; width:40%">
-    <div>
-        <h1 style="margin-top:0;">
-            {{item.name}}
-        </h1>
-    </div>
-    <div style="float: right;text-transform: uppercase">
-        <p>{{item.quantity}} available</p>
-        <p>{{item.price | currency:'€'}}</p>
-        <button ng-click="addToWishist()">ADD TO WISHLIST</button>
-        <p>{{watchingMsg}}</p>
-        <div ng-show="item.quantity>0">
-            <select ng-model="chosen">
-                <option ng-repeat="a in [].constructor(item.quantity) track by $index" ng-value="$index+1">{{$index+1}}</option>
-            </select>
-            <button ng-click="addToCart()">ADD TO CART</button>
-            <p>{{cartMsg}}</p>
+<div class="item">
+    <div class="product-detail">
+        <div class="gallery">
+            <div>
+                <img class="largeImg" ng-src="{{item.img[0]}}" alt="Product">
+            </div>
+            <ul class="thumb">
+                <li><img ng-src="{{item.img[0]}}" alt="Product"></li>
+                <li><img ng-src="{{item.img[1]}}" alt="Product"></li>
+                <li><img ng-src="{{item.img[2]}}" alt="Product"></li>
+            </ul>
         </div>
-        <div ng-hide="item.quantity>0">
-            We are sorry, the item is currently unavailable
-        </div>
-
+        <ul class="info">
+            <li><h5>{{item.name}}</h5></li>
+            <li class="price"><p>{{item.price | currency:'€'}}</p></li>
+            <li><p>{{item.quantity}} available</p></li>
+            <ul class="about">
+                <li><p>{{item.description}}</p></li>
+                <li><p>Weight: {{item.weight}} KG</p></li>
+            </ul>
+            <li class="buttons">
+                <button ng-click="addToWishist()" class="btn glyphicon glyphicon-heart"></button>
+                <p>{{watchingMsg}}</p>
+                <div class="kart" ng-show="item.quantity>0">
+                    <select ng-model="chosen">
+                        <option ng-repeat="a in [].constructor(item.quantity) track by $index" ng-value="$index+1">{{$index+1}}</option>
+                    </select>
+                    <button ng-click="addToCart(item)" class="btn glyphicon glyphicon-shopping-cart"></button>
+                    <p>{{cartMsg}}</p>
+                </div>
+                <div ng-hide="item.quantity>0">
+                    We are sorry, the item is currently unavailable
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
-<p>{{item.description}}</p>
-<p>Weight:{{item.weight}} KG</p>

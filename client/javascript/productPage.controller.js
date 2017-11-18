@@ -38,4 +38,8 @@ angular.module('mainApp')
                     // alert("Something went wrong.")
                 });
         };
+
+        $('.thumb img').click(function(){
+            $('.largeImg').attr('src',$(this).attr('src').replace('thumb','large'));
+        });
     }]);
