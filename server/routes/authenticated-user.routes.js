@@ -265,11 +265,12 @@ module.exports = (function () {
                         if (!inCart) {
                             user.cart.push({ "item": request.body.id, "qnt": request.body.qnt });
                             user.save((errorSavingUser) => {
-                                if (errorSavingUser)
+                                if (errorSavingUser){
+                                    console.log(errorSavingUser);
                                     return response.status(500).send({
                                         "success": false,
                                         "msg": "Error saving changes to the user."
-                                    });
+                                    });}
                                 else
                                     return response.status(200).send({
                                         "success": true,
