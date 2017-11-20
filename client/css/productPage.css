@@ -34,7 +34,6 @@
 .info li {
     display: inline;
     list-style-type: none;
-    margin-top: 5px;
     position: relative;
 }
 .info h5 {

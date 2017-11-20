@@ -1,0 +1,102 @@
+.total {
+    position: relative;
+    height: 40px;
+    margin: auto 0;
+    text-align: center;
+    color: #ff3e00;
+}
+.total p {
+    text-transform: uppercase;
+    font-family: Arial, Helvetica;
+    display: inline;
+    font-size: 2em;
+    padding-left: 20px;
+}
+.total span {
+    font-size: 1.75em;
+}
+.kart-product {
+    text-align: center;
+    position: relative;
+    width: 60%;
+    height: 100px;
+    top: 10px;
+    margin-left:auto; 
+    margin-right:auto;
+}
+.kart-product td {
+    vertical-align: middle;
+    padding-bottom: 10px;
+    width: 20%;
+    margin: auto 0;
+}
+.kart-product img {
+    width: 100px;
+    border-radius: 5%; 
+    height: 100px;
+}
+.kart-product h6 {
+    text-transform: uppercase;
+    font-size: 1.3em;
+    color: #757575;
+
+}
+.kart-product p {
+    font-size: 1.1em;
+    top: 0px;
+    color: #8c8c8c;
+}
+#qnt {
+    height: 20px;
+    margin-bottom: 10px;
+    width: 20%;
+    position: inherit;
+    font-size: 1.2em;
+    margin-right: 3px;
+   	border-radius: 3px;
+	border-color: #ffffff;
+    background-color: #ffffff;
+    color: #757575;
+}
+#rmv {
+    width: 60%;
+    margin-bottom: 10px;
+    color: #8c8c8c;
+    background-color: #ffffff;
+    border: none;
+    font-size: 1.4em;
+}
+.cko {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+.cko button{
+    color: #ffffff;
+	background-color: #ff3e00;
+    border: none;
+    height: 40px;
+    font-size: 1.4em;
+    width: 25%;
+    text-transform: uppercase;
+    transition-duration: 0.4s;
+}
+.cko button:hover {
+    background-color: #cc3300;
+}
+.rmv-item {
+    text-align: center;
+}
+.rmv-item h6 {
+    text-transform: uppercase;
+    font-size: 1.3em;
+    color: #757575;
+}
+#msg {
+    font-size: 1.1em;
+    color: #8c8c8c;
+    top: 0px;
+    text-align: center;
+    text-transform: uppercase;
+}

@@ -1,18 +1,17 @@
-<h1>ITEMS YOU ARE CURRENTLY WATCHING</h1>
-<div ng-repeat="item in itemsWatching">
-    <div style="padding:15px 15px 15px 15px; display: inline-block;width:100%;">
-        <img ng-click="next()" ng-src="{{item.img[0]}}" style="float: left;margin-right: 20px; max-height: auto; width:25%">
-        <div>
-            <h1 style="margin-top:0;">
-                {{item.name}}
-            </h1>
-        </div>
-        <div style="float: right;text-transform: uppercase">
-            <p>{{item.quantity}} available</p>
-            <p>{{item.price | currency:'€'}}</p>
-            <p>{{message}}</p>
-        </div>
+<div class="watch">
+    <h1>ITEMS YOU ARE CURRENTLY WATCHING</h1>
+    <div>
+        <table class="watchList">
+            <tr ng-repeat="item in itemsWatching">
+                <td><img ng-src="{{item.img[0]}}" ></td>
+                <td><h6>{{item.item.name}}</h6></td>
+                <td><p>{{item.quantity}} available</p></td>
+                <td><p>{{item.price | currency:'€'}}</p></td>
+               
+                <td><button ng-click="unWatch(item)" id="unw" class="btn glyphicon glyphicon-eye-close" title="UnWatch"></button></td>
+            </tr>
+            <p id="msg">{{message}}</p>
+        </table>
     </div>
-    <button ng-click="unWatch(item)">UnWatch</button>
+    <div ng-show="itemsWatching.length===0">Items you decide to watch will be shown here and eventual changes to those will be notified.</div>
 </div>
-<div ng-show="itemsWatching.length===0">Items you decide to watch will be shown here and eventual changes to those will be notified.</div>

@@ -1,0 +1,45 @@
+.watch {
+    position: relative;
+    margin: auto 0;
+    text-align: center;
+}
+.watch h1 {
+    text-transform: uppercase;
+    font-family: Arial, Helvetica;
+    font-size: 2.2em;
+    color: #ff3e00;
+}
+.watchList {
+    text-align: center;
+    position: relative;
+    width: 40%;
+    height: 100px;
+    top: 10px;
+    margin-left:auto; 
+    margin-right:auto;
+}
+.watchList td {
+    vertical-align: middle;
+    padding-bottom: 10px;
+    width: 20%;
+    margin: auto 0;
+}
+.watchList img {
+    width: 100px;
+    border-radius: 5%; 
+    height: 100px;
+}
+.watchList p {
+    font-size: 1.1em;
+    top: 0px;
+    color: #8c8c8c;
+    vertical-align: middle;
+}
+#unw {
+    width: 60%;
+    margin-bottom: 10px;
+    color: #8c8c8c;
+    background-color: #ffffff;
+    border: none;
+    font-size: 1.4em;
+}
