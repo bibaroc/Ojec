@@ -1,8 +1,18 @@
-<!-- <div ng-repeat="item in items">{{item}}</div> -->
-<div ng-repeat="item in items" style="display:inline-block;width: 100%">
-    <img ng-src="{{item.item.img[0]}}" style="float:left; width:30%" />
-    <h3>{{item.item.name}}</h3>
-    <p>{{item.qnt + " bought on "+ gdate(item.date)+ " for "+ (item.pricePerUnit| currency:'€') + ""+(item.qnt>1? " each":"")}}
-    </p>
-    <br/>
+<div class="bought">
+    <h1>your purchases</h1>
+    <div>
+        <table class="history" ng-repeat="item in items">
+            <tr>
+                <th><h3>{{item.item.name}}</h3></th>
+            </tr>
+            <tr>
+                <td><img ng-src="{{item.item.img[0]}}"></td>
+                <td>
+                    <p>
+                        {{item.qnt + " bought on "+ gdate(item.date)+ " for "+ (item.pricePerUnit| currency:'€') + ""+(item.qnt>1? " each":"")}}
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

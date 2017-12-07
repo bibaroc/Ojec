@@ -1,0 +1,93 @@
+.sellItem {
+    position: relative;
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+
+}
+.sellItem h1 {
+    text-transform: uppercase;
+    font-family: Arial, Helvetica;
+    font-size: 3em;
+    color: #ff3e00;
+    text-align: center;
+}
+.sellItem p {
+    font-size: 1.1em;
+    top: 0px;
+    color: #8c8c8c;
+    text-align: center;
+}
+.sellItem label {
+    text-transform: uppercase;
+    top: 5px;
+}
+.sellItem input {
+    width: 30%;
+    display: block;
+    height: 30px;
+	border: none;
+    border-bottom: 2px solid #ebebeb;  
+    margin-bottom: 10px;  
+}
+.sellItem input:focus {
+	outline: none;
+	border-bottom-color: #ff3e00 !important;
+}
+.sellItem input:hover {
+	border-bottom-color: #dcdcdc;
+}
+.sellItem input:invalid dirty {
+	box-shadow: none;
+	background-color: #ff3e00;
+}
+#qnt {
+    width: 15%;
+    display: inline-block;
+    height: 30px;
+	border: none;
+    border-bottom: 2px solid #ebebeb;    
+    vertical-align: middle;
+    margin-left: 20px;
+}
+#qnt span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.sellItem span {
+    display:inline-block;
+    vertical-align: middle;
+}
+.sellItem textarea {
+    width: 30%;
+    height: 30px;
+    display: block;
+	border: none;
+    border-bottom: 2px solid #ebebeb;
+    margin-bottom: 10px;
+}
+.sellItem button {
+    position: absolute;
+    top: 250px;
+    right: 0;
+    width: 25%;
+    height: 50px;
+	color: #ffffff;
+	background-color: #ff3e00;
+    border: none;
+    text-transform: uppercase;
+    font-size: 1.5em;
+}
+.sellItem button:hover {
+	background-color: #cc3300;
+}
+.sellItem button:focus {
+	background-color: #cc3300;
+}
+.sellItem button:active {
+	background-color: #cc3300;
+}
+#choose {
+    border: none;
+}

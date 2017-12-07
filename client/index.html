@@ -43,6 +43,9 @@
     <link rel="stylesheet" href="css/productPage.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/watchList.css">
+    <link rel="stylesheet" href="css/past.css">
+    <link rel="stylesheet" href="css/sellItem.css">
+    <link rel="stylesheet" href="css/itemCS.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
@@ -62,7 +65,7 @@
                         <!--SearchBox.-->
                         <form class="navbar-form " role="search">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input id="searchbar" type="text" class="form-control" placeholder="Search">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -121,6 +124,7 @@
         </div>
     </nav>
     <ng-view></ng-view>
+
     <!--Footer-->
     <footer>
         <ul>
@@ -139,4 +143,5 @@
         </ul>
     </footer>
 </body>
+
 </html>

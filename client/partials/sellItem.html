@@ -1,37 +1,41 @@
-<form name="sellItemForm" class="elegant-aero" ng-submit="postItem()">
-	<label>Item name:</label>
-	<input type="text" name="itemName" ng-model="itemName" ng-minlength="2" ng-maxlength="32765" required />
-	<div ng-messages="sellItemForm.itemName.$error">
-		<div ng-message="required">This field is required</div>
-		<div ng-message="minlength">Are you sure?</div>
-		<div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
-	</div>
-	<label>Item description:</label>
-	<textarea name="itemDescription" ng-model="itemDescription" ng-minlength="100" ng-maxlength="32765" required></textarea>
-	<div ng-messages="sellItemForm.itemDescription.$error">
-		<div ng-message="required">This field is required</div>
-		<div ng-message="minlength">The better the description the better the sales</div>
-		<div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
-	</div>
-	<label>Item price:</label>
-	<input type="number" min="0.01" step="0.01" max="2500" name="itemPrice" ng-model="itemPrice" required/>&euro;
-	<div ng-messages="sellItemForm.itemPrice.$error">
-		<div ng-message="required">This field is required</div>
-	</div>
-	<label>Item weight:</label>
-	<input type="number" min="0.01" step="0.01" max="2500" name="itemWeight" ng-model="itemWeight" required />Kg
-	<div ng-messages="sellItemForm.itemWeight.$error">
-		<div ng-message="required">This field is required</div>
-	</div>
-	<label>Item quantity:</label>
-	<input type="number" name="itemQuantity" ng-model="itemQuantity" required />
-	<div ng-messages="sellItemForm.itemQuantity.$error">
-		<div ng-message="required">This field is required</div>
-	</div>
-	<label>Item immage:</label>
-	<input type="file" accept="image/*" files-input ng-model="fileArray" name="itemImg" multiple required/>
-	<div ng-messages="sellItemForm.itemImg.$error">
-		<div ng-message="required">This field is required</div>
-	</div>
-	<button type="submit" class="btn btn-primary btn-block">Sell Da Shit</button>
-</form>
+<div class="sellItem">
+	<h1>sell your item</h1>
+	<p>Compile the form and click on the button "SELL"</p>
+	<form name="sellItemForm" class="elegant-aero" ng-submit="postItem()">
+		<label>Item name:</label>
+		<input type="text" name="itemName" ng-model="itemName" ng-minlength="2" ng-maxlength="32765" required />
+		<div ng-messages="sellItemForm.itemName.$error">
+			<div ng-message="required">This field is required</div>
+				<div ng-message="minlength">Are you sure?</div>
+				<div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
+			</div>
+		<label>Item description:</label>
+		<textarea name="itemDescription" ng-model="itemDescription" ng-minlength="100" ng-maxlength="32765" required></textarea>
+		<div ng-messages="sellItemForm.itemDescription.$error">
+			<div ng-message="required">This field is required</div>
+			<div ng-message="minlength">The better the description the better the sales</div>
+			<div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
+		</div>
+		<label>Item price:</label>
+		<input id="qnt" type="number" min="0.01" step="0.01" max="2500" name="itemPrice" ng-model="itemPrice" required/><span>&euro;</span>
+		<div ng-messages="sellItemForm.itemPrice.$error">
+			<div ng-message="required">This field is required</div>
+		</div>
+		<label>Item weight:</label>
+		<input id="qnt" type="number" min="0.01" step="0.01" max="2500" name="itemWeight" ng-model="itemWeight" required /><span>Kg</span>
+		<div ng-messages="sellItemForm.itemWeight.$error">
+			<div ng-message="required">This field is required</div>
+		</div>
+		<label>Item quantity:</label>
+		<input id="qnt" type="number" name="itemQuantity" ng-model="itemQuantity" required />
+		<div ng-messages="sellItemForm.itemQuantity.$error">
+			<div ng-message="required">This field is required</div>
+		</div>
+		<label>Item immage:</label>
+		<input id="choose" type="file" accept="image/*" files-input ng-model="fileArray" name="itemImg" multiple required/>
+		<div ng-messages="sellItemForm.itemImg.$error">
+			<div ng-message="required">This field is required. Max 3 photos</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">Sell</button>
+	</form>
+</div>
