@@ -1,12 +1,29 @@
 <!-- Form for reset password -->
 <div class="container">
     <div id="forgot">
-        <form name="resetForm" ng-submit="reset()">
+        <form name="resetForm" ng-submit="ask()">
             <h1> Reset your password </h1>
-                <label>Your email:</label>
-                <input type="email" name="email" ng-model="email" required placeholder="Email"/>
-                <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                <!--<label>What was your security question?</label>
+            <label>Your email:</label>
+            <input type="email" name="email" ng-model="email" required placeholder="Email" />
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            <br />
+            <p style="clear: both">{{emailMsg}}</p>
+            <!--<label>What was your security question?</label>
+                <select>
+                    <option value="#1">ajlsdajklsadla?</option>
+                    <option value="#1">kfsdjfkj?</option>
+                    <option value="#1">wwrwer?</option>
+                </select>
+                <input type="text" name="answer" ng-model="calabbria" placeholder="Write the answer" required/>
+            -->
+        </form>
+        <form name="resetForm" ng-submit="please()" ng-hide="data=='nil'">
+            <label ng-bind="data"></label>
+            <input type="text" ng-model="securityAnswer" required placeholder="Enter Your Answer" />
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            <br />
+            <p style="clear: both">{{resetMsg}}</p>
+            <!--<label>What was your security question?</label>
                 <select>
                     <option value="#1">ajlsdajklsadla?</option>
                     <option value="#1">kfsdjfkj?</option>

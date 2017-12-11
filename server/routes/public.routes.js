@@ -113,7 +113,7 @@ module.exports = (function () {
                                         from: 'myfreakinmailer@gmail.com',
                                         to: user.email,
                                         subject: 'Information',
-                                        text: 'Dear Customer, we are glad to inform you that you have successfuly changed you password as follows:' + newPW + ' .'
+                                        text: 'Dear Customer, we are glad to inform you that you have successfuly changed you password as follows: ' + newPW + ' .'
                                     }, function (error, info) {
                                         if (error) {
                                             console.log(error);
