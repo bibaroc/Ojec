@@ -8,7 +8,7 @@ angular.module('mainApp')
             $location.path("/product/" + item._id);
         };
         $scope.addToCart = (item) => {
-            $http.post("http://localhost:8080/user/addToCart", { "id": item._id, "qnt": 1 })
+            $http.post("/user/addToCart", { "id": item._id, "qnt": 1 })
                 .then(function successCallback(response) {
                     if (response.data.success) {
                         cartSrv.remove(item);

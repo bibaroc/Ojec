@@ -1,7 +1,7 @@
 var app = angular.module('mainApp')
     .factory('Main', ['$http', '$localStorage', '$window', '$route', function ($http, $localStorage, $window, $route) {
         'use strict';
-        var baseUrl = 'http://localhost:8080/';
+        var baseUrl = '';
         return {
             signin: function (data, error) {
                 $http.post(baseUrl + 'signin', data)

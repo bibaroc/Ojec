@@ -10,7 +10,7 @@ angular.module('mainApp')
             return money;
         };
         $scope.removeItem = function (item) {
-            $http.post("http://localhost:8080/user/updateItem", { "id": item.item._id, "flag": "d" })
+            $http.post("/user/updateItem", { "id": item.item._id, "flag": "d" })
                 .then(function successCallback(response) {
                     if (response.data.success) {
                         cartSrv.remove(item.item);
@@ -23,7 +23,7 @@ angular.module('mainApp')
         };
 
         $scope.updateItem = function (item) {
-            $http.post("http://localhost:8080/user/updateItem", { "id": item.item._id, "flag": "u", "qnt": item.qntt })
+            $http.post("/user/updateItem", { "id": item.item._id, "flag": "u", "qnt": item.qntt })
                 .then(function successCallback(response) {
                     if (!response.data.success) {
                         alert(response.data.msg);
@@ -33,7 +33,7 @@ angular.module('mainApp')
                 });
         };
         $scope.buy = function () {
-            $http.post("http://localhost:8080/user/buy")
+            $http.post("/user/buy")
                 .then(function successCallback(response) {
                     alert(response.data.msg);
                     if (response.data.success) {

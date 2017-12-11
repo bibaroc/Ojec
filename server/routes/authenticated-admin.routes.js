@@ -60,7 +60,8 @@ module.exports = (function () {
             "weight": parseFloat(req.body.weight),
             "price": parseFloat(req.body.price),
             "quantity": parseInt(req.body.quantity),
-            "img": []
+            "img": [],
+            "deleted": false
         });
         var i = 0;
         for (i = 0; i < req.files.length; i += 1) {
@@ -163,7 +164,14 @@ module.exports = (function () {
                             seller.itemsSelling.splice(seller.itemsSelling.indexOf(productToDelete), 1);
                             // if (seller.itemsWatching.indexOf(productToDelete) > -1)
                             //     seller.itemsWatching.splice(seller.itemsWatching.indexOf(productToDelete), 1);
-                            productFound.remove(function (errorRemoving) {
+                            productFound.name = "ITEM DELETED";
+                            productFound.description = "THIS ITEM WAS DELETED BY HIS OWNER";
+                            productFound.quantity = 0;
+                            productFound.price = 999;
+                            productFound.weight = 999;
+                            productFound.deleted = true;
+                            productFound.img = ["/uploads/deleted.png"];
+                            productFound.save(function (errorRemoving) {
                                 if (errorRemoving) {
                                     return res.status(500).send(
                                         {

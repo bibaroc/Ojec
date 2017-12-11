@@ -37,7 +37,8 @@ names.forEach((name) => {
         "price": names.indexOf(name) + 1,
         "quantity": names.indexOf(name) + 1,
         "img": ["uploads/" + name.toLowerCase() + "0.jpg", "uploads/" + name.toLowerCase() + "1.jpg", "uploads/" + name.toLowerCase() + "2.jpg"],
-        "seller": seller._id
+        "seller": seller._id,
+        "deleted": false
     });
     pro.save((errorSaving) => {
         if (errorSaving)

@@ -32,7 +32,9 @@ var pro = new Schema({
     "img": {
         "type": [String], "required": false
     },
-    "seller": { "type": Schema.ObjectId, "ref": "User" }
+    "seller": { "type": Schema.ObjectId, "ref": "User" },
+    "deleted": { "type": Boolean, "default": false },
+    "insertionDate" : {"type": Number, "default": Date.now()}
 });
 
 pro.pre("save", function (next) {

@@ -5,7 +5,7 @@ angular.module('mainApp')
        
         $scope.deleteItem = (item) => {
             if (confirm("Are you sure you want to delete the insertion?")) {
-                $http.post("http://localhost:8080/admin/deleteItem", { "id": item._id })
+                $http.post("/admin/deleteItem", { "id": item._id })
                     .then(function successCallback(response) {
                         if (response.data.success) {
                             alert(response.data.msg);
@@ -19,7 +19,7 @@ angular.module('mainApp')
         };
         $scope.updateItemInfo = (item) => {
             if (confirm("Are you sure you want to update the insertion?")) {
-                $http.post("http://localhost:8080/admin/updateItem",
+                $http.post("/admin/updateItem",
                     {
                         "id": item._id,
                         "name": item.name,

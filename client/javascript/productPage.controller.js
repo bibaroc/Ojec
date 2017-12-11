@@ -16,7 +16,7 @@ angular.module('mainApp')
             }
         };
         $scope.addToCart = () => {
-            $http.post("http://localhost:8080/user/addToCart", { "id": $window.location.href.split("/product/")[1], "qnt": $scope.chosen })
+            $http.post("/user/addToCart", { "id": $window.location.href.split("/product/")[1], "qnt": $scope.chosen })
                 .then(function successCallback(response) {
                     if (response.data.success){
                         cartSrv.remove($scope.item);
@@ -30,7 +30,7 @@ angular.module('mainApp')
 
         };
         $scope.addToWishist = () => {
-            $http.post("http://localhost:8080/user/addToWishist", { "id": $window.location.href.split("/product/")[1] })
+            $http.post("/user/addToWishist", { "id": $window.location.href.split("/product/")[1] })
                 .then(function successCallback(response) {
                     if (response.data.success)
                         itemsWatchingSrv.addProduct($scope.item);
