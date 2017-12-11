@@ -10,12 +10,9 @@ module.exports = (function () {
         service: 'gmail',
         auth: {
             user: 'myfreakinmailer@gmail.com',
-            pass: '###########'
+            pass: require("../modules/config").trasportedPW
         }
     });
-
-    //If dev no emails will be send
-    var dev = true;
 
     //Multer configuration
     var multer = require('multer');
@@ -221,7 +218,7 @@ module.exports = (function () {
                                                         }
                                                         //Last user
                                                         if (userList.indexOf(subscriber) + 1 === userList.length) {
-                                                            if (dev) {
+                                                            if (require("../modules/config").env === "dev") {
                                                                 console.log("Mailing the following after the deletion: " + mailOptions.to);
                                                             } else {
                                                                 transporter.sendMail(mailOptions, function (error, info) {
@@ -322,7 +319,7 @@ module.exports = (function () {
                                                 }
                                                 //Last one
                                                 if (subscribers.indexOf(unit) + 1 === subscribers.length) {
-                                                    if (dev) {
+                                                    if (require("../modules/config").env === "dev") {
                                                         console.log("Mailing the following after the deletion: " + mailOptions.to);
                                                     } else {
                                                         transporter.sendMail(mailOptions, function (error, info) {

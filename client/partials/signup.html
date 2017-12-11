@@ -5,14 +5,16 @@
             <form name="signUpForm" ng-submit="signup()">
                 <h1>Create an account</h1>
                 <label>First Name:</label>
-                <input type="text" name="userFirstName" ng-model="firstName" ng-minlength="2" ng-maxlength="32765" placeholder="First Name" required />
+                <input type="text" name="userFirstName" ng-model="firstName" ng-minlength="2" ng-maxlength="32765" placeholder="First Name"
+                    required />
                 <div id="error" ng-messages="signUpForm.userFirstName.$error">
                     <div ng-message="required">This field is required</div>
                     <div ng-message="minlength">Is your name realy that short?</div>
                     <div ng-message="maxlength">Do you want to cause an IntegerOVerflow?</div>
                 </div>
                 <label>Last Name:</label>
-                <input type="text" name="userLastName" ng-model="lastName" ng-minlength="2" ng-maxlength="32765" placeholder="Last Name" required />
+                <input type="text" name="userLastName" ng-model="lastName" ng-minlength="2" ng-maxlength="32765" placeholder="Last Name"
+                    required />
                 <div id="error" ng-messages="signUpForm.userLastName.$error">
                     <div ng-message="required">This field is required</div>
                     <div ng-message="minlength">Is your name realy that short?</div>
@@ -28,12 +30,12 @@
                 <div id="error" ng-messages="signUpForm.userEmail.$error">
                 </div>
                 <label>Security question:</label>
-                <select>
-                    <option value="#1">ajlsdajklsadla?</option>
-                    <option value="#1">kfsdjfkj?</option>
-                    <option value="#1">wwrwer?</option>
+                <select ng-model="securityQuestion">
+                    <option value="What is the first name of the person you first kissed?" active>What is the first name of the person you first kissed?</option>
+                    <option value="In what year was your father born?">In what year was your father born?</option>
+                    <option value="In what city or town does your nearest sibling live?">In what city or town does your nearest sibling live?</option>
                 </select>
-                <input type="text" name="answer" ng-model="calabbria" placeholder="Enter Your Answer" required/>
+                <input type="text" name="answer" ng-model="securityAnswer" placeholder="Enter Your Answer" required/>
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                 <button type="reset" class="btn btn-primary btn-block">Delete All</button>
                 <span style="color: red; float: left">{{signUpMsg}}</span>

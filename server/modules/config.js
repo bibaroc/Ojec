@@ -12,5 +12,7 @@ module.exports =
                     "connectTimeoutMS": 666
                 }
             }
-        }
+        },
+        "trasportedPW": "********",
+        "env": "dev"
     };

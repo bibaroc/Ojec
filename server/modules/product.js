@@ -5,10 +5,9 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'myfreakinmailer@gmail.com',
-        pass: '###########'
+        pass: require("./config").trasportedPW
     }
 });
-var dev = true;
 
 var pro = new Schema({
     "name": {
@@ -34,7 +33,7 @@ var pro = new Schema({
     },
     "seller": { "type": Schema.ObjectId, "ref": "User" },
     "deleted": { "type": Boolean, "default": false },
-    "insertionDate" : {"type": Number, "default": Date.now()}
+    "insertionDate": { "type": Number, "default": Date.now() }
 });
 
 pro.pre("save", function (next) {
@@ -49,7 +48,7 @@ pro.pre("save", function (next) {
         User.findById(this.seller).exec(function (error, seller) {
             mailOptions.to = seller.email;
             mailOptions.text = "Dear, " + seller.name + ",we kindly inform you that your buissiness is going well and the remains of " + this.name + " are under 5 units."
-            if (dev) {
+            if (require("./config").env==="dev") {
                 console.log("Mailing the following after the update: " + mailOptions.to);
             } else {
                 transporter.sendMail(mailOptions, function (error, info) {

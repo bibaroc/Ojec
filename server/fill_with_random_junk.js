@@ -19,6 +19,8 @@ var seller = new User(
         "lastName": "Sulimovskyy",
         "email": "sulimovskyy.vladyslav@gmail.com",
         "hash": crypto.createHash("sha256").update("shit").digest("hex"),
+        "securityQuestion": "Con chi condividi la camera?",
+        "securityAnswer": crypto.createHash("sha256").update("Lucia").digest("hex"),
         "admin": true, //Admin stands for seller
         "itemsWatching": [],
         "itemsSelling": [],

@@ -3,6 +3,14 @@ var User = require("../modules/user");
 var Product = require("../modules/product");
 var jwt = require("jsonwebtoken");
 var conf = require("../modules/config");
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'myfreakinmailer@gmail.com',
+        pass: require("../modules/config").trasportedPW
+    }
+});
 
 
 module.exports = (function () {
@@ -47,6 +55,87 @@ module.exports = (function () {
             });
     });
 
+    publicRouter.get("/forget/:email", function (req, res) {
+        User.findOne({ "email": req.params.email })
+            .exec(function (error, user) {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send({
+                        "success": false,
+                        "msg": "Internal server error while looking up the user."
+                    });
+                } else if (!user) {
+                    return res.status(400).send({
+                        "success": false,
+                        "msg": "Are you tinkering with the server?"
+                    });
+                } else {
+                    return res.status(200).send({
+                        "success": true,
+                        "msg": "Here is your security Question.",
+                        "data": user.securityQuestion
+                    });
+                }
+            });
+    });
+
+    publicRouter.post("/forget/:email", function (req, res) {
+        User.findOne({ "email": req.params.email })
+            .exec(function (error, user) {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send({
+                        "success": false,
+                        "msg": "Internal server error while looking up the user."
+                    });
+                } else if (!user) {
+                    return res.status(400).send({
+                        "success": false,
+                        "msg": "Are you tinkering with the server?"
+                    });
+                } else {
+                    if (user.securityAnswer === crypto.createHash("sha256").update(req.body.securityAnswer).digest("hex")) {
+
+                        var newPW = crypto.randomBytes(16).toString('hex');
+                        user.hash = crypto.createHash("sha256").update(newPW).digest("hex");
+                        user.save(function (err) {
+                            if (err) {
+                                console.log(err);
+                                return res.status(500).send({
+                                    "success": false,
+                                    "msg": "ItHERE WAS AN ERROR WHILE TRYING TO SAVE THE CHANGES."
+                                });
+                            } else {
+                                if (require("../modules/config").env === "dev") {
+                                    console.log(newPW);
+                                } else {
+                                    transporter.sendMail({
+                                        from: 'myfreakinmailer@gmail.com',
+                                        to: user.email,
+                                        subject: 'Information',
+                                        text: 'Dear Customer, we are glad to inform you that you have successfuly changed you password as follows:' + newPW + ' .'
+                                    }, function (error, info) {
+                                        if (error) {
+                                            console.log(error);
+                                        }
+                                    });
+                                }
+                                return res.status(200).send({
+                                    "success": true,
+                                    "msg": "A random password has been generated and sent to your email account."
+                                });
+                            }
+                        });
+                    } else {
+                        return res.status(400).send({
+                            "success": false,
+                            "msg": "Nope."
+                        });
+                    }
+                }
+            });
+    });
+
     publicRouter.post('/signup', function (req, res) {
         var user = new User(
             {
@@ -54,6 +143,8 @@ module.exports = (function () {
                 "lastName": req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1).toLowerCase(),
                 "email": req.body.email.toLowerCase(),
                 "hash": crypto.createHash("sha256").update(req.body.password).digest("hex"),
+                "securityQuestion": req.body.securityQuestion,
+                "securityAnswer": crypto.createHash("sha256").update(req.body.securityAnswer).digest("hex"),
                 "admin": false,
                 "cart": [],
                 "itemsWatching": [],
@@ -174,19 +265,19 @@ module.exports = (function () {
             var items = [];
             //Last 10 products
             Product.find({})
-            .where("deleted", false)
-            .sort('-insertionDate')
-            .limit(10)
-            .exec(function (err, products) {
-                products.forEach(function (prod) {
-                    items.push(prod);
+                .where("deleted", false)
+                .sort('-insertionDate')
+                .limit(10)
+                .exec(function (err, products) {
+                    products.forEach(function (prod) {
+                        items.push(prod);
+                    });
+                    res.status(200).send({
+                        "success": true,
+                        "msg": "Ya itemz bra.",
+                        "data": items
+                    });
                 });
-                res.status(200).send({
-                    "success": true,
-                    "msg": "Ya itemz bra.",
-                    "data": items
-                });
-            });
         }
 
     });
