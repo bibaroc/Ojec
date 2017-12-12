@@ -14,7 +14,9 @@ angular.module('mainApp')
                         cartSrv.remove(item);
                         cartSrv.addProduct(item, response.data.n);
                     }
-                    $scope.cartMsg = response.data.msg;
+                   else {
+                       alert(response.data.msg);
+                   }
                 }, function errorCallback(response) {
                     // alert("Something went wrong.")
                 });

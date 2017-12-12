@@ -2,27 +2,22 @@ angular.module('mainApp')
     .controller('productPageController', ['$scope', 'Main', '$window', '$http', 'itemsWatchingSrv', 'cartSrv', function ($scope, Main, $window, $http, itemsWatchingSrv, cartSrv) {
         "use strict";
         //Fucking angularjs adding <option value="? undefined:undefined"> DONT TOUCH
-        $scope.current = 0;
         $scope.chosen = 1;
-        var size = 0;
+        //I know this is ugly, i dont even care
+        var imges = [];
         Main.getItems({ 'id': $window.location.href.split("/product/")[1] }, (responseData) => {
             $scope.item = responseData;
-            size = responseData.img.length;
+            $scope.selected = responseData.img[0];
+            imges = responseData.img;
         });
-
-        $scope.next = () => {
-            if (++$scope.current == size) {
-                $scope.current = 0;
-            }
-        };
         $scope.addToCart = () => {
             $http.post("/user/addToCart", { "id": $window.location.href.split("/product/")[1], "qnt": $scope.chosen })
                 .then(function successCallback(response) {
-                    if (response.data.success){
+                    if (response.data.success) {
                         cartSrv.remove($scope.item);
                         cartSrv.addProduct($scope.item, response.data.n);
                     }
-                        // cartSrv.addProduct($scope.item, $scope.chosen);
+                    // cartSrv.addProduct($scope.item, $scope.chosen);
                     $scope.cartMsg = response.data.msg;
                 }, function errorCallback(response) {
                     // alert("Something went wrong.")
@@ -39,8 +34,7 @@ angular.module('mainApp')
                     // alert("Something went wrong.")
                 });
         };
-
-        $('.thumb img').click(function(){
-            $('.largeImg').attr('src',$(this).attr('src').replace('thumb','large'));
-        });
+        $scope.select = function (int) {
+            $scope.selected = imges[int > imges.length - 1 ? 0 : int];
+        }
     }]);

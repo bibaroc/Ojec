@@ -2,21 +2,32 @@
     <div class="product-detail">
         <div class="gallery">
             <div>
-                <img class="largeImg" ng-src="{{item.img[0]}}" alt="Product">
+                <img class="largeImg" ng-src="{{selected}}" alt="Product">
             </div>
             <ul class="thumb">
-                <li><img ng-src="{{item.img[0]}}" alt="Product"></li>
-                <li><img ng-src="{{item.img[1]}}" alt="Product"></li>
-                <li><img ng-src="{{item.img[2]}}" alt="Product"></li>
+                <li ng-repeat=" a in [].constructor(item.img.length) track by $index">
+                    <img ng-src="{{item.img[$index]}}" alt="Product" ng-click="select($index)">
+                </li>
             </ul>
         </div>
+        {{selected}}
         <ul class="info">
-            <li><h5>{{item.name}}</h5></li>
-            <li class="price"><p>{{item.price | currency:'€'}}</p></li>
-            <li><p>{{item.quantity}} available</p></li>
+            <li>
+                <h5>{{item.name}}</h5>
+            </li>
+            <li class="price">
+                <p>{{item.price | currency:'€'}}</p>
+            </li>
+            <li>
+                <p>{{item.quantity}} available</p>
+            </li>
             <ul class="about">
-                <li><p>{{item.description}}</p></li>
-                <li><p>Weight: {{item.weight}} KG</p></li>
+                <li>
+                    <p>{{item.description}}</p>
+                </li>
+                <li>
+                    <p>Weight: {{item.weight}} KG</p>
+                </li>
             </ul>
             <li class="buttons">
                 <button ng-click="addToWishist()" class="btn glyphicon glyphicon-heart"></button>
