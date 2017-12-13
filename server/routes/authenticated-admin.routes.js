@@ -51,7 +51,7 @@ module.exports = (function () {
     adminRouter.post("/addProduct", upload.any(), function (req, res) {
 
         var product = new Product({
-            "name": req.body.name,
+            "name": req.body.name.toUpperCase(),
             "description": req.body.description,
             "category": "",
             "weight": parseFloat(req.body.weight),
@@ -60,6 +60,7 @@ module.exports = (function () {
             "img": [],
             "deleted": false
         });
+        // console.log(product);
         var i = 0;
         for (i = 0; i < req.files.length; i += 1) {
             product.img.push(req.files[i].destination.slice(10) + '/' + req.files[i].filename);

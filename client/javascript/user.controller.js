@@ -14,14 +14,14 @@ angular.module('mainApp')
                 if (itemsWatchingSrv.getProducts().length === 0) {
                     angular.forEach(data.user.itemsWatching, function (item) {
                         Main.getItems({ "id": item }, (data) => {
-                            itemsWatchingSrv.addProduct(data);
+                            itemsWatchingSrv.addProduct(data.data);
                         });
                     });
                 }
                 if (cartSrv.getProducts().length === 0) {
                     angular.forEach(data.user.cart, function (item) {
                         Main.getItems({ "id": item.item }, (data) => {
-                            cartSrv.addProduct(data, item.qnt);
+                            cartSrv.addProduct(data.data, item.qnt);
                         });
                     });
                 }
@@ -31,7 +31,7 @@ angular.module('mainApp')
                         transaction.items.forEach(function (itemInTransaction) {
                             Main.getItems({ "id": itemInTransaction.item }, (data) => {
                                 pastSrv.addProduct({
-                                    "item": data,
+                                    "item": data.data,
                                     "qnt": itemInTransaction.qnt,
                                     "pricePerUnit": itemInTransaction.price,
                                     "date": transaction.date
@@ -43,7 +43,7 @@ angular.module('mainApp')
                 if (data.user.admin && itemsSellingSrv.getProducts().length === 0) {
                     angular.forEach(data.user.itemsSelling, function (item) {
                         Main.getItems({ "id": item }, (data) => {
-                            itemsSellingSrv.addProduct(data);
+                            itemsSellingSrv.addProduct(data.data);
                         });
                     });
                 }

@@ -32,7 +32,7 @@ var seller = new User(
 console.log("There should be: " + names.length + " products in the db.");
 names.forEach((name) => {
     var pro = new Product({
-        "name": name,
+        "name": name.toUpperCase(),
         "description": ("+++ " + name + "Description ").repeat(10),
         "category": "",
         "weight": names.indexOf(name) + 1,

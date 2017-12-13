@@ -6,9 +6,9 @@ angular.module('mainApp')
         //I know this is ugly, i dont even care
         var imges = [];
         Main.getItems({ 'id': $window.location.href.split("/product/")[1] }, (responseData) => {
-            $scope.item = responseData;
-            $scope.selected = responseData.img[0];
-            imges = responseData.img;
+            $scope.item = responseData.data;
+            $scope.selected = responseData.data.img[0];
+            imges = responseData.data.img;
         });
         $scope.addToCart = () => {
             $http.post("/user/addToCart", { "id": $window.location.href.split("/product/")[1], "qnt": $scope.chosen })

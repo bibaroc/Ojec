@@ -70,7 +70,7 @@ var app = angular.module('mainApp')
                     $http.post(baseUrl + 'getItems')
                         .then((successResponse) => {
                             if (successResponse.data.data) {
-                                callback(successResponse.data.data);
+                                callback(successResponse.data);
                             }
                         }, (errorResponse) => {
                         });
@@ -80,7 +80,7 @@ var app = angular.module('mainApp')
                     $http.post(baseUrl + 'getItems', query)
                         .then((successResponse) => {
                             if (successResponse.data.data) {
-                                callback(successResponse.data.data);
+                                callback(successResponse.data);
                             }
                         }, (errorResponse) => {
                         });

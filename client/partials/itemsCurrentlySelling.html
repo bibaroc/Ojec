@@ -15,7 +15,7 @@
         </li>
         <li>
             <label>Quantity available:</label>
-            <input type="number" min="0.01" step="0.01" max="2500" ng-model="item.quantity" placeholder="{{item.quantity}}" required>
+            <input type="number" min="0.01" step="1" max="2500" ng-model="item.quantity" placeholder="{{item.quantity}}" required>
         </li>
         <li>
             <textarea ng-model="item.description" placeholder="{{item.description}}" ng-minlength="100" ng-maxlength="32765" required></textarea>

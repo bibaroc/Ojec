@@ -1,22 +1,69 @@
-<div class="wrapper">
-    <div class="container">
-        <div class="product-container">
+<div class="row">
+
+    <div class="col-md-2 col-sm-12 float-left">
+        <form class="form " role="search">
+            <div class="input-group">
+                <input id="searchbar" type="text" class="form-control col-12" ng-model="sear" placeholder="Search">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" ng-click="look()">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <select ng-model="orderBy" ng-change="rese()">
+            <option value="-d" active>New to Old</option>
+            <option value="d">Old to New</option>
+            <option value="a">A to Z</option>
+            <option value="-a">Z to A</option>
+        </select>
+        </br>
+        <label>Items per page: </label>
+        <ul style="list-style-type:none; display:flex; justify-content: center;">
+            <li style=" display: list-item; margin: 0 1em 0 1em;" ng-repeat="a in [].constructor(3) track by $index">
+                <a ng-click="chan(($index+1)*10)">{{($index+1)*10}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9 col-sm-12">
+        <div class="container" ng-show="items.length>0">
             <ul class="product-list">
-                <li ng-repeat="item in items">
-                    <div class="product">
-                        <div class="image">
-                                <img ng-click="rerout(item)" ng-src="{{item.img[0]}}" alt="Product">
-                                <div class="button">
-                                    <button  class="glyphicon glyphicon-eye-open" ng-click="rerout(item)"></button>
-                                    <button  class="glyphicon glyphicon-shopping-cart" ng-click="addToCart(item)"></button>
-                                    <div class="name">
-                                        <h6>{{item.name}}</h6>
-                                    </div>
-                                </div>
+                <li ng-repeat="item in items" class=" ">
+                    <div class="product image">
+
+                        <img ng-click="rerout(item)" ng-src="{{item.img[0]}}" alt="Product">
+                        <div class="button">
+                            <button class="glyphicon glyphicon-eye-open" ng-click="rerout(item)"></button>
+                            <button class="glyphicon glyphicon-shopping-cart" ng-click="addToCart(item)"></button>
+                            <div class="name">
+                                <h6>{{item.name}}</h6>
+                            </div>
                         </div>
+
                     </div>
                 </li>
             </ul>
         </div>
+
+
+
+
+        <button class="btn glyphicon glyphicon-chevron-left float-left" ng-click="prev()" ng-show="pageN>1" style="float: left"></button>
+        <div>
+            <ul style="list-style-type:none; display:flex; justify-content: center;">
+                <li style=" display: list-item; margin: 0 3em 0 3em;" ng-repeat="a in [].constructor(pPossibl) track by $index">
+                    <a ng-click="skip($index+1)">{{$index+1}}</a>
+                </li>
+            </ul>
+        </div>
+        <button class="btn glyphicon glyphicon-chevron-right float-right" ng-click="next()" ng-show="tot>pageN*itemsPP" style="float: right"></button>
+        <span style="float: right; clear: both;">showing items {{(pageN-1)*itemsPP+1+"-"+((pageN-1)*itemsPP+items.length)}} of {{tot}}</span>
+
+        <div ng-hide="items.length>0">
+            <h3>
+                There are no items matching the search criteria.
+            </h3>
+        </div>
     </div>
+
 </div>

@@ -260,26 +260,143 @@ module.exports = (function () {
                     "msg": "Can't find the product brah."
                 });
             }
-        } else {
-            //Product.find({}, (error, product) => { });
-            var items = [];
-            //Last 10 products
-            Product.find({})
-                .where("deleted", false)
-                .sort('-insertionDate')
-                .limit(10)
-                .exec(function (err, products) {
-                    products.forEach(function (prod) {
-                        items.push(prod);
-                    });
-                    res.status(200).send({
-                        "success": true,
-                        "msg": "Ya itemz bra.",
-                        "data": items
-                    });
-                });
         }
+        else {
+            var fuckingItems = [];
+            var name = req.body.name ? req.body.name : ""; //Item to look up in the db
+            name = name.replace(/[^\w\s]/gi, ""); //Fuck you
 
+            // var querr = Product.find(   //And also fuck you mongoose, if i specify a different query u dont need to execute the first one.
+            //     { $or: [{ "name": { $regex: new RegExp(name, "i") } }, { "description": { $regex: new RegExp(name, "i") } }] } //\bTest\b
+            // )
+            //     .where("deleted", false); //Deleted items do not count
+
+            var objectsFound = 0; //There are x items that match the query
+
+
+            Product.find(
+                { $or: [{ "name": { $regex: new RegExp(name, "i") } }, { "description": { $regex: new RegExp(name, "i") } }] } //\bTest\b
+            )
+                .where("deleted", false)
+                .count((
+                    er, c) => {
+                    if (er) {
+                        console.log(er);
+                        return res.status(500).send({
+                            "success": false,
+                            "msg": "Internal error while looking up the database."
+                        });
+                    } else if (c === 0) {
+                        res.status(200).send({
+                            "success": true,
+                            "msg": "There are no items matching with the searh criteria.",
+                            "data": fuckingItems,
+                            "metadata": {
+                                "totalResults": objectsFound,
+                                "pageN": 1
+                            }
+                        })
+                    } else {
+                        var sor = "-insertionDate"; //Sort items by this
+                        if (req.body.order) {
+                            switch (req.body.order) {
+                                case "-d":
+                                    sor = "-insertionDate";
+                                    break;
+                                case "d":
+                                    sor = "indertionDate";
+                                    break;
+                                case "a":
+                                    sor = "name";
+                                    break;
+                                case "-a":
+                                    sor = "-name";
+                                    break;
+                                default:
+                                    sor = "-insertionDate";
+                            }
+                        }
+                        var itemsPerPage = 10;
+                        if (req.body.itemPP) {
+                            switch (req.body.itemPP) {
+                                case 10:
+                                    itemsPerPage = 10;
+                                    break;
+                                case 20:
+                                    itemsPerPage = 20;
+                                    break;
+                                case 30:
+                                    itemsPerPage = 30;
+                                    break;
+                                default:
+                                    itemsPerPage = 10;
+                            }
+                        }
+                        objectsFound = c;
+                        //Total number of items must be gr8er than the items on previous pages
+                        var pageServed = req.body.page ? (objectsFound - ((req.body.page - 1) * itemsPerPage) > 1 && req.body.page > 0 ? req.body.page : 1) : 1;
+                        Product.find(
+                            { $or: [{ "name": { $regex: new RegExp(name, "i") } }, { "description": { $regex: new RegExp(name, "i") } }] } //\bTest\b
+                        )
+                            .where("deleted", false)
+                            .sort(sor)//Descending
+                            .skip((pageServed-1) * itemsPerPage)
+                            .limit(itemsPerPage)
+                            .exec(
+                            function (error2, results) {
+                                if (error2) {
+                                    console.log(error2);
+                                    return res.status(500).send({
+                                        "success": false,
+                                        "msg": "Sorry not sorry."
+                                    });
+                                } else if (!results) {
+                                    return res.status(400).send({
+                                        "success": true,
+                                        "msg": "You should never see this."
+                                    });
+                                } else {
+                                    //Got the items yay
+                                    // console.log("result" + results);
+                                    results.forEach(function (prod) {
+                                        fuckingItems.push(prod);
+                                    });
+                                    res.status(200).send({
+                                        "success": true,
+                                        "msg": "Ya itemz bra.",
+                                        "data": fuckingItems,
+                                        "metadata": {
+                                            "totalResults": objectsFound,
+                                            "pageN": pageServed
+                                        }
+                                    });
+                                }
+
+                            });
+                    }
+                });
+
+        }
+        // else {
+        //     //Product.find({}, (error, product) => { });
+        //     var items = [];
+        //     //Last 10 products
+        //     Product.find({})
+        //         .where("deleted", false)
+        //         .sort('-insertionDate')   //- DES, +ASC
+        //         .limit(10)
+        //         .exec(function (err, products) {
+        //             products.forEach(function (prod) {
+        //                 items.push(prod);
+        //             });
+        //             res.status(200).send({
+        //                 "success": true,
+        //                 "msg": "Ya itemz bra.",
+        //                 "data": items
+        //             });
+        //         });
+        // }
     });
+
     return publicRouter;
 }());
