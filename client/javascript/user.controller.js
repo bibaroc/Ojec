@@ -8,7 +8,8 @@ angular.module('mainApp')
                     "name": data.user.name,
                     "lastName": data.user.lastName,
                     "email": data.user.email,
-                    "admin": data.user.admin
+                    "admin": data.user.admin,
+                    "itemsInCart": data.user.cart.length
                 };
                 $scope.user = user;
                 if (itemsWatchingSrv.getProducts().length === 0) {
@@ -47,7 +48,7 @@ angular.module('mainApp')
                         });
                     });
                 }
-
+                $scope.itemInCart = cartSrv.getProducts().length;
             });
         } else {
             $scope.logged = false;
