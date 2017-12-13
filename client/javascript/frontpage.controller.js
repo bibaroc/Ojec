@@ -27,13 +27,6 @@ angular.module('mainApp')
         $scope.next = function () { $scope.pageN += 1; f(); };
         $scope.skip = function (integ) { $scope.pageN = integ; f(); };
         $scope.chan = function (integ) { $scope.itemsPP = integ; $scope.pageN = 1; f(); }
-        // "success": true,
-        // "msg": "Ya itemz bra.",
-        // "data": fuckingItems,
-        // "metadata": {
-        //     "totalResults": objectsFound,
-        //     "pageN": pageServed
-        // }
 
         $scope.rerout = (item) => {
             $location.path("/product/" + item._id);

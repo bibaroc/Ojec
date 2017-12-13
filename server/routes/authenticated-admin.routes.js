@@ -38,8 +38,6 @@ module.exports = (function () {
     });
     var upload = multer({ storage: storage });
 
-
-
     adminRouter.get("/", function (req, res) {
         return res.send(
             {
@@ -336,8 +334,6 @@ module.exports = (function () {
 
                                             });
                                     }
-
-
                                     //Product Saved successfuly
                                     var mailOptions = {
                                         from: 'myfreakinmailer@gmail.com',

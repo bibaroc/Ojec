@@ -9,5 +9,4 @@ angular.module('mainApp')
             }, function errorCallback(response) {
                 alert("Something went wrong.");
             });
-
     }]);

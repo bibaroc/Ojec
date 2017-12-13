@@ -21,7 +21,6 @@ angular.module('mainApp')
                     // alert("Something went wrong.")
                 });
         };
-
         $scope.updateItem = function (item) {
             $http.post("/user/updateItem", { "id": item.item._id, "flag": "u", "qnt": item.qntt })
                 .then(function successCallback(response) {

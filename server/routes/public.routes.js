@@ -12,7 +12,6 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-
 module.exports = (function () {
     'use strict';
     var publicRouter = require("express").Router();
@@ -222,7 +221,6 @@ module.exports = (function () {
 
     });
 
-    //TODO: Fix
     publicRouter.post("/getItems", function (req, res) {
         //If someone asks for a specific id i can try and search the db
         if (req.body.id) {
@@ -272,7 +270,6 @@ module.exports = (function () {
             //     .where("deleted", false); //Deleted items do not count
 
             var objectsFound = 0; //There are x items that match the query
-
 
             Product.find(
                 { $or: [{ "name": { $regex: new RegExp(name, "i") } }, { "description": { $regex: new RegExp(name, "i") } }] } //\bTest\b
@@ -377,25 +374,6 @@ module.exports = (function () {
                 });
 
         }
-        // else {
-        //     //Product.find({}, (error, product) => { });
-        //     var items = [];
-        //     //Last 10 products
-        //     Product.find({})
-        //         .where("deleted", false)
-        //         .sort('-insertionDate')   //- DES, +ASC
-        //         .limit(10)
-        //         .exec(function (err, products) {
-        //             products.forEach(function (prod) {
-        //                 items.push(prod);
-        //             });
-        //             res.status(200).send({
-        //                 "success": true,
-        //                 "msg": "Ya itemz bra.",
-        //                 "data": items
-        //             });
-        //         });
-        // }
     });
 
     return publicRouter;

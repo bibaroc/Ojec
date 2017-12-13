@@ -3,12 +3,21 @@
     <div>
         <table class="watchList">
             <tr ng-repeat="item in itemsWatching">
-                <td><img ng-src="{{item.img[0]}}" ></td>
-                <td><h6>{{item.item.name}}</h6></td>
-                <td><p>{{item.quantity}} available</p></td>
-                <td><p>{{item.price | currency:'€'}}</p></td>
-               
-                <td><button ng-click="unWatch(item)" id="unw" class="btn glyphicon glyphicon-eye-close" title="UnWatch"></button></td>
+                <td>
+                    <img ng-src="{{item.img[0]}}">
+                </td>
+                <td>
+                    <h6>{{item.item.name}}</h6>
+                </td>
+                <td>
+                    <p>{{item.quantity}} available</p>
+                </td>
+                <td>
+                    <p>{{item.price | currency:'€'}}</p>
+                </td>
+                <td>
+                    <button ng-click="unWatch(item)" id="unw" class="btn glyphicon glyphicon-eye-close" title="UnWatch"></button>
+                </td>
             </tr>
             <p id="msg">{{message}}</p>
         </table>

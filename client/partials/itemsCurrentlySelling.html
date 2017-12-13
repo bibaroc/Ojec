@@ -26,41 +26,7 @@
         </li>
     </ul>
     <div class="aaa">
-    <button class="btn glyphicon glyphicon-ok-circle" ng-click="updateItemInfo(item)" title="Update"></button>
-    <button class="btn glyphicon glyphicon-remove-circle" ng-click="deleteItem(item)" title="Remove"></button>
-</div>
-</div>
-
-<!--
-<div ng-repeat="item in itemsSelling" style="margin-bottom: 3em; border-bottom: 2px solid red;padding-bottom: 1em;">
-    <div style="padding:15px 15px 15px 15px; display: inline-block;width:100%;">
-        <form ng-submit="updateItemInfo(item)">
-            <img ng-src="{{item.img[0]}}" style="float: left;margin-right: 20px; max-height: auto; width:40%">
-            <div>
-                <h1 style="margin-top:0;">
-                    <input type="text" ng-model="item.name" placeholder="{{item.name}}" ng-minlength="2" ng-maxlength="32765" required>
-                </h1>
-            </div>
-            <div style="float: right;text-transform: uppercase">
-                <div style="float: right">
-                    <label>Quantity available:</label>
-                    <input type="number" min="0.01" step="0.01" max="2500" ng-model="item.quantity" placeholder="{{item.quantity}}" required>
-                </div>
-                <br />
-                <div style="float: right">
-                    <label>Price per unit(€):</label>
-                    <input type="number" min="0.01" step="0.01" max="2500" ng-model="item.price" placeholder="{{item.price}}" required>
-                </div>
-                <br />
-                <div style="float: right">
-                    <label>Weight per unit:</label>
-                    <input type="number" min="0.01" step="0.01" max="2500" ng-model="item.weight" placeholder="{{item.weight}}" required>
-                </div>
-            </div>
+        <button class="btn glyphicon glyphicon-ok-circle" ng-click="updateItemInfo(item)" title="Update"></button>
+        <button class="btn glyphicon glyphicon-remove-circle" ng-click="deleteItem(item)" title="Remove"></button>
     </div>
-    <textarea ng-model="item.description" placeholder="{{item.description}}" style="width: 70%; margin: auto; display: block; height: 15em;"
-        ng-minlength="100" ng-maxlength="32765" required></textarea>
-    <button ng-click="updateItemInfo(item)">Update current info</button>
-    <button ng-click="deleteItem(item)">Delete the insertion</button>
-    </form>
-</div>-->
+</div>

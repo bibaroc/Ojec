@@ -3,10 +3,14 @@
     <div>
         <table class="history" ng-repeat="item in items">
             <tr>
-                <th><h3>{{item.item.name}}</h3></th>
+                <th>
+                    <h3>{{item.item.name}}</h3>
+                </th>
             </tr>
             <tr>
-                <td><img ng-src="{{item.item.img[0]}}"></td>
+                <td>
+                    <img ng-src="{{item.item.img[0]}}">
+                </td>
                 <td>
                     <p>
                         {{item.qnt + " bought on "+ gdate(item.date)+ " for "+ (item.pricePerUnit| currency:'€') + ""+(item.qnt>1? " each":"")}}
