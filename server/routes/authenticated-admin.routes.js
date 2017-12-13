@@ -285,6 +285,7 @@ module.exports = (function () {
                                 "msg": "We cannot find the item you are looking to update."
                             });
                         } else {
+                            var qtt = product.quantity;
                             //Update product unconditionaly
                             product.name = req.body.name;
                             product.description = req.body.description;
@@ -298,6 +299,45 @@ module.exports = (function () {
                                         "msg": errorSaving.message
                                     });
                                 } else {
+                                    if (qtt === 0 && product.quantity > 0) {
+                                        User.find({ "itemsWatching": itemID }).exec(
+                                            function (eee, rrr) {
+                                                if (eee) {
+                                                    return res.status(500).send({
+                                                        "success": false,
+                                                        "msg": "repetition, repetition"
+                                                    });
+                                                } else {
+                                                    var eo = {
+                                                        from: 'myfreakinmailer@gmail.com',
+                                                        to: "",
+                                                        subject: 'Information',
+                                                        text: 'Dear Customer, we kindly inform you that an item you were watching is now available and we invite you to check it out.'
+                                                    };
+                                                    rrr.forEach(function (subs, index) {
+                                                        if (index === 0) {
+                                                            eo.to += subs.email;
+                                                        } else {
+                                                            eo.to += ", " + subs.email;
+                                                        }
+                                                        if (index + 1 === rrr.length) {
+                                                            if (require("../modules/config").env === "dev") {
+                                                                console.log("Mailing the following after the update cuz subsribed: " + eo.to);
+                                                            } else {
+                                                                transporter.sendMail(eo, function (error, info) {
+                                                                    if (error) {
+                                                                        console.log(error);
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                                }
+
+                                            });
+                                    }
+
+
                                     //Product Saved successfuly
                                     var mailOptions = {
                                         from: 'myfreakinmailer@gmail.com',
@@ -321,7 +361,7 @@ module.exports = (function () {
                                                 //Last one
                                                 if (subscribers.indexOf(unit) + 1 === subscribers.length) {
                                                     if (require("../modules/config").env === "dev") {
-                                                        console.log("Mailing the following after the deletion: " + mailOptions.to);
+                                                        console.log("Mailing the following after the update: " + mailOptions.to);
                                                     } else {
                                                         transporter.sendMail(mailOptions, function (error, info) {
                                                             if (error) {
