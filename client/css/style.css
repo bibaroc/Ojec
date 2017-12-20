@@ -10,11 +10,15 @@ body {
 /* NAV */
 #nav {
 	background-color: #242424;
-	margin: auto;
+	margin-bottom: 20px;
+	border: none;
+	border-radius: 0%; 	
+	width: 100%;
 	text-transform: uppercase;
 }
-#searchbar {
-	height: 33px;
+#nav a {
+	color: #cccccc;
+	font: Arial, Helvetica;
 }
 #login-dp {
     min-width: 250px;
@@ -49,17 +53,6 @@ body {
         margin-bottom: 10px;
     }
 
-@media(max-width:768px) {
-    #login-dp {
-        background-color: inherit;
-        color: #ffffff;
-    }
-
-        #login-dp .bottom {
-            background-color: inherit;
-            border-top: 0 none;
-        }
-}
 
 #login-dp button {
 	background-color: #ff3e00;

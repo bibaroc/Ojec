@@ -1,44 +1,49 @@
-.wrapper {
-	margin: none;
-	padding: none;
-}
-.container {
-	width: 1024px;
-	margin: 0 auto;
-	padding: 0;
-}
-.product-container {
+.frontPage {
 	width: 100%;
 }
+.top1 {
+	display: inline-block;
+	width: 25%;
+	margin-left: 5%;
+}
+.top2 {
+	margin-right: 5%;
+	float: right;
+	text-transform: uppercase;
+	font-size: 1.2em;
+	color: #242424;
+}
+.top2 select {
+	border: none;
+	background-color: #ffffff;
+	color: #ff3e00;
+	text-transform: uppercase;
+	font-weight: bold;
+	cursor: pointer;
+}
+
 .product-list {
 	width: 100%;
 	float: left;
 	list-style: none;
-	margin: 0;
-	padding: 0;
+	margin: auto;
+	padding: auto;
 	border-collapse: collapse;
 	border-spacing: 0;
+	display: block;
 }
 .product-list li{
 	float: left;
 	margin: 0 10px 10px 0;
 }
 .product {
-	width: 200px;
-	height: 250px;
+	width: 300px;
+	height: 300px;
 	position: relative;
 	display: inline-block;
 	overflow: hidden;
 }
-
-/* @media screen and (max-width: 768px) {
-	.product {
-	box-sizing: content-box;
-	}
-	} */
-
-.image img{
-	width: 200px;
+.product img{
 	position: absolute;
 	overflow: hidden;
     margin: auto;
@@ -46,15 +51,15 @@
     left: 0;
     right: 0;
 	bottom: 0;
-	width: 200px;
-	height: auto;
+	width: 100%;
+	height: 65%;
 	display: block;
 	transition: all .35s ease-in-out;
 }
-.image img:hover {
+.product img:hover {
 	transform: scale(1.2, 1.2);
 }
-.image:hover .button {
+.product:hover .button {
 	bottom: 0;
 }
 .button {
@@ -93,4 +98,38 @@
 }
 .name h6:before {
 	padding: 0 5px;
+}
+.pagez button {
+	border: none;
+	background-color: #ffffff;
+	color: #ff3e00;
+	font-size: 2em;
+	padding: 0;
+	position: static;
+}
+.down1 {
+	display: inline-block;
+	margin-left: 5%;
+}
+.down2 {
+	float: right;
+	margin-right: 5%;
+}
+.down1, .down2 {
+	text-transform: uppercase;
+	font-size: 1em;
+	color: #242424;
+	font-weight: bold;
+}
+.down1 a {
+	color: #cccccc;
+	text-decoration: none;
+	cursor: pointer;
+}
+.down1 a:hover {
+	color: #cccccc;
+	font-weight: bold;
+}
+.down1 a:visited {
+	color: #cccccc;
 }

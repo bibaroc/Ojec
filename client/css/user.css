@@ -52,7 +52,7 @@
 }
 
 #action a {
-	ccolor: #cccccc;
+	color: #cccccc;
 	text-decoration: none;
 }
 #action a:hover {

@@ -68,23 +68,23 @@ h3{
     border-bottom: 2px solid #ebebeb;
     margin-bottom: 10px;
 }
-.aaa {
+.updateProduct {
     position: relative;
     margin: auto 0;
     text-align: right;
 }
-.aaa button {
+.updateProduct button {
     border: none;
     background-color: #ffffff;
     color: #ff3e00;
     font-size: 2.5em;
 }
-.aaa button:hover {
+.updateProduct button:hover {
 	color: #cc3300;
 }
-.aaa button:focus {
+.updateProduct button:focus {
 	color: #cc3300;
 }
-.aaa button:active {
+.updateProductaaa button:active {
     color: #cc3300;
 }
