@@ -115,6 +115,7 @@ Requirements:
 * MongoDB daemon running or a mlab remote
 
 Setting-up:
+
     git clone https://github.com/bibaroc/Ojec.git
     cd ./Ojec/server
     npm install 
