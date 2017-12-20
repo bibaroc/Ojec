@@ -130,3 +130,7 @@ Proundly brought to you by:
 * Benigni Lucia, lucia.benigni@studenti.unicam.it
 * Dervisi Betim, betim.dervisi@studenti.unicam.it
 * Sulimovskyy Vladyslav, vladysla.sulimovskyy@studenti.unicam.it
+
+###### Seller credentials:
+id: sulimovskyy.vladyslav@gmail.com
+pw: shit
