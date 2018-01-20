@@ -6,7 +6,7 @@ Project of a web application for UNICAM-PW.
 The project is a simple website, an e-commerce made with AngularJS, NodeJS, Express and MongoDB.
 
 [Application deployed on Heroku](http://ojec.herokuapp.com)
-[Presentation on Youtube](https://www.google.it)
+[Presentation on Youtube](https://youtu.be/g4pQ8zZ3ImY)
 
 ### Implemented user stories:
 1. Come admin voglio poter accedere ad un’area privata tramite username e password;
